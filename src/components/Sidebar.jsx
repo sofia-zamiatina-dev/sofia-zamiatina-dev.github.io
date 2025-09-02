@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import ThemeToggle from "./ThemeToggle.jsx";
+import FiltersPanel from "./FiltersPanel.jsx";
 import SkillsFilter from "./SkillsFilter.jsx";
 import CategoryFilter from "./CategoryFilter.jsx";
 
@@ -218,72 +219,72 @@ function PopoverItem({ to, active, children, onSelect }) {
   );
 }
 
-/* ---------------- Filters (kept from your version) ---------------- */
-function FiltersPanel() {
-  const mutateParams = (mutator) => {
-    const url = new URL(window.location.href);
-    const [route, search = ""] = url.hash.split("?");
-    const params = new URLSearchParams(search);
-    mutator(params);
-    const nextHash = `${route}?${params.toString()}`;
-    if (url.hash !== nextHash) {
-      history.replaceState(null, "", nextHash);
-      window.dispatchEvent(new HashChangeEvent("hashchange"));
-    }
-  };
+// /* ---------------- Filters (kept from your version) ---------------- */
+// function FiltersPanel() {
+//   const mutateParams = (mutator) => {
+//     const url = new URL(window.location.href);
+//     const [route, search = ""] = url.hash.split("?");
+//     const params = new URLSearchParams(search);
+//     mutator(params);
+//     const nextHash = `${route}?${params.toString()}`;
+//     if (url.hash !== nextHash) {
+//       history.replaceState(null, "", nextHash);
+//       window.dispatchEvent(new HashChangeEvent("hashchange"));
+//     }
+//   };
 
-  const params = new URLSearchParams(window.location.hash.split("?")[1] || "");
-  const activeCat = params.get("cat") || "all";
-  const activeSkills = (params.get("skills") || "").split(",").filter(Boolean);
+//   const params = new URLSearchParams(window.location.hash.split("?")[1] || "");
+//   const activeCat = params.get("cat") || "all";
+//   const activeSkills = (params.get("skills") || "").split(",").filter(Boolean);
 
-  const setCategory = (cat) => {
-    mutateParams((p) => {
-      if (!cat || cat === "all") p.delete("cat");
-      else p.set("cat", cat);
-    });
-  };
+//   const setCategory = (cat) => {
+//     mutateParams((p) => {
+//       if (!cat || cat === "all") p.delete("cat");
+//       else p.set("cat", cat);
+//     });
+//   };
 
-  const toggleSkill = (skill) => {
-    mutateParams((p) => {
-      const set = new Set((p.get("skills") || "").split(",").filter(Boolean));
-      set.has(skill) ? set.delete(skill) : set.add(skill);
-      const next = Array.from(set).join(",");
-      next ? p.set("skills", next) : p.delete("skills");
-    });
-  };
+//   const toggleSkill = (skill) => {
+//     mutateParams((p) => {
+//       const set = new Set((p.get("skills") || "").split(",").filter(Boolean));
+//       set.has(skill) ? set.delete(skill) : set.add(skill);
+//       const next = Array.from(set).join(",");
+//       next ? p.set("skills", next) : p.delete("skills");
+//     });
+//   };
 
-  return (
-    <div className="mt-2 p-4 border-t border-border overflow-y-auto">
-      <div className="text-[10px] uppercase tracking-[0.12em] text-foreground/60 mb-2">Filters</div>
+//   return (
+//     <div className="mt-2 p-4 border-t border-border overflow-y-auto">
+//       <div className="text-[10px] uppercase tracking-[0.12em] text-foreground/60 mb-2">Filters</div>
 
-      <div className="mb-3">
-        <div className="text-xs text-foreground/60 mb-1">Category</div>
-        <CategoryFilter items={categories} active={activeCat} onSelect={setCategory} />
-      </div>
+//       <div className="mb-3">
+//         <div className="text-xs text-foreground/60 mb-1">Category</div>
+//         <CategoryFilter items={categories} active={activeCat} onSelect={setCategory} />
+//       </div>
 
-      <div className="mb-3">
-        <div className="text-xs text-foreground/60 mb-1">Skills</div>
-        <SkillsFilter items={skills} active={activeSkills} onToggle={toggleSkill} />
-      </div>
+//       <div className="mb-3">
+//         <div className="text-xs text-foreground/60 mb-1">Skills</div>
+//         <SkillsFilter items={skills} active={activeSkills} onToggle={toggleSkill} />
+//       </div>
 
-      <button
-  type="button"
-  onClick={() => { setCategory("all"); mutateParams(p => p.delete("skills")); }}
-  className="
-    mt-2 px-0 py-0
-    text-xs font-medium
-    text-gray-600 hover:text-gray-900
-    dark:text-gray-300 dark:hover:text-white
-    underline underline-offset-2
-    bg-transparent hover:bg-transparent
-    border-0 shadow-none
-    appearance-none
-    focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 dark:focus:ring-gray-600
-    rounded-none
-  "
->
-  Clear filters
-</button>
-    </div>
-  );
-}
+//       <button
+//   type="button"
+//   onClick={() => { setCategory("all"); mutateParams(p => p.delete("skills")); }}
+//   className="
+//     mt-2 px-0 py-0
+//     text-xs font-medium
+//     text-gray-600 hover:text-gray-900
+//     dark:text-gray-300 dark:hover:text-white
+//     underline underline-offset-2
+//     bg-transparent hover:bg-transparent
+//     border-0 shadow-none
+//     appearance-none
+//     focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 dark:focus:ring-gray-600
+//     rounded-none
+//   "
+// >
+//   Clear filters
+// </button>
+//     </div>
+//   );
+// }
