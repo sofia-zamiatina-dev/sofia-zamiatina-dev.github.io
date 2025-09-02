@@ -30,19 +30,24 @@ export default function SkillsFilter({ items = [], active = [], onToggle, colorI
             />
             {/* transparent background when checked; tick uses accent color */}
             <span
-              aria-hidden="true"
-              className={[
-                "inline-flex items-center justify-center",
-                "h-4 w-4 rounded-[4px] border border-current",
-                accent,
-              ].join(" ")}
-            >
-              {on && (
-                <svg viewBox="0 0 16 16" className="h-3 w-3" fill="currentColor">
-                  <path d="M6.5 11.3 3.6 8.3l1.2-1.1 1.7 1.7L11.2 4l1.2 1.2z" />
-                </svg>
-              )}
-            </span>
+  aria-hidden="true"
+  className={[
+    "inline-flex items-center justify-center",
+    "h-4 w-4 rounded-[4px] border",
+    "border-current",                  // border = accent color
+    on ? s.accentActive : s.accentIdle // sets currentColor for border only
+  ].join(" ")}
+>
+  {on && (
+    <svg
+      viewBox="0 0 16 16"
+      className="h-3 w-3"
+      fill="white"                      // ✅ tick always visible (white)
+    >
+      <path d="M6.5 11.3 3.6 8.3l1.2-1.1 1.7 1.7L11.2 4l1.2 1.2z" />
+    </svg>
+  )}
+</span>
             <span className="font-medium">{name}</span>
           </label>
         );
