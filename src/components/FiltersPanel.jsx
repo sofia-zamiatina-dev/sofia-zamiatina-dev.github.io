@@ -6,7 +6,9 @@ import SkillsFilter from "./SkillsFilter.jsx";
 const categories = ["all","web","game","ml","art"];
 const skills = ["react","nextjs","unity","csharp","python","sklearn","fastapi","tailwind","figma","docker"];
 
-export default function FiltersPanel() {
+export default function FiltersPanel({
+    categories, skills, catColorIndex, skillColorIndex
+  }) {
   const [sp, setSp] = useSearchParams();
 
   const activeCat = sp.get("cat") || "all";
@@ -38,17 +40,21 @@ export default function FiltersPanel() {
 
   return (
     <div className="mt-2 p-4 border-t border-border overflow-y-auto">
-      <div className="text-[10px] uppercase tracking-[0.12em] text-foreground/60 mb-2">Filters</div>
+      <div className="text-xs text-foreground/60 mb-1">Category</div>
+      <CategoryFilter
+        items={categories}
+        active={activeCat}
+        onSelect={setCategory}
+        colorIndexByName={catColorIndex}
+      />
 
-      <div className="mb-3">
-        <div className="text-xs text-foreground/60 mb-1">Category</div>
-        <CategoryFilter items={categories} active={activeCat} onSelect={setCategory} />
-      </div>
-
-      <div className="mb-3">
-        <div className="text-xs text-foreground/60 mb-1">Skills</div>
-        <SkillsFilter items={skills} active={activeSkills} onToggle={toggleSkill} />
-      </div>
+      <div className="text-xs text-foreground/60 mb-1 mt-3">Skills</div>
+      <SkillsFilter
+        items={skills}
+        active={activeSkills}
+        onToggle={toggleSkill}
+        colorIndexByName={skillColorIndex}
+      />
 
       <button
   type="button"

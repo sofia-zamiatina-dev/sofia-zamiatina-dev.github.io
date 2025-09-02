@@ -1,5 +1,5 @@
 // CategoryFilter.jsx
-// Neutral, grey-only category pills (single-select "radio" behavior)
+// Neutral, grey-only category pills (single-select)
 
 export default function CategoryFilter({ items = [], active, onSelect }) {
   return (
@@ -14,8 +14,7 @@ export default function CategoryFilter({ items = [], active, onSelect }) {
         ].join(" ");
 
         return (
-          <label key={name} className="cursor-pointer">
-            {/* Real radio for keyboard/a11y; visuals come from the pill */}
+          <label key={name}>
             <input
               type="radio"
               name="category"
@@ -23,7 +22,6 @@ export default function CategoryFilter({ items = [], active, onSelect }) {
               checked={isActive}
               onChange={() => onSelect?.(name)}
               className="sr-only"
-              aria-checked={isActive}
             />
             <span className={cls}>{name}</span>
           </label>

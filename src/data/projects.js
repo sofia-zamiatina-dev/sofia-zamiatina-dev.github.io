@@ -44,5 +44,23 @@ export const projects = [
       summary: "GSA Graduate Art Prize submission — Seen & Unseen.",
       cover: "covers/memories.jpg",
     },
+    {
+      id: "suplmntal",
+      title: "SUPLMNTAL - Trade School Edu",
+      year: 2025,
+      category: "web",
+      tech: ["docker","tailwind","java"],
+      summary: "Academic team project, Product Owner Role",
+      cover: "covers/suplmntal.jpg",
+    },
+    {
+      id: "shelter",
+      title: "Shelter - Offline Mobile Game",
+      year: 2023,
+      category: "mobile",
+      tech: ["react","IOS"],
+      summary: "A mobile game for groups of friends.",
+      cover: "covers/shelter.jpg",
+    },
   ];
   

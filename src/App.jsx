@@ -10,7 +10,7 @@ export default function App() {
   const onWorks = pathname === "/works";
 
   return (
-    <div className="min-h-dvh w-screen grid grid-cols-[280px_1fr] bg-background text-foreground">
+    <div className="min-h-dvh w-screen grid grid-cols-[360px_1fr] bg-background text-foreground">
       <Sidebar showFilters={onWorks} />
 
       <main className="overflow-y-auto bg-background">
