@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import ThemeToggle from "./ThemeToggle.jsx";
+import SkillsFilter from "./SkillsFilter.jsx"; 
+import CategoryFilter from "./CategoryFilter.jsx";
 
 const categories = ["all","web","game","ml","art"];
 const skills = ["react","nextjs","unity","csharp","python","sklearn","fastapi","tailwind","figma","docker"];
@@ -56,8 +58,9 @@ export default function Sidebar({ showFilters }) {
     <aside className="h-screen border-r border-border bg-background text-foreground flex flex-col">
       {/* TOP: buttons + popovers (relative container for absolute panels) */}
       <div ref={headerRef} className="p-4 border-b border-border relative">
-      <div className="flex items-center gap-3">
-        <ThemeToggle />
+        <div className="flex items-center gap-3">
+          <ThemeToggle />
+
           <button
             ref={sofiaBtnRef}
             onClick={() => setOpen(open === "sofia" ? null : "sofia")}
@@ -143,73 +146,80 @@ function PopoverItem({ to, active, children }) {
   );
 }
 
-/* ---- Filters (unchanged except theme tokens) ---- */
+/* ---------------- Filters (new pill UI, no reloads) ---------------- */
 function FiltersPanel() {
-  const updateParam = (key, value) => {
-    const url = new URL(window.location.href);
-    const [route, search = ""] = url.hash.split("?");
-    const params = new URLSearchParams(search);
-    if (value === "" || value == null) params.delete(key);
-    else params.set(key, value);
-    url.hash = `${route}?${params.toString()}`;
-    window.location.replace(url.toString());
-  };
+    const mutateParams = (mutator) => {
+      const url = new URL(window.location.href);
+      const [route, search = ""] = url.hash.split("?");
+      const params = new URLSearchParams(search);
+      mutator(params);
+      const nextHash = `${route}?${params.toString()}`;
+      if (url.hash !== nextHash) {
+        history.replaceState(null, "", nextHash);
+        window.dispatchEvent(new HashChangeEvent("hashchange"));
+      }
+    };
+  
+    const params = new URLSearchParams(window.location.hash.split("?")[1] || "");
+    const activeCat = params.get("cat") || "all";
+    const activeSkills = (params.get("skills") || "").split(",").filter(Boolean);
+  
+    const setCategory = (cat) => {
+      mutateParams((p) => {
+        if (!cat || cat === "all") p.delete("cat");
+        else p.set("cat", cat);
+      });
+    };
+  
+    const toggleSkill = (skill) => {
+      mutateParams((p) => {
+        const set = new Set((p.get("skills") || "").split(",").filter(Boolean));
+        set.has(skill) ? set.delete(skill) : set.add(skill);
+        const next = Array.from(set).join(",");
+        next ? p.set("skills", next) : p.delete("skills");
+      });
+    };
+  
+    return (
+      <div className="mt-2 p-4 border-t border-border overflow-y-auto">
+        <div className="text-[10px] uppercase tracking-[0.12em] text-foreground/60 mb-2">Filters</div>
+  
+        <div className="mb-3">
+  <div className="text-xs text-foreground/60 mb-1">Category</div>
+  <CategoryFilter
+    items={categories}
+    active={activeCat}
+    onSelect={setCategory}
+  />
+</div>
 
-  const params = new URLSearchParams(window.location.hash.split("?")[1] || "");
-  const activeCat = params.get("cat") || "all";
-  const activeSkills = (params.get("skills") || "").split(",").filter(Boolean);
-
-  const toggleSkill = (skill) => {
-    const set = new Set(activeSkills);
-    set.has(skill) ? set.delete(skill) : set.add(skill);
-    updateParam("skills", Array.from(set).join(","));
-  };
-
-  return (
-    <div className="mt-2 p-4 border-t border-border">
-      <div className="text-xs uppercase tracking-wide text-foreground/60 mb-2">Filters</div>
-
-      <div className="mb-3">
-        <div className="text-xs text-foreground/60 mb-1">Category</div>
-        <div className="flex flex-wrap gap-2">
-          {categories.map(cat => (
-            <button
-              key={cat}
-              onClick={() => updateParam("cat", cat === "all" ? "" : cat)}
-              className={`px-2 py-1 rounded-md text-xs border border-border hover:bg-muted
-                ${activeCat === cat ? "bg-muted" : ""}`}
-            >
-              {cat}
-            </button>
-          ))}
-        </div>
+<div className="mb-3">
+  <div className="text-xs text-foreground/60 mb-1">Skills</div>
+  <SkillsFilter
+    items={skills}
+    active={activeSkills}
+    onToggle={toggleSkill}
+  />
+</div>
+  
+<button
+  type="button"
+  onClick={() => { setCategory("all"); mutateParams(p => p.delete("skills")); }}
+  className="
+    mt-2 px-0 py-0
+    text-xs font-medium
+    text-gray-600 hover:text-gray-900
+    dark:text-gray-300 dark:hover:text-white
+    underline underline-offset-2
+    bg-transparent hover:bg-transparent
+    border-0 shadow-none
+    appearance-none
+    focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 dark:focus:ring-gray-600
+    rounded-none
+  "
+>
+  Clear filters
+</button>
       </div>
-
-      <div className="mb-3">
-        <div className="text-xs text-foreground/60 mb-1">Skills</div>
-        <div className="flex flex-wrap gap-2">
-          {skills.map(s => {
-            const on = activeSkills.includes(s);
-            return (
-              <button
-                key={s}
-                onClick={() => toggleSkill(s)}
-                className={`px-2 py-1 rounded-md text-xs border border-border hover:bg-muted
-                  ${on ? "bg-muted" : ""}`}
-              >
-                {s}
-              </button>
-            );
-          })}
-        </div>
-      </div>
-
-      <button
-        onClick={() => { updateParam("cat",""); updateParam("skills",""); }}
-        className="text-xs text-foreground/70 underline"
-      >
-        Clear filters
-      </button>
-    </div>
-  );
-}
+    );
+  }
