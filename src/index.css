@@ -1,3 +1,4 @@
+@config "../tailwind.config.js";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -69,4 +70,34 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+}
+
+@layer base {
+  :root {
+    /* LIGHT THEME (HSL values, no commas) */
+    --background: 0 0% 100%;
+    --foreground: 0 0% 10%;
+    --muted: 0 0% 96%;
+    --card: 0 0% 100%;
+    --border: 0 0% 88%;
+    --primary: 222 89% 56%;   /* blue-ish */
+    --secondary: 260 84% 62%; /* violet-ish */
+    --accent: 180 84% 62%;    /* cyan-ish */
+  }
+
+  .dark {
+    /* DARK THEME */
+    --background: 0 0% 6%;     /* near-black */
+    --foreground: 0 0% 96%;    /* near-white */
+    --muted: 0 0% 12%;
+    --card: 0 0% 8%;
+    --border: 0 0% 20%;
+    --primary: 222 89% 60%;
+    --secondary: 260 84% 66%;
+    --accent: 180 84% 66%;
+  }
+
+  /* Default base styling uses the tokens */
+  * { @apply border-border; }
+  body { @apply bg-background text-foreground antialiased; }
 }

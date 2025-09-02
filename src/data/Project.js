@@ -1,0 +1,48 @@
+export const projects = [
+    {
+      id: "imaginarium",
+      title: "ImaginariumDigital",
+      year: 2025,
+      category: "game",
+      tech: ["unity","csharp","photon"],
+      summary: "Multiplayer storytelling card game (Unity + Photon PUN 2).",
+      cover: "covers/imaginarium.jpg",
+    },
+    {
+      id: "urban-tree",
+      title: "Urban Tree Explorer",
+      year: 2025,
+      category: "web",
+      tech: ["react","tailwind","map"],
+      summary: "Map-based tool for PhD meetups + tree data exploration.",
+      cover: "covers/urban-tree.jpg",
+    },
+    {
+      id: "weather-ml",
+      title: "Weather ML Regression",
+      year: 2025,
+      category: "ml",
+      tech: ["python","sklearn"],
+      summary: "SVR/RF/GBR predicting temperature with nested CV.",
+      cover: "covers/weather-ml.jpg",
+    },
+    {
+      id: "constructai",
+      title: "ConstructAI Skills Analyzer",
+      year: 2025,
+      category: "web",
+      tech: ["react","fastapi","docker"],
+      summary: "Job-skills dashboard for construction sector.",
+      cover: "covers/constructai.jpg",
+    },
+    {
+      id: "art-memories",
+      title: "Memories — 18 Hex Tiles",
+      year: 2025,
+      category: "art",
+      tech: ["figma"],
+      summary: "GSA Graduate Art Prize submission — Seen & Unseen.",
+      cover: "covers/memories.jpg",
+    },
+  ];
+  

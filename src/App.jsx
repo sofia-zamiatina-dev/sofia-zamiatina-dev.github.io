@@ -1,35 +1,28 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { Routes, Route, Navigate, useLocation } from "react-router-dom";
+import Sidebar from "./components/Sidebar.jsx";
+import Home from "./pages/Home.jsx";
+import Works from "./pages/Works.jsx";
+import About from "./pages/About.jsx";
+import Contact from "./pages/Contact.jsx";
 
-function App() {
-  const [count, setCount] = useState(0)
+export default function App() {
+  const { pathname, hash } = useLocation();
+  const onWorks = hash.includes("works"); // HashRouter path check
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div className="h-screen w-screen grid grid-cols-[280px_1fr] bg-white text-neutral-900">
+      <Sidebar showFilters={onWorks} />
+      <main className="overflow-y-auto">
+        <Routes>
+          <Route path="/" element={<Navigate to="/#/home" />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/works" element={<Works />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
+          {/* fallback */}
+          <Route path="*" element={<Navigate to="/#/home" />} />
+        </Routes>
+      </main>
+    </div>
+  );
 }
-
-export default App
