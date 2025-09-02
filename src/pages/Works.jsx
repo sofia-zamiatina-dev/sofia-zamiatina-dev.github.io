@@ -16,7 +16,7 @@ export default function Works() {
   }, [cat, skills]);
 
   return (
-    <div className="p-6 text-foreground">
+    <div className="p-6 text-foreground bg-background min-h-screen">
       <h1 className="text-2xl font-semibold mb-4">Works</h1>
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {filtered.map((p) => (

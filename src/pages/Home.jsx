@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 export default function Home() {
   return (
-    <div className="p-8 max-w-3xl text-foreground">
+    <div className="p-8 max-w-3xl text-foreground bg-background min-h-screen">
       <h1 className="text-3xl font-semibold mb-2">Hi, I’m Sofia.</h1>
 
       <p className="text-foreground/80">

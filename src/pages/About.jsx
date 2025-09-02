@@ -1,6 +1,6 @@
 export default function About() {
     return (
-      <div className="p-8 max-w-3xl text-foreground">
+      <div className="p-8 max-w-3xl text-foreground bg-background min-h-screen">
         <h1 className="text-2xl font-semibold mb-2">About Me</h1>
   
         <p className="text-foreground/80">

@@ -1,6 +1,6 @@
 export default function Contact() {
     return (
-      <div className="p-8 max-w-xl text-foreground">
+      <div className="p-8 max-w-xl text-foreground bg-background min-h-screen">
         <h1 className="text-2xl font-semibold mb-2">Contact</h1>
   
         <div className="space-y-2 text-foreground/80">
