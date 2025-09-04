@@ -1,27 +1,23 @@
+// src/components/BouncyBallOverlay.jsx
 import { useEffect, useRef } from "react";
 
-/** Tiny ball that bounces inside its parent (the sidebar) as a background layer. */
-export default function SidebarBallBG() {
+export default function BouncyBallOverlay() {
   const canvasRef = useRef(null);
   const rafRef = useRef(0);
   const lastRef = useRef(performance.now());
+
   const palette = useRef([
-    "#ef4444", // red-500
-    "#f59e0b", // amber-500
-    "#10b981", // emerald-500
-    "#06b6d4", // cyan-500
-    "#3b82f6", // blue-500
-    "#8b5cf6", // violet-500
-    "#ec4899", // pink-500
+    "#ef4444", "#f59e0b", "#10b981",
+    "#06b6d4", "#3b82f6", "#8b5cf6", "#ec4899",
   ]);
 
   const ballRef = useRef({
     x: 0,
     y: 0,
-    r: 4,            // smaller ball
-    vx: 160,         // px/s
-    vy: -130,        // px/s
-    color: "rgba(0,0,0,0.65)",
+    r: 6,
+    vx: 0,
+    vy: 0,
+    color: "#3b82f6",
   });
 
   const pickColor = () => {
@@ -29,10 +25,19 @@ export default function SidebarBallBG() {
     return arr[Math.floor(Math.random() * arr.length)];
   };
 
+  const randomVelocity = (speed = 150) => {
+    // random angle, uniform direction
+    const angle = Math.random() * Math.PI * 2;
+    return {
+      vx: Math.cos(angle) * speed,
+      vy: Math.sin(angle) * speed,
+    };
+  };
+
   function fitCanvasToParent() {
     const c = canvasRef.current;
-    const parent = c.parentElement; // <aside>
-    if (!parent) return { w: 0, h: 0 };
+    const parent = c?.parentElement;
+    if (!c || !parent) return { w: 0, h: 0, ctx: c?.getContext("2d") };
 
     const rect = parent.getBoundingClientRect();
     const dpr = window.devicePixelRatio || 1;
@@ -48,16 +53,36 @@ export default function SidebarBallBG() {
     return { w: rect.width, h: rect.height, ctx };
   }
 
+  function drawBall(ctx, width, height) {
+    const { x, y, r, color } = ballRef.current;
+    ctx.clearRect(0, 0, width, height);
+    ctx.beginPath();
+    ctx.arc(x, y, r, 0, Math.PI * 2);
+    ctx.fillStyle = color;
+    ctx.shadowBlur = 6;
+    ctx.shadowColor = "rgba(0,0,0,0.25)";
+    ctx.fill();
+    ctx.shadowBlur = 0;
+  }
+
+  // Spawn ball at random place with random direction
+  function respawnBall(W, H) {
+    const b = ballRef.current;
+    b.x = Math.random() * (W - 2 * b.r) + b.r;
+    b.y = Math.random() * (H - 2 * b.r) + b.r;
+    b.color = pickColor();
+    const { vx, vy } = randomVelocity(160 + Math.random() * 80); // random speed 160–240
+    b.vx = vx;
+    b.vy = vy;
+  }
+
   useEffect(() => {
     const c = canvasRef.current;
     const { w, h, ctx } = fitCanvasToParent();
 
-    // Spawn at bottom-left inside the sidebar
-    const b = ballRef.current;
-    b.x = b.r + 6;
-    b.y = h - b.r - 6;
+    // initial spawn
+    respawnBall(w, h);
 
-    // Keep canvas synced to sidebar size
     const ro = new ResizeObserver(() => fitCanvasToParent());
     if (c.parentElement) ro.observe(c.parentElement);
 
@@ -78,7 +103,7 @@ export default function SidebarBallBG() {
       x += vx * dt;
       y += vy * dt;
 
-      // bounce on edges; change color on each bounce
+      // bounce + recolor
       let bounced = false;
       if (x - r <= 0) { x = r; vx *= -1; bounced = true; }
       if (x + r >= width) { x = width - r; vx *= -1; bounced = true; }
@@ -88,22 +113,7 @@ export default function SidebarBallBG() {
 
       ballRef.current = { x, y, r, vx, vy, color };
 
-      // draw
-      ctx.clearRect(0, 0, width, height);
-
-      // soft blend layer (super subtle, comment out if not desired)
-      // ctx.globalAlpha = 0.03;
-      // ctx.fillStyle = "#000";
-      // ctx.fillRect(0, 0, width, height);
-      // ctx.globalAlpha = 1;
-
-      ctx.beginPath();
-      ctx.arc(x, y, r, 0, Math.PI * 2);
-      ctx.fillStyle = color;
-      ctx.shadowBlur = 6;
-      ctx.shadowColor = "rgba(0,0,0,0.25)";
-      ctx.fill();
-      ctx.shadowBlur = 0;
+      drawBall(ctx, width, height);
 
       rafRef.current = requestAnimationFrame(loop);
     }
@@ -117,11 +127,36 @@ export default function SidebarBallBG() {
     };
   }, []);
 
+  // Click handler on parent (sidebar) to respawn ball
+  useEffect(() => {
+    const c = canvasRef.current;
+    const parent = c.parentElement;
+
+    const onClick = (e) => {
+      const rect = parent.getBoundingClientRect();
+      const clickX = e.clientX - rect.left;
+      const clickY = e.clientY - rect.top;
+
+      const b = ballRef.current;
+      const dx = clickX - b.x;
+      const dy = clickY - b.y;
+      const inside = dx * dx + dy * dy <= b.r * b.r;
+
+      if (inside) {
+        respawnBall(rect.width, rect.height);
+      }
+    };
+
+    parent.addEventListener("click", onClick, true);
+    return () => parent.removeEventListener("click", onClick, true);
+  }, []);
+
   return (
     <canvas
       ref={canvasRef}
       aria-hidden
-      className="pointer-events-none absolute inset-0 z-0"
+      className="absolute inset-0 z-0"
+      style={{ pointerEvents: "none" }}
     />
   );
 }
