@@ -4,6 +4,7 @@ import ThemeToggle from "./ThemeToggle.jsx";
 import FiltersPanel from "./FiltersPanel.jsx";
 import { projects } from "../data/projects.js";
 import { buildFacets } from "../lib/facets.js";
+import BouncyBallOverlay from "./BouncyBallOverlay.jsx";
 
 // const categories = ["all","web","game","ml","art"];
 // const skills = ["react","nextjs","unity","csharp","python","sklearn","fastapi","tailwind","figma","docker"];
@@ -111,7 +112,12 @@ export default function Sidebar({ showFilters }) {
   }, []);
 
   return (
-    <aside className="sticky top-0 h-dvh overflow-y-auto border-r border-border bg-background text-foreground flex flex-col">
+    <aside className="relative sticky top-0 h-dvh border-r border-border bg-background text-foreground flex flex-col">
+      {/* Background ball animation */}
+      <BouncyBallOverlay />
+
+      <div className="relative z-10 flex-1 overflow-y-auto flex flex-col">
+
       {/* TOP: toggle + accent buttons + popovers */}
       <div ref={headerRef} className="p-4 border-b border-border relative">
         <div className="flex items-center gap-3">
@@ -179,6 +185,8 @@ export default function Sidebar({ showFilters }) {
 
       <div className="mt-auto p-3 text-xs text-foreground/60">
         © {new Date().getFullYear()} Sofia Z.
+      </div>
+
       </div>
     </aside>
   );

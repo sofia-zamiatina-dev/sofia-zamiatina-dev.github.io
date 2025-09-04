@@ -12,7 +12,6 @@ export default function App() {
   return (
     <div className="min-h-dvh w-screen grid grid-cols-[400px_1fr] bg-background text-foreground">
       <Sidebar showFilters={onWorks} />
-
       <main className="overflow-y-auto bg-background">
       <Routes>
         <Route path="/" element={<Navigate to="/home" replace />} />
