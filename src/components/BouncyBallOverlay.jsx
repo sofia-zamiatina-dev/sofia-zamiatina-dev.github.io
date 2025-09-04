@@ -1,10 +1,12 @@
 // src/components/BouncyBallOverlay.jsx
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export default function BouncyBallOverlay() {
   const canvasRef = useRef(null);
   const rafRef = useRef(0);
   const lastRef = useRef(performance.now());
+  const [paused, setPaused] = useState(false);
+  const pausedRef = useRef(false);
 
   const palette = useRef([
     "#ef4444", "#f59e0b", "#10b981",
@@ -12,11 +14,8 @@ export default function BouncyBallOverlay() {
   ]);
 
   const ballRef = useRef({
-    x: 0,
-    y: 0,
-    r: 6,
-    vx: 0,
-    vy: 0,
+    x: 0, y: 0, r: 6,
+    vx: 0, vy: 0,
     color: "#3b82f6",
   });
 
@@ -26,12 +25,8 @@ export default function BouncyBallOverlay() {
   };
 
   const randomVelocity = (speed = 150) => {
-    // random angle, uniform direction
     const angle = Math.random() * Math.PI * 2;
-    return {
-      vx: Math.cos(angle) * speed,
-      vy: Math.sin(angle) * speed,
-    };
+    return { vx: Math.cos(angle) * speed, vy: Math.sin(angle) * speed };
   };
 
   function fitCanvasToParent() {
@@ -65,15 +60,13 @@ export default function BouncyBallOverlay() {
     ctx.shadowBlur = 0;
   }
 
-  // Spawn ball at random place with random direction
   function respawnBall(W, H) {
     const b = ballRef.current;
     b.x = Math.random() * (W - 2 * b.r) + b.r;
     b.y = Math.random() * (H - 2 * b.r) + b.r;
     b.color = pickColor();
-    const { vx, vy } = randomVelocity(160 + Math.random() * 80); // random speed 160–240
-    b.vx = vx;
-    b.vy = vy;
+    const { vx, vy } = randomVelocity(160 + Math.random() * 80);
+    b.vx = vx; b.vy = vy;
   }
 
   useEffect(() => {
@@ -83,9 +76,9 @@ export default function BouncyBallOverlay() {
     // initial spawn
     respawnBall(w, h);
 
+    // keep canvas sized
     const ro = new ResizeObserver(() => fitCanvasToParent());
     if (c.parentElement) ro.observe(c.parentElement);
-
     const onWinResize = () => fitCanvasToParent();
     window.addEventListener("resize", onWinResize, { passive: true });
 
@@ -93,26 +86,25 @@ export default function BouncyBallOverlay() {
       const dt = Math.min(0.032, (now - lastRef.current) / 1000);
       lastRef.current = now;
 
-      const parentRect = c.parentElement?.getBoundingClientRect();
-      const width = parentRect?.width ?? 300;
-      const height = parentRect?.height ?? 600;
+      const rect = c.parentElement?.getBoundingClientRect();
+      const width = rect?.width ?? 300;
+      const height = rect?.height ?? 600;
 
       let { x, y, r, vx, vy, color } = ballRef.current;
 
-      // integrate
-      x += vx * dt;
-      y += vy * dt;
+      if (!pausedRef.current) {
+        x += vx * dt;
+        y += vy * dt;
 
-      // bounce + recolor
-      let bounced = false;
-      if (x - r <= 0) { x = r; vx *= -1; bounced = true; }
-      if (x + r >= width) { x = width - r; vx *= -1; bounced = true; }
-      if (y - r <= 0) { y = r; vy *= -1; bounced = true; }
-      if (y + r >= height) { y = height - r; vy *= -1; bounced = true; }
-      if (bounced) color = pickColor();
+        let bounced = false;
+        if (x - r <= 0)       { x = r;         vx *= -1; bounced = true; }
+        if (x + r >= width)   { x = width - r; vx *= -1; bounced = true; }
+        if (y - r <= 0)       { y = r;         vy *= -1; bounced = true; }
+        if (y + r >= height)  { y = height - r;vy *= -1; bounced = true; }
+        if (bounced) color = pickColor();
+      }
 
       ballRef.current = { x, y, r, vx, vy, color };
-
       drawBall(ctx, width, height);
 
       rafRef.current = requestAnimationFrame(loop);
@@ -127,7 +119,7 @@ export default function BouncyBallOverlay() {
     };
   }, []);
 
-  // Click handler on parent (sidebar) to respawn ball
+  // Click anywhere in sidebar; if clicking ON the ball, respawn (new direction)
   useEffect(() => {
     const c = canvasRef.current;
     const parent = c.parentElement;
@@ -151,12 +143,33 @@ export default function BouncyBallOverlay() {
     return () => parent.removeEventListener("click", onClick, true);
   }, []);
 
+  // Toggle handler
+  const toggleMotion = () => {
+    setPaused((p) => {
+      const next = !p;
+      pausedRef.current = next;
+      return next;
+    });
+  };
+
   return (
-    <canvas
-      ref={canvasRef}
-      aria-hidden
-      className="absolute inset-0 z-0"
-      style={{ pointerEvents: "none" }}
-    />
+    <>
+      {/* Background canvas (under content) */}
+      <canvas
+        ref={canvasRef}
+        aria-hidden
+        className="absolute inset-0 z-0"
+        style={{ pointerEvents: "none" }}
+      />
+
+      {/* Bottom-right control button */}
+      <button
+        type="button"
+        onClick={toggleMotion}
+        className="absolute bottom-2 right-2 z-20 text-xs px-2 py-1 rounded border border-border bg-background/80 backdrop-blur-sm hover:bg-muted transition"
+      >
+        {paused ? "Play" : "Stop ball"}
+      </button>
+    </>
   );
 }
