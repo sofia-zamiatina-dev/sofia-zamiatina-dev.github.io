@@ -1,6 +1,7 @@
 import { useMemo } from "react";
 import { useSearchParams } from "react-router-dom";
-import { projects } from "../data/projects.js"; // note: include .js
+import { projects } from "../data/projects.js";
+import { filterProjects } from "../lib/filterProjects.js";
 
 export default function Works() {
   const [sp] = useSearchParams();                // re-renders on any param change
@@ -8,10 +9,10 @@ export default function Works() {
   const skills = (sp.get("skills") || "").split(",").filter(Boolean);
 
   const filtered = useMemo(() => {
-    return projects.filter(p => {
-      const catOK = cat === "all" || p.category === cat;
-      const skillsOK = skills.length === 0 || skills.every(s => p.tech.includes(s));
-      return catOK && skillsOK;
+    return filterProjects(projects, {
+      category: cat,
+      skills,
+      mode: "OR"  
     });
   }, [cat, skills]);
 

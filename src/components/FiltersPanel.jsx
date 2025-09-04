@@ -1,10 +1,9 @@
-// FiltersPanel.jsx (inline in Sidebar or separate file)
 import { useSearchParams } from "react-router-dom";
 import CategoryFilter from "./CategoryFilter.jsx";
 import SkillsFilter from "./SkillsFilter.jsx";
 
-const categories = ["all","web","game","ml","art"];
-const skills = ["react","nextjs","unity","csharp","python","sklearn","fastapi","tailwind","figma","docker"];
+// const categories = ["all","web","game","ml","art"];
+// const skills = ["react","nextjs","unity","csharp","python","sklearn","fastapi","tailwind","figma","docker"];
 
 export default function FiltersPanel({
     categories, skills, catColorIndex, skillColorIndex

@@ -1,4 +1,4 @@
-export function filterProjects(projects, { category = "all", skills = [], mode = "AND" }) {
+export function filterProjects(projects, { category = "all", skills = [], mode = "OR" }) {
   return projects.filter(p => {
     const catOK = category === "all" || !category ? true : p.category === category;
     if (!catOK) return false;

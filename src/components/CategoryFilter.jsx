@@ -1,6 +1,3 @@
-// CategoryFilter.jsx
-// Neutral, grey-only category pills (single-select)
-
 export default function CategoryFilter({ items = [], active, onSelect }) {
   return (
     <div role="radiogroup" className="flex flex-wrap gap-1.5">

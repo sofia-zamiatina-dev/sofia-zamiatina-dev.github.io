@@ -10,18 +10,19 @@ export default function App() {
   const onWorks = pathname === "/works";
 
   return (
-    <div className="min-h-dvh w-screen grid grid-cols-[360px_1fr] bg-background text-foreground">
+    <div className="min-h-dvh w-screen grid grid-cols-[400px_1fr] bg-background text-foreground">
       <Sidebar showFilters={onWorks} />
 
       <main className="overflow-y-auto bg-background">
-        <Routes>
-          <Route path="/" element={<Navigate to="/#/home" />} />
-          <Route path="/home" element={<Home />} />
-          <Route path="/works" element={<Works />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="*" element={<Navigate to="/#/home" />} />
-        </Routes>
+      <Routes>
+        <Route path="/" element={<Navigate to="/home" replace />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/works" element={<Works />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="*" element={<Navigate to="/home" replace />} />
+      </Routes>
+
       </main>
     </div>
   );
