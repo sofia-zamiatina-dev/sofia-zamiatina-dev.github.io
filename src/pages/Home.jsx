@@ -3,9 +3,17 @@ import { motion } from "framer-motion";
 import { fadeDown, cardsStagger, cardItem } from "../animations/homeAnimations";
 import HomeCard from "../components/HomeCard";
 
+import { pageVariants } from "../animations/pageVariants";
+
 export default function Home() {
   return (
-    <div className="p-8 md:p-10 max-w-5xl text-foreground bg-background min-h-screen">
+    <motion.div
+      variants={pageVariants}
+      initial="initial"
+      animate="animate"
+      exit="exit"
+      className="p-8 md:p-10 max-w-5xl text-foreground bg-background min-h-screen"
+    >
       <motion.h1
         className="text-3xl md:text-4xl font-semibold mb-6"
         initial="hidden"
@@ -59,6 +67,6 @@ export default function Home() {
           />
         </motion.div>
       </motion.div>
-    </div>
+    </motion.div>
   );
 }

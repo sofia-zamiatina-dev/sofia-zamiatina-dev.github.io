@@ -5,23 +5,27 @@ import Works from "./pages/Works.jsx";
 import About from "./pages/About.jsx";
 import Contact from "./pages/Contact.jsx";
 
+import { AnimatePresence } from "framer-motion";
+
 export default function App() {
-  const { pathname } = useLocation();
-  const onWorks = pathname === "/works";
+  const location = useLocation(); 
+  const onWorks = location.pathname === "/works";
 
   return (
     <div className="min-h-dvh w-screen grid grid-cols-[400px_1fr] bg-background text-foreground">
       <Sidebar showFilters={onWorks} />
-      <main className="overflow-y-auto bg-background">
-      <Routes>
-        <Route path="/" element={<Navigate to="/home" replace />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/works" element={<Works />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="*" element={<Navigate to="/home" replace />} />
-      </Routes>
 
+      <main className="overflow-y-auto bg-background">
+        <AnimatePresence mode="wait">
+          <Routes location={location} key={location.pathname}>
+            <Route path="/" element={<Navigate to="/home" replace />} />
+            <Route path="/home" element={<Home />} />
+            <Route path="/works" element={<Works />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="*" element={<Navigate to="/home" replace />} />
+          </Routes>
+        </AnimatePresence>
       </main>
     </div>
   );

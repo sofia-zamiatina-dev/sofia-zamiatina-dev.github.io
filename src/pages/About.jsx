@@ -1,23 +1,31 @@
 import { Link } from "react-router-dom";
-import { Heart, Plus, Download, Code2, Apple } from "lucide-react";
+import { Heart, Plus, Download, Code2 } from "lucide-react";
 import mhcLogo from "../lib/logos/mhc.png";
 import unimelbLogo from "../lib/logos/unimelb.jpg";
-import HomeCard from "../components/HomeCard";
+import { useRef } from "react";
+import { motion, useScroll, useSpring } from "framer-motion";
+import { rowLeft, rowRight, dotPop } from "../animations/aboutAnimations";
 
-/* Row component so you can animate each block later */
+// --- Timeline Row ---
 function TimelineRow({
   year,
   title,
   subtitle,
   body,
-  side = "left",           // "left" (text left, icon right) | "right" (icon left, text right)
+  side = "left",
   imgSrc,
   imgAlt = "",
   Icon,
-  connect = "none",        // "left" | "right" | "none"  (draw connector only from logo side)
+  connect = "none",
 }) {
   const IconBubble = () => (
-    <div className="flex items-center justify-center w-24 h-24 rounded-full ring-4 ring-blue-400 bg-white dark:bg-background overflow-hidden shadow-sm">
+    <motion.div
+      variants={dotPop}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.3 }}
+      className="flex items-center justify-center w-24 h-24 rounded-full ring-4 ring-blue-400 bg-white dark:bg-background overflow-hidden shadow-sm"
+    >
       {imgSrc ? (
         <img src={imgSrc} alt={imgAlt} className="w-full h-full object-contain" />
       ) : Icon ? (
@@ -25,7 +33,7 @@ function TimelineRow({
       ) : (
         <span className="w-4 h-4 bg-blue-500 rounded-full" />
       )}
-    </div>
+    </motion.div>
   );
 
   const TextBlock = () => (
@@ -37,49 +45,59 @@ function TimelineRow({
     </div>
   );
 
-  // align the logo bubble toward the center line
   const leftCellClass = side === "right" ? "relative flex justify-end" : "";
   const rightCellClass = side === "left" ? "relative flex justify-start" : "";
 
+  const rowVariants = side === "left" ? rowLeft : rowRight;
+
   return (
-    <div className="relative grid grid-cols-[1fr_64px_1fr] items-center gap-8 py-8 first:pt-0">
+    <motion.div
+      variants={rowVariants}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.3 }}
+      exit={{ opacity: 0, y: 8 }} 
+      className="relative grid grid-cols-[1fr_64px_1fr] items-center gap-8 py-8 first:pt-0"
+    >
       {/* LEFT CELL */}
       <div className={leftCellClass}>
-        {side === "left" ? <TextBlock /> : (
+        {side === "left" ? (
+          <TextBlock />
+        ) : (
           <>
             <IconBubble />
-            {/* connector from LEFT side to center node */}
             {connect === "left" && (
-              <span
-                className="pointer-events-none absolute top-1/2 -translate-y-1/2 -right-16 w-16 h-[2px] bg-blue-400"
-                aria-hidden="true"
-              />
+              <span className="pointer-events-none absolute top-1/2 -translate-y-1/2 -right-16 w-16 h-[2px] bg-blue-400" />
             )}
           </>
         )}
       </div>
 
       {/* CENTER NODE */}
-      <div className="relative flex items-center justify-center">
+      <motion.div
+        variants={dotPop}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.3 }}
+        className="relative flex items-center justify-center"
+      >
         <div className="relative z-10 w-6 h-6 rounded-full bg-white dark:bg-background ring-4 ring-blue-400" />
-      </div>
+      </motion.div>
 
       {/* RIGHT CELL */}
       <div className={rightCellClass}>
         {side === "left" ? (
           <>
             <IconBubble />
-            {/* connector from RIGHT side to center node */}
             {connect === "right" && (
-              <span
-                className="pointer-events-none absolute top-1/2 -translate-y-1/2 -left-16 w-16 h-[2px] bg-blue-400"
-                aria-hidden="true"
-              />
+              <span className="pointer-events-none absolute top-1/2 -translate-y-1/2 -left-16 w-16 h-[2px] bg-blue-400" />
             )}
           </>
-        ) : <TextBlock />}
+        ) : (
+          <TextBlock />
+        )}
       </div>
-    </div>
+    </motion.div>
   );
 }
 
@@ -97,146 +115,156 @@ const Arrow = (props) => (
 );
 
 export default function About() {
+  const pageRef = useRef(null);
+
+  // track scroll across the whole About page
+  const { scrollYProgress } = useScroll({
+    target: pageRef,
+    offset: ["start 10%", "end 100%"],
+  });
+  const lineScale = useSpring(scrollYProgress, { stiffness: 120, damping: 20 });
+
   return (
-    <div className="p-8 max-w-6xl mx-auto space-y-24">
+    <motion.div
+      ref={pageRef}
+      className="p-8 max-w-6xl mx-auto space-y-24"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}           // 👈 fade everything on route change
+      transition={{ duration: 0.25 }}
+    >
       {/* Intro */}
-      <section className="mb-0">
+      <motion.section
+        initial={{ opacity: 0, y: 16 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6 }}
+        exit={{ opacity: 0, y: -8 }}
+      >
         <h1 className="text-2xl font-bold mb-2">About Me</h1>
-
         <p className="text-muted-foreground">
-          Master of Software Engineering candidate at the University of Melbourne.
-          I enjoy building systems that blend interaction, data, and design.
-          blablablablablablablablablablablablablabla
+          Master of Software Engineering candidate at the University of Melbourne. I enjoy building
+          systems that blend interaction, data, and design. blablablablablablabla
         </p>
+        <p className="text-muted-foreground mt-4">See more details below:</p>
+      </motion.section>
 
-        <p className="text-muted-foreground mt-4">
-          See more details below:
-        </p>
-
-      </section>
-
-
-      {/* Timeline (center vertical line + alternating rows) */}
+      {/* Timeline */}
       <section>
-
         <div className="relative">
-          {/* the line is absolute and NOT affected by space-y */}
-          <div className="pointer-events-none absolute left-1/2 -translate-x-1/2 inset-y-0 w-[3px] bg-gradient-to-b from-pink-300 via-amber-300 to-blue-300 rounded-full" />
+          <div className="pointer-events-none absolute left-1/2 -translate-x-1/2 inset-y-0 w-[3px] bg-border/30 rounded-full" />
+          <motion.div
+            className="pointer-events-none absolute left-1/2 -translate-x-1/2 inset-y-0 w-[3px] bg-gradient-to-b from-pink-300 via-amber-300 to-blue-300 rounded-full"
+            style={{ scaleY: lineScale, transformOrigin: "top" }}
+          />
 
-          {/* put the spacing ONLY on the rows */}
           <div className="space-y-48 lg:space-y-48">
-            {/* Row 1: text left, icon right (no connector) */}
             <TimelineRow
+              side="left"
               year="2014"
               title="Where I’m from & discovering programming"
               subtitle="Early teenage years"
               body="Built my first small website and got hooked on making interactive things."
-              side="left"
               Icon={Code2}
               connect="right"
             />
 
-            {/* Row 2: MHC logo left, text right (connector from left) */}
             <TimelineRow
+              side="right"
               year="2020 — 2024"
               title="Bachelor of Computer Science & Economics"
               subtitle="Mount Holyoke College, US"
               body="Core CS courses, math/econ, tutoring, and lots of programming projects."
-              side="right"
               imgSrc={mhcLogo}
               imgAlt="Mount Holyoke College"
               connect="left"
             />
 
-            {/* Row 3: text left, UniMelb logo right (connector from right) */}
             <TimelineRow
+              side="left"
               year="2025 — present"
               title="Master of Software Engineering"
               subtitle="University of Melbourne"
               body="Client-facing academic projects + personal project development."
-              side="left"
               imgSrc={unimelbLogo}
               imgAlt="University of Melbourne"
               connect="right"
             />
           </div>
         </div>
-
       </section>
 
-      {/* Love & Can Do (keep your lists or swap to card style later) */}
-      <section>
+      {/* Bottom sections */}
+      <motion.section
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.3 }}
+        transition={{ duration: 0.6 }}
+        exit={{ opacity: 0, y: 8 }} 
+      >
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-12">
           <div>
             <h2 className="text-xl font-semibold mb-4">What I Love</h2>
             <ul className="space-y-2">
-              {["Bringing imaginative ideas to life in code or on canvas.",
+              {[
+                "Bringing imaginative ideas to life in code or on canvas.",
                 "Exploring the blend of technology and creativity.",
                 "Storytelling through art, games, and interactive projects.",
                 "Learning new frameworks and tools.",
-                "Bringing imaginative ideas to life in code or on canvas."].map((t) => (
-                  <li key={t} className="flex items-start gap-2">
-                    <Heart className="w-5 h-5 mt-1 text-pink-500 shrink-0" />
-                    <span>{t}</span>
-                  </li>
-                ))}
+              ].map((t) => (
+                <li key={t} className="flex items-start gap-2">
+                  <Heart className="w-5 h-5 mt-1 text-pink-500 shrink-0" />
+                  <span>{t}</span>
+                </li>
+              ))}
             </ul>
           </div>
 
           <div>
             <h2 className="text-xl font-semibold mb-4">What I Can Do</h2>
             <ul className="space-y-2">
-              {["Design and build full-stack web apps (React, databases, Docker).",
+              {[
+                "Design and build full-stack web apps (React, databases, Docker).",
                 "Develop multiplayer games with Unity and Photon networking.",
                 "Create interactive data tools — dashboards, visualizations.",
                 "Work with clients & teams to turn ideas into working software.",
-                "Write clean, modular code with testing and docs."].map((t) => (
-                  <li key={t} className="flex items-start gap-2">
-                    <Plus className="w-5 h-5 mt-1 text-blue-600 shrink-0" />
-                    <span>{t}</span>
-                  </li>
-                ))}
+                "Write clean, modular code with testing and docs.",
+              ].map((t) => (
+                <li key={t} className="flex items-start gap-2">
+                  <Plus className="w-5 h-5 mt-1 text-blue-600 shrink-0" />
+                  <span>{t}</span>
+                </li>
+              ))}
             </ul>
           </div>
         </div>
-      </section>
+      </motion.section>
 
-      {/* Skills with buttons */}
-      {/* Skills with buttons */}
-      <section className="mt-24">
+      <motion.section
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.3 }}
+        transition={{ duration: 0.6 }}
+        exit={{ opacity: 0, y: 8 }} 
+      >
         <div className="flex justify-end gap-4">
-          {/* Resume button */}
           <a
             href="/CV.pdf"
             download
-            className={[
-              "inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium",
-              "border-2 border-blue-300 bg-blue-50/50 dark:bg-blue-950/30",
-              "shadow-sm transition-all duration-200",
-              "hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary",
-            ].join(" ")}
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium border-2 border-blue-300 bg-blue-50/50 dark:bg-blue-950/30 shadow-sm transition-all duration-200 hover:-translate-y-0.5"
           >
             <Download className="w-4 h-4 text-blue-600" />
             Resume
           </a>
-
-          {/* Works button */}
           <Link
             to="/works"
-            className={[
-              "inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium",
-              "border-2 border-pink-300 bg-pink-50/50 dark:bg-pink-950/30",
-              "shadow-sm transition-all duration-200",
-              "hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary",
-            ].join(" ")}
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium border-2 border-pink-300 bg-pink-50/50 dark:bg-pink-950/30 shadow-sm transition-all duration-200 hover:-translate-y-0.5"
           >
             See my Works
             <Arrow className="w-4 h-4 text-pink-500" />
           </Link>
         </div>
-      </section>
-
-
-    </div>
+      </motion.section>
+    </motion.div>
   );
 }

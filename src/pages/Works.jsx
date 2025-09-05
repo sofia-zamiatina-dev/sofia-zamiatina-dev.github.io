@@ -5,6 +5,7 @@ import { filterProjects } from "../lib/filterProjects.js";
 
 import { motion, AnimatePresence } from "framer-motion";  // 👈 import AnimatePresence
 import { gridStagger, cardUp } from "../animations/worksAnimations";
+import { pageVariants } from "../animations/pageVariants";
 
 export default function Works() {
   const [sp] = useSearchParams();
@@ -20,7 +21,13 @@ export default function Works() {
   }, [cat, skills]);
 
   return (
-    <div className="p-6 text-foreground bg-background min-h-screen">
+    <motion.div
+      variants={pageVariants}
+      initial="initial"
+      animate="animate"
+      exit="exit"
+      className="p-6 text-foreground bg-background min-h-screen"
+    >
       <h1 className="text-2xl font-semibold mb-4">Works</h1>
 
       <motion.div
@@ -63,6 +70,6 @@ export default function Works() {
           ))}
         </AnimatePresence>
       </motion.div>
-    </div>
+    </motion.div>
   );
 }
