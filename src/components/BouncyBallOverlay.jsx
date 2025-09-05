@@ -97,10 +97,10 @@ export default function BouncyBallOverlay() {
         y += vy * dt;
 
         let bounced = false;
-        if (x - r <= 0)       { x = r;         vx *= -1; bounced = true; }
-        if (x + r >= width)   { x = width - r; vx *= -1; bounced = true; }
-        if (y - r <= 0)       { y = r;         vy *= -1; bounced = true; }
-        if (y + r >= height)  { y = height - r;vy *= -1; bounced = true; }
+        if (x - r <= 0) { x = r; vx *= -1; bounced = true; }
+        if (x + r >= width) { x = width - r; vx *= -1; bounced = true; }
+        if (y - r <= 0) { y = r; vy *= -1; bounced = true; }
+        if (y + r >= height) { y = height - r; vy *= -1; bounced = true; }
         if (bounced) color = pickColor();
       }
 

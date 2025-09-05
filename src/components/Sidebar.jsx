@@ -5,27 +5,23 @@ import FiltersPanel from "./FiltersPanel.jsx";
 import { projects } from "../data/projects.js";
 import { buildFacets } from "../lib/facets.js";
 import BouncyBallOverlay from "./BouncyBallOverlay.jsx";
+import { Download } from "lucide-react";
 
 import { AnimatePresence, motion } from "framer-motion";
 import { filtersContainer } from "../animations/worksAnimations";
 import { sidebarVariants } from "../animations/sidebarAnimations.js";
 
-const facets = buildFacets(projects, { categoryOrder: ["web","game","ml","art"] });
+const facets = buildFacets(projects, { categoryOrder: ["web", "game", "ml", "art"] });
 
 // --- tiny inline SVGs (no external icon lib) ---
 const ChevronDown = (props) => (
   <svg viewBox="0 0 20 20" width="14" height="14" aria-hidden="true" {...props}>
-    <path d="M5 7l5 5 5-5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M5 7l5 5 5-5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
   </svg>
 );
 
-const DownloadIcon = (props) => (
-  <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" {...props}>
-    <path d="M12 3v10m0 0l4-4m-4 4L8 9M4 17h16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-  </svg>
-);
 
-// Accent button with bottom thick bar (single color now)
+// Accent button with bottom thick bar 
 function AccentButton({ label, onClick, buttonRef, isOpen = false }) {
   return (
     <button
@@ -134,7 +130,7 @@ function DownloadPDFButton() {
       ].join(" ")}
       aria-label="Download CV as PDF"
     >
-      <DownloadIcon className="text-sky-600 dark:text-blue-300" />
+      <Download className="w-4 h-4" />
       <span>CV.pdf</span>
     </a>
   );
@@ -149,7 +145,7 @@ export default function Sidebar({ showFilters }) {
   useEffect(() => { setOpen(null); }, [loc.pathname, loc.hash]);
 
   const headerRef = useRef(null);
-  const menuBtnRef  = useRef(null);
+  const menuBtnRef = useRef(null);
   const [anchorX, setAnchorX] = useState(0);
 
   // Measure button position (relative to header)
@@ -183,11 +179,11 @@ export default function Sidebar({ showFilters }) {
 
   return (
     <motion.aside
-    initial="hidden"
-    animate="visible"
-    variants={sidebarVariants}   // make sure you import/define this
-    className="relative sticky top-0 h-dvh border-r border-border bg-background text-foreground flex flex-col"
-  >
+      initial="hidden"
+      animate="visible"
+      variants={sidebarVariants}   // make sure you import/define this
+      className="relative sticky top-0 h-dvh border-r border-border bg-background text-foreground flex flex-col"
+    >
       {/* Background ball animation */}
       <BouncyBallOverlay />
 
@@ -199,7 +195,7 @@ export default function Sidebar({ showFilters }) {
             <ThemeToggle />
 
             <HomeButton />
-            
+
             <AccentButton
               label="Menu"
               buttonRef={menuBtnRef}
@@ -210,34 +206,34 @@ export default function Sidebar({ showFilters }) {
 
           {open === "menu" && (
             <PopoverPanel accent="pink" style={{ left: anchorX }}>
-            <PopoverItem
-              to="/works"
-              active={loc.hash.includes("works")}
-              onSelect={() => setOpen(null)}
-              icon={<WorkIcon />}
-            >
-              Works
-            </PopoverItem>
-          
-            <PopoverItem
-              to="/about"
-              active={loc.hash.includes("about")}
-              onSelect={() => setOpen(null)}
-              icon={<UserIcon />}
-            >
-              About me
-            </PopoverItem>
-          
-            <PopoverItem
-              to="/contact"
-              active={loc.hash.includes("contact")}
-              onSelect={() => setOpen(null)}
-              icon={<MailIcon />}
-            >
-              Contact
-            </PopoverItem>
-          </PopoverPanel>
-          
+              <PopoverItem
+                to="/works"
+                active={loc.hash.includes("works")}
+                onSelect={() => setOpen(null)}
+                icon={<WorkIcon />}
+              >
+                Works
+              </PopoverItem>
+
+              <PopoverItem
+                to="/about"
+                active={loc.hash.includes("about")}
+                onSelect={() => setOpen(null)}
+                icon={<UserIcon />}
+              >
+                About me
+              </PopoverItem>
+
+              <PopoverItem
+                to="/contact"
+                active={loc.hash.includes("contact")}
+                onSelect={() => setOpen(null)}
+                icon={<MailIcon />}
+              >
+                Contact
+              </PopoverItem>
+            </PopoverPanel>
+
           )}
         </div>
 
@@ -249,23 +245,23 @@ export default function Sidebar({ showFilters }) {
 
         {/* Contextual filters – only for Works */}
         <AnimatePresence>
-        {showFilters && (
-          <motion.div
-            key="filters-panel"
-            variants={filtersContainer}
-            initial="hidden"
-            animate="visible"
-            exit={{ opacity: 0, y: 10 }}
-          >
-            <FiltersPanel
-              categories={facets.categories}
-              skills={facets.skills}
-              catColorIndex={facets.colorIndex.categories}
-              skillColorIndex={facets.colorIndex.skills}
-            />
-          </motion.div>
-        )}
-      </AnimatePresence>
+          {showFilters && (
+            <motion.div
+              key="filters-panel"
+              variants={filtersContainer}
+              initial="hidden"
+              animate="visible"
+              exit={{ opacity: 0, y: 10 }}
+            >
+              <FiltersPanel
+                categories={facets.categories}
+                skills={facets.skills}
+                catColorIndex={facets.colorIndex.categories}
+                skillColorIndex={facets.colorIndex.skills}
+              />
+            </motion.div>
+          )}
+        </AnimatePresence>
 
         {/* Footer */}
         <div className="mt-auto p-3 text-xs text-foreground/60">
