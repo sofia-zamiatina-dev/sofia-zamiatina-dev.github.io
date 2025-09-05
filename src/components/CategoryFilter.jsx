@@ -1,8 +1,13 @@
+import { motion } from "framer-motion";
+import { filterItemLeft } from "../animations/worksAnimations";
+
 export default function CategoryFilter({ items = [], active, onSelect }) {
   return (
     <div role="radiogroup" className="flex flex-wrap gap-1.5">
       {items.map((name) => {
         const isActive = active === name;
+
+        // 🔥 keep your colorful styles, only wrap with motion
         const cls = [
           "px-2.5 py-1 rounded-full text-xs font-medium border transition",
           isActive
@@ -11,7 +16,7 @@ export default function CategoryFilter({ items = [], active, onSelect }) {
         ].join(" ");
 
         return (
-          <label key={name}>
+          <motion.label key={name} variants={filterItemLeft}>
             <input
               type="radio"
               name="category"
@@ -21,7 +26,7 @@ export default function CategoryFilter({ items = [], active, onSelect }) {
               className="sr-only"
             />
             <span className={cls}>{name}</span>
-          </label>
+          </motion.label>
         );
       })}
     </div>

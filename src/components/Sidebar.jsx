@@ -6,6 +6,10 @@ import { projects } from "../data/projects.js";
 import { buildFacets } from "../lib/facets.js";
 import BouncyBallOverlay from "./BouncyBallOverlay.jsx";
 
+import { AnimatePresence, motion } from "framer-motion";
+import { filtersContainer } from "../animations/worksAnimations";
+import { sidebarVariants } from "../animations/sidebarAnimations.js";
+
 const facets = buildFacets(projects, { categoryOrder: ["web","game","ml","art"] });
 
 // --- tiny inline SVGs (no external icon lib) ---
@@ -178,7 +182,12 @@ export default function Sidebar({ showFilters }) {
   }, []);
 
   return (
-    <aside className="relative sticky top-0 h-dvh border-r border-border bg-background text-foreground flex flex-col">
+    <motion.aside
+    initial="hidden"
+    animate="visible"
+    variants={sidebarVariants}   // make sure you import/define this
+    className="relative sticky top-0 h-dvh border-r border-border bg-background text-foreground flex flex-col"
+  >
       {/* Background ball animation */}
       <BouncyBallOverlay />
 
@@ -239,14 +248,24 @@ export default function Sidebar({ showFilters }) {
         </div>
 
         {/* Contextual filters – only for Works */}
+        <AnimatePresence>
         {showFilters && (
-          <FiltersPanel
-            categories={facets.categories}
-            skills={facets.skills}
-            catColorIndex={facets.colorIndex.categories}
-            skillColorIndex={facets.colorIndex.skills}
-          />
+          <motion.div
+            key="filters-panel"
+            variants={filtersContainer}
+            initial="hidden"
+            animate="visible"
+            exit={{ opacity: 0, y: 10 }}
+          >
+            <FiltersPanel
+              categories={facets.categories}
+              skills={facets.skills}
+              catColorIndex={facets.colorIndex.categories}
+              skillColorIndex={facets.colorIndex.skills}
+            />
+          </motion.div>
         )}
+      </AnimatePresence>
 
         {/* Footer */}
         <div className="mt-auto p-3 text-xs text-foreground/60">
@@ -258,7 +277,7 @@ export default function Sidebar({ showFilters }) {
           <DownloadPDFButton />
         </div>
       </div>
-    </aside>
+    </motion.aside>
   );
 }
 
