@@ -7,6 +7,9 @@ export const projects = [
       tech: ["unity","csharp","photon"],
       summary: "Multiplayer storytelling card game (Unity + Photon PUN 2).",
       cover: "covers/imaginarium.jpg",
+      role: "sole dev",
+      type: "personal",
+      status: "in progress",
     },
     {
       id: "urban-tree",
@@ -16,6 +19,9 @@ export const projects = [
       tech: ["react","tailwind","map"],
       summary: "Map-based tool for PhD meetups + tree data exploration.",
       cover: "covers/urban-tree.jpg",
+      role: "",
+      type: "personal",
+      status: "completed",
     },
     {
       id: "weather-ml",
@@ -25,6 +31,9 @@ export const projects = [
       tech: ["python","sklearn"],
       summary: "SVR/RF/GBR predicting temperature with nested CV.",
       cover: "covers/weather-ml.jpg",
+      role: "",
+      type: "personal",
+      status: "discontinued",
     },
     {
       id: "constructai",
@@ -34,6 +43,9 @@ export const projects = [
       tech: ["react","fastapi","docker"],
       summary: "Job-skills dashboard for construction sector.",
       cover: "covers/constructai.jpg",
+      role: "",
+      type: "personal",
+      status: "in progress",
     },
     {
       id: "art-memories",
@@ -43,6 +55,9 @@ export const projects = [
       tech: ["figma"],
       summary: "GSA Graduate Art Prize submission — Seen & Unseen.",
       cover: "covers/memories.jpg",
+      role: "",
+      type: "personal",
+      status: "in progress",
     },
     {
       id: "suplmntal",
@@ -52,6 +67,9 @@ export const projects = [
       tech: ["docker","tailwind","java"],
       summary: "Academic team project, Product Owner Role",
       cover: "covers/suplmntal.jpg",
+      role: "",
+      type: "personal",
+      status: "in progress",
     },
     {
       id: "shelter",
@@ -61,6 +79,9 @@ export const projects = [
       tech: ["react","IOS"],
       summary: "A mobile game for groups of friends.",
       cover: "covers/shelter.jpg",
+      role: "",
+      type: "personal",
+      status: "in progress",
     },
   ];
   

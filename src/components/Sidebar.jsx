@@ -1,11 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import ThemeToggle from "./ThemeToggle.jsx";
 import FiltersPanel from "./FiltersPanel.jsx";
 import { projects } from "../data/projects.js";
 import { buildFacets } from "../lib/facets.js";
 import BouncyBallOverlay from "./BouncyBallOverlay.jsx";
-import { Download } from "lucide-react";
+import { Download, House } from "lucide-react";
 
 import { AnimatePresence, motion } from "framer-motion";
 import { filtersContainer } from "../animations/worksAnimations";
@@ -189,10 +188,9 @@ export default function Sidebar({ showFilters }) {
 
       <div className="relative z-10 flex-1 overflow-y-auto flex flex-col">
 
-        {/* TOP: toggle + one accent button + popover */}
+        {/* TOP:  one accent button + popover */}
         <div ref={headerRef} className="p-4 border-b border-border relative">
           <div className="flex items-center gap-3">
-            <ThemeToggle />
 
             <HomeButton />
 

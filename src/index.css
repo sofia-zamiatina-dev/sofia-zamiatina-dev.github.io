@@ -84,6 +84,13 @@ button:focus-visible {
   }
 }
 
+:root, :root * {
+  transition: background-color .5s ease, color .5s ease, border-color .5s ease, fill .5s ease, stroke .5s ease;
+}
+@media (prefers-reduced-motion: reduce) {
+  :root, :root * { transition: none !important; }
+}
+
 @layer base {
   :root {
     /* LIGHT THEME (HSL values, no commas) */

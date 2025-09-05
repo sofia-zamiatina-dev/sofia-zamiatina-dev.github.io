@@ -4,31 +4,31 @@ export default function HomeCard({ to, title, desc, color }) {
     const theme = {
         sky: {
             border: "border-sky-300",
-            glow: "shadow-[0_10px_24px_rgba(56,189,248,0.25)]",
+            //glow: "shadow-[0_10px_24px_rgba(56,189,248,0.25)]",
             bg: "bg-sky-50/50 dark:bg-sky-950/30",
             text: "text-sky-800 dark:text-sky-200",
         },
         violet: {
             border: "border-violet-400",
-            glow: "shadow-[0_10px_24px_rgba(139,92,246,0.25)]",
+            //glow: "shadow-[0_10px_24px_rgba(139,92,246,0.25)]",
             bg: "bg-violet-50/50 dark:bg-violet-950/30",
             text: "text-violet-800 dark:text-violet-200",
         },
         amber: {
             border: "border-amber-300",
-            glow: "shadow-[0_10px_24px_rgba(251,191,36,0.25)]",
+            //glow: "shadow-[0_10px_24px_rgba(251,191,36,0.25)]",
             bg: "bg-amber-50/50 dark:bg-amber-950/30",
             text: "text-amber-800 dark:text-amber-200",
         },
         pink: {
             border: "border-pink-300",
-            glow: "shadow-[0_10px_24px_rgba(236,72,153,0.25)]",
+            //glow: "shadow-[0_10px_24px_rgba(236,72,153,0.25)]",
             bg: "bg-pink-50/50 dark:bg-pink-950/30",
             text: "text-pink-800 dark:text-pink-200",
         },
         blue: {
             border: "border-blue-300",
-            glow: "shadow-[0_10px_24px_rgba(59,130,246,0.25)]",
+            //glow: "shadow-[0_10px_24px_rgba(59,130,246,0.25)]",
             bg: "bg-blue-50/50 dark:bg-blue-950/30",
             text: "text-blue-800 dark:text-blue-200",
         },
