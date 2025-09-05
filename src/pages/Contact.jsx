@@ -2,6 +2,9 @@ import { Link } from "react-router-dom";
 import HomeCard from "../components/HomeCard.jsx";
 import { useState } from "react";
 
+import { motion } from "framer-motion";
+import { pageFade, riseIn, slideInLeft } from "../animations/simple";
+
 const IconCircle = ({ children }) => (
   <div className="mx-auto mb-3 flex h-16 w-16 items-center justify-center rounded-full border border-border bg-background/50 shadow-sm">
     {children}
@@ -51,7 +54,7 @@ function ContactSquare({ as = "a", href, label, icon, accent = "blue", onClick, 
     amber: { border: "border-amber-300", bg: "bg-amber-50/50 dark:bg-amber-950/30", text: "text-amber-800 dark:text-amber-200" },
     pink: { border: "border-pink-300", bg: "bg-pink-50/50 dark:bg-pink-950/30", text: "text-pink-800 dark:text-pink-200" },
     blue: { border: "border-blue-300", bg: "bg-blue-50/50 dark:bg-blue-950/30", text: "text-blue-800 dark:text-blue-200" },
-    gray:   { border: "border-gray-300",   bg: "bg-gray-50/50 dark:bg-gray-950/30",   text: "text-gray-800 dark:text-gray-200" },
+    gray: { border: "border-gray-300", bg: "bg-gray-50/50 dark:bg-gray-950/30", text: "text-gray-800 dark:text-gray-200" },
   }[accent];
 
   const baseClasses = [
@@ -121,10 +124,20 @@ export default function Contact() {
   };
 
   return (
-    <div className="p-6 sm:p-10">
+    <motion.div
+      className="p-6 sm:p-10"
+      variants={pageFade}
+      initial="initial"
+      animate="animate"
+      exit="exit"
+    >
       <h1 className="text-2xl font-semibold mb-6">Contact Me</h1>
-
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+      <motion.div
+        className="grid grid-cols-1 sm:grid-cols-3 gap-6"
+        variants={riseIn}
+        initial="initial"
+        animate="animate"
+      >
         {/* Email: copy to clipboard, NOT a link */}
         <ContactSquare
           as="button"
@@ -134,7 +147,6 @@ export default function Contact() {
           accent="pink"
           showExternal={false}
         />
-
         {/* GitHub & LinkedIn: external links with icon */}
         <ContactSquare
           href="https://github.com/sofia-zamiatina-dev"
@@ -150,7 +162,7 @@ export default function Contact() {
           accent="blue"
           showExternal={true}
         />
-      </div>
+      </motion.div>
 
       {/* Small toast */}
       <div
@@ -167,17 +179,17 @@ export default function Contact() {
       </div>
 
       {/* Optional plain link (in case you also want a simple text link) */}
-      <div className="mt-4">
+      <motion.div className="mt-4" variants={slideInLeft} initial="initial" animate="animate">
         <Link to="/works" className="text-sm underline opacity-80 hover:opacity-100">
           Go check out my Projects
         </Link>
-      </div>
+      </motion.div>
 
-      <div className="mt-4">
+      <motion.div className="mt-4" variants={slideInLeft} initial="initial" animate="animate">
         <Link to="/home" className="text-sm underline opacity-80 hover:opacity-100">
           Go back to Homepage
         </Link>
-      </div>
+      </motion.div>
 
       {/* Go Back to Projects button (your HomeCard style) */}
       {/* <div className="mt-8 max-w-sm">
@@ -189,6 +201,6 @@ export default function Contact() {
         />
       </div> */}
 
-    </div>
+    </motion.div>
   );
 }
