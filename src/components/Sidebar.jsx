@@ -43,6 +43,76 @@ function AccentButton({ label, onClick, buttonRef, isOpen = false }) {
   );
 }
 
+const HomeIcon = (props) => (
+  <svg
+    viewBox="0 0 24 24"
+    width="16"
+    height="16"
+    aria-hidden="true"
+    {...props}
+  >
+    <path
+      d="M3 9.5L12 3l9 6.5V21a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1V9.5z"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+
+function HomeButton() {
+  return (
+    <Link
+      to="/home"
+      className="p-2 rounded-md hover:bg-muted transition-colors"
+      aria-label="Home"
+    >
+      <HomeIcon className="w-4 h-4 text-fuchsia-500 hover:text-fuchsia-600 transition-colors" />
+    </Link>
+  );
+}
+
+const WorkIcon = (props) => (
+  <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" {...props}>
+    <path
+      d="M4 7h16v13H4V7zM8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+
+const UserIcon = (props) => (
+  <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" {...props}>
+    <path
+      d="M12 12a5 5 0 1 0-5-5 5 5 0 0 0 5 5zm0 2c-4 0-7 2-7 4v2h14v-2c0-2-3-4-7-4z"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+
+const MailIcon = (props) => (
+  <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" {...props}>
+    <path
+      d="M4 4h16v16H4z M4 4l8 8 8-8"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+
 // Download button (bottom-left)
 function DownloadPDFButton() {
   return (
@@ -119,6 +189,8 @@ export default function Sidebar({ showFilters }) {
           <div className="flex items-center gap-3">
             <ThemeToggle />
 
+            <HomeButton />
+            
             <AccentButton
               label="Menu"
               buttonRef={menuBtnRef}
@@ -129,18 +201,34 @@ export default function Sidebar({ showFilters }) {
 
           {open === "menu" && (
             <PopoverPanel accent="pink" style={{ left: anchorX }}>
-              <PopoverItem to="/home"    active={loc.hash.includes("home")}    onSelect={() => setOpen(null)}>Home</PopoverItem>
-              <PopoverItem to="/works"   active={loc.hash.includes("works")}   onSelect={() => setOpen(null)}>Works</PopoverItem>
-              <PopoverItem to="/about"   active={loc.hash.includes("about")}   onSelect={() => setOpen(null)}>About me</PopoverItem>
-              <PopoverItem to="/contact" active={loc.hash.includes("contact")} onSelect={() => setOpen(null)}>Contact</PopoverItem>
-              <a
-                className="block px-3 py-2 text-sm rounded hover:bg-muted"
-                href="/resume.pdf" target="_blank" rel="noreferrer"
-                onClick={() => setOpen(null)}
-              >
-                Resume (PDF)
-              </a>
-            </PopoverPanel>
+            <PopoverItem
+              to="/works"
+              active={loc.hash.includes("works")}
+              onSelect={() => setOpen(null)}
+              icon={<WorkIcon />}
+            >
+              Works
+            </PopoverItem>
+          
+            <PopoverItem
+              to="/about"
+              active={loc.hash.includes("about")}
+              onSelect={() => setOpen(null)}
+              icon={<UserIcon />}
+            >
+              About me
+            </PopoverItem>
+          
+            <PopoverItem
+              to="/contact"
+              active={loc.hash.includes("contact")}
+              onSelect={() => setOpen(null)}
+              icon={<MailIcon />}
+            >
+              Contact
+            </PopoverItem>
+          </PopoverPanel>
+          
           )}
         </div>
 
@@ -199,7 +287,7 @@ function PopoverPanel({ children, style, accent = "pink" }) {
   );
 }
 
-function PopoverItem({ to, active, children, onSelect }) {
+function PopoverItem({ to, active, children, onSelect, icon }) {
   return (
     <li>
       <Link
@@ -207,13 +295,15 @@ function PopoverItem({ to, active, children, onSelect }) {
         onClick={onSelect}
         role="menuitem"
         className={[
-          "block px-3 py-2 text-sm text-foreground",
+          "flex items-center gap-2 px-3 py-2 text-sm text-foreground",
           "hover:bg-muted",
           active ? "bg-muted font-medium" : "",
         ].join(" ")}
       >
-        {children}
+        {icon}
+        <span>{children}</span>
       </Link>
     </li>
   );
 }
+
