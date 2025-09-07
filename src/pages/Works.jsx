@@ -2,13 +2,14 @@ import { useMemo } from "react";
 import { useSearchParams } from "react-router-dom";
 import { projects } from "../data/projects.js";
 import { filterProjects } from "../lib/filterProjects.js";
+import ProjectModal from "../components/ProjectModal.jsx";
 
 import { motion, AnimatePresence } from "framer-motion";  // 👈 import AnimatePresence
 import { gridStagger, cardUp } from "../animations/worksAnimations";
 import { pageVariants } from "../animations/pageVariants";
 
 export default function Works() {
-  const [sp] = useSearchParams();
+  const [sp, setSp] = useSearchParams();
   const cat = sp.get("cat") || "all";
   const skills = (sp.get("skills") || "").split(",").filter(Boolean);
 
@@ -20,23 +21,28 @@ export default function Works() {
     });
   }, [cat, skills]);
 
+  // Open project Details
+  const activeId = sp.get("view");
+  const active = activeId ? projects.find(p => p.id === activeId) : null;
+
+  const openProject = (id) => {
+    const next = new URLSearchParams(sp);
+    next.set("view", id);
+    setSp(next, { replace: false });
+  };
+
+  const closeProject = () => {
+    const next = new URLSearchParams(sp);
+    next.delete("view");
+    setSp(next, { replace: false });
+  };
+
+
   return (
-    <motion.div
-      variants={pageVariants}
-      initial="initial"
-      animate="animate"
-      exit="exit"
-      className="p-6 text-foreground bg-background h-full"
-    >
+    <motion.div variants={pageVariants} initial="initial" animate="animate" exit="exit" className="p-6 text-foreground bg-background h-full">
       <h1 className="text-2xl font-semibold mb-4">Works</h1>
 
-      <motion.div
-        className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3"
-        variants={gridStagger}
-        initial="hidden"
-        animate="visible"
-      >
-
+      <motion.div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3" variants={gridStagger} initial="hidden" animate="visible">
         <AnimatePresence mode="sync">
           {filtered.map((p) => (
             <motion.article
@@ -120,27 +126,24 @@ export default function Works() {
                   <button
                     type="button"
                     className="ml-auto inline-flex items-center gap-1.5 rounded-lg border border-border px-2.5 py-1 text-[12px] 
-               bg-background hover:bg-muted transition text-foreground shadow-sm shrink-0"
+                               bg-background hover:bg-muted transition text-foreground shadow-sm shrink-0"
                     aria-label={`View details of ${p.title}`}
-                  // onClick={() => setActiveProject(p)}
+                    onClick={() => openProject(p.id)}
                   >
                     <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true">
-                      <path
-                        d="M12 5c-5 0-9 4.5-9 7s4 7 9 7 9-4.5 9-7-4-7-9-7Zm0 11a4 4 0 1 1 0-8 4 4 0 0 1 0 8Z"
-                        fill="currentColor"
-                      />
+                      <path d="M12 5c-5 0-9 4.5-9 7s4 7 9 7 9-4.5 9-7-4-7-9-7Zm0 11a4 4 0 1 1 0-8 4 4 0 0 1 0 8Z" fill="currentColor" />
                     </svg>
                     View
                   </button>
                 </div>
-
-
               </div>
             </motion.article>
-
           ))}
         </AnimatePresence>
       </motion.div>
+
+      {/* Modal lives alongside the grid so it can overlay the page */}
+      <AnimatePresence>{active && <ProjectModal project={active} onClose={closeProject} />}</AnimatePresence>
     </motion.div>
   );
 }
