@@ -13,14 +13,19 @@ export default function App() {
   const onWorks = location.pathname === "/works";
 
   return (
-    <div className="min-h-dvh w-screen grid grid-cols-[400px_1fr] bg-background text-foreground
-                transition-[background-color,color,border-color,fill,stroke]
-                duration-500 ease-in-out">
+    <div
+      className="h-dvh w-screen grid grid-cols-[400px_1fr] bg-background text-foreground
+                 transition-[background-color,color,border-color,fill,stroke]
+                 duration-500 ease-in-out"
+    >
       <Sidebar showFilters={onWorks} />
 
-      <main className="overflow-y-auto bg-background transition-[background-color,color,border-color,fill,stroke]
-                   duration-500 ease-in-out">
-
+      <main
+        className="relative h-dvh overflow-y-auto overscroll-contain bg-background
+                   transition-[background-color,color,border-color,fill,stroke]
+                   duration-500 ease-in-out"
+        tabIndex={-1} /* optional, helps some trackpads focus the scroller immediately */
+      >
         <div className="absolute top-4 right-4">
           <ThemeToggle />
         </div>
