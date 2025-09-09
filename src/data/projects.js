@@ -36,6 +36,61 @@ export const projects = [
     },
   },
   {
+    id: "unimelb",
+    title: "The University of Melbourne - Masters Degree",
+    year: "2025-present",
+    category: "edu",
+    tech: ["agile", "javascript", "testing"],
+    summary:
+      "Pursuing advanced software engineering while leading hands-on industry projects.",
+    cover: "covers/unimelb.jpg",
+    role: "",
+    type: "personal",
+    status: "in progress",
+    detail: {
+      hero: "covers/unimelb.jpg",
+      contributions: [
+        "Masters projects; team leadership and client work.",
+        "Advanced SWE topics; testing and delivery practices.",
+      ],
+      skills: [
+        { key: "agile", label: "Agile", info: "Team practices & delivery.", icon: "agile" },
+        { key: "javascript", label: "JS", info: "Prototypes and lab work.", icon: "js" },
+        { key: "testing", label: "Testing", info: "Coverage & CI patterns.", icon: "test" },
+      ],
+      background:
+        "Postgraduate journey blending software practice, research, and industry collaboration.",
+      gallery: [],
+    },
+  },
+  {
+    id: "mhc",
+    title: "Mount Holyoke College - Bachelors Degree",
+    year: "2020-2024",
+    category: "edu",
+    tech: ["python", "java", "testing"],
+    summary:
+      "A liberal arts education that broadened my perspective and gave me a professional foundation in programming.",
+    cover: "covers/mhc.jpg",
+    role: "",
+    type: "personal",
+    status: "completed",
+    detail: {
+      hero: "covers/mhc.jpg",
+      contributions: [
+        "Completed CS coursework: DS/Algos, software design.",
+        "Peer collaboration, mentorship, and academic projects.",
+      ],
+      skills: [
+        { key: "python", label: "Python", info: "Coursework and projects.", icon: "python" },
+        { key: "java", label: "Java", info: "DS/Algos implementations.", icon: "java" },
+      ],
+      background:
+        "Undergraduate foundation across CS and liberal arts; exposure to research, mentorship, and teaching.",
+      gallery: [],
+    },
+  },
+  {
     id: "mhctutor",
     title: "Tutor and Student Mentor – Data Structures",
     year: "2023–2024",
@@ -68,7 +123,7 @@ export const projects = [
     title: "ImaginariumDigital",
     cover: "covers/imaginarium.jpg",
     category: "game",
-    tech: ["unity","csharp","photon"],
+    tech: ["unity", "csharp", "photon"],
     summary: "Multiplayer storytelling card game.",
     role: "Product owner, gameplay programmer",
     year: 2025,
@@ -124,7 +179,7 @@ export const projects = [
     id: "shelter",
     title: "Shelter – Offline Mobile Game",
     year: 2023,
-    category: "mobile",
+    category: "game",
     tech: ["react", "ios", "typescript", "java", "design"],
     summary: "A social deduction game where players debate who to expel from the shelter.",
     cover: "covers/shelter.jpg",
@@ -144,7 +199,13 @@ export const projects = [
       ],
       background:
         "Offline social deduction concept exploring tension, persuasion, and replayable character mixes.",
-      gallery: [],
+      gallery: [
+        "details/shelter/gameplay1.jpg",
+        "details/shelter/gameplay2.jpg",
+        "details/shelter/gameplay3.jpg",
+      ],
+      video: "details/shelter/demo-video.mp4",
+      videoPoster: "details/shelter/video-poster.jpg",
     },
   },
   {
@@ -171,62 +232,14 @@ export const projects = [
       ],
       background:
         "Built as a community hub for artists; focus on creator friendliness and safe collaboration.",
-      gallery: ["shots/artwebsite-1.png"],
-    },
-  },
-  {
-    id: "mhc",
-    title: "Mount Holyoke College - Bachelors Degree",
-    year: "2020-2024",
-    category: "edu",
-    tech: ["python", "java", "testing"],
-    summary:
-      "A liberal arts education that broadened my perspective and gave me a professional foundation in programming.",
-    cover: "covers/mhc.jpg",
-    role: "",
-    type: "personal",
-    status: "completed",
-    detail: {
-      hero: "covers/mhc.jpg",
-      contributions: [
-        "Completed CS coursework: DS/Algos, software design.",
-        "Peer collaboration, mentorship, and academic projects.",
+      gallery: [
+        "details/artwebsite/website1.png",
+        "details/artwebsite/website2.png",
+        "details/artwebsite/website3.png",
+        "details/artwebsite/website4.png",
       ],
-      skills: [
-        { key: "python", label: "Python", info: "Coursework and projects.", icon: "python" },
-        { key: "java", label: "Java", info: "DS/Algos implementations.", icon: "java" },
-      ],
-      background:
-        "Undergraduate foundation across CS and liberal arts; exposure to research, mentorship, and teaching.",
-      gallery: [],
-    },
-  },
-  {
-    id: "unimelb",
-    title: "The University of Melbourne - Masters Degree",
-    year: "2025-present",
-    category: "edu",
-    tech: ["agile", "javascript", "testing"],
-    summary:
-      "Pursuing advanced software engineering while leading hands-on industry projects.",
-    cover: "covers/unimelb.jpg",
-    role: "",
-    type: "personal",
-    status: "in progress",
-    detail: {
-      hero: "covers/unimelb.jpg",
-      contributions: [
-        "Masters projects; team leadership and client work.",
-        "Advanced SWE topics; testing and delivery practices.",
-      ],
-      skills: [
-        { key: "agile", label: "Agile", info: "Team practices & delivery.", icon: "agile" },
-        { key: "javascript", label: "JS", info: "Prototypes and lab work.", icon: "js" },
-        { key: "testing", label: "Testing", info: "Coverage & CI patterns.", icon: "test" },
-      ],
-      background:
-        "Postgraduate journey blending software practice, research, and industry collaboration.",
-      gallery: [],
+      video: "details/artwebsite/website-demo.mp4",
+      videoPoster: "details/artwebsite/video-poster.png",
     },
   },
   {
