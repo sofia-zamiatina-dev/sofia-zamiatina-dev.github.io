@@ -130,7 +130,7 @@ export default function ProjectModal({ project, onClose }) {
                         ...(d.video ? [{ type: "video", src: d.video, poster: d.videoPoster, muted: true }] : []),
                         ...d.gallery.map((src) => ({ type: "image", src })),
                       ]}
-                      autoAdvanceMs={30000}
+                      autoAdvanceMs={10000}
                       className="h-full" // important: slider fills the container
                     />
                   </div>
