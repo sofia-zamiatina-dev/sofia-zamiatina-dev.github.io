@@ -202,7 +202,11 @@ export const projects = [
       gallery: [
         "details/shelter/gameplay1.jpg",
         "details/shelter/gameplay2.jpg",
-        "details/shelter/gameplay3.jpg",
+        "details/shelter/rules4.jpg",
+        "details/shelter/rules5.jpg",
+        "details/shelter/gameplay4.jpg",
+        "details/shelter/gameplay7.jpg",
+        "details/shelter/gameplay8.jpg",
       ],
       video: "details/shelter/demo-video.mp4",
       videoPoster: "details/shelter/video-poster.jpg",
