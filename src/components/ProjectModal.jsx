@@ -42,101 +42,112 @@ export default function ProjectModal({ project, onClose }) {
           className="w-screen h-[85vh] bg-card border-y border-border rounded-none shadow-xl overflow-hidden flex flex-col"
           onClick={(e) => e.stopPropagation()}
         >
+
           <AnimatePresence mode="wait" initial={false}>
-            {/* Header */}
-            <div className="flex items-start gap-3 p-6 border-b border-border">
-              <img
-                src={(d.hero || project.cover).startsWith("/") ? (d.hero || project.cover) : `/${d.hero || project.cover}`}
-                alt=""
-                className="w-16 h-16 object-cover rounded-lg"
-              />
-              <div className="flex-1 min-w-0">
-                <h2 className="text-2xl md:text-3xl font-semibold truncate">{project.title}</h2>
-                {d.tagline && <p className="text-base text-foreground/70">{d.tagline}</p>}
-                <div className="mt-1 text-sm md:text-base text-foreground/60">
-                  {project.year} · {project.category?.toUpperCase()} {project.type ? `· ${project.type}` : ""}
-                </div>
-              </div>
-              <button
-                className="rounded-md border border-border px-3 py-1.5 text-sm hover:bg-muted bg-background text-foreground shadow-sm"
-                onClick={onClose}
-                aria-label="Close"
-              >
-                Go back
-              </button>
-            </div>
-
-            {/* Body */}
-            <div
-              className={`flex-1 min-h-0 grid ${hasGallery ? "grid-cols-[minmax(0,50%)_minmax(0,50%)]" : "grid-cols-1"
-                } gap-0`}
+            <motion.div
+              key={project.id || project.title}   // ensure it’s stable/unique
+              variants={panel}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
             >
-              {/* LEFT: content, shifted toward center */}
-              <div className="pl-24 pr-6 py-6 overflow-y-auto">
-                {d.contributions?.length > 0 && (
-                  <section className="space-y-3">
-                    <h3 className="text-lg md:text-xl font-semibold">My Contributions</h3>
-                    <ul className="list-disc pl-6 text-base text-foreground/80 space-y-1">
-                      {d.contributions.map((b, i) => (
-                        <li key={i}>{b}</li>
-                      ))}
-                    </ul>
-                  </section>
-                )}
 
-                {d.skills?.length > 0 && (
-                  <section className="mt-6 space-y-3">
-                    <h3 className="text-lg md:text-xl font-semibold">Skills</h3>
-                    <div className="flex flex-wrap gap-2">
-                      {d.skills.map((s, i) => (
-                        <div key={i} className="group relative">
-                          <span
-                            className="inline-flex items-center gap-1 rounded-lg  px-2.5 py-1 text-sm bg-background"
-                            title={s.info}
-                          >
-                            <SkillIcon name={s.icon || s.key} />
-                            {s.label}
-                          </span>
-                          <div
-                            className="pointer-events-none absolute left-1/2 -translate-x-1/2 mt-2 whitespace-nowrap
+              {/* Header */}
+              <div className="flex items-start gap-3 p-6 border-b border-border">
+                <img
+                  src={(d.hero || project.cover).startsWith("/") ? (d.hero || project.cover) : `/${d.hero || project.cover}`}
+                  alt=""
+                  className="w-16 h-16 object-cover rounded-lg"
+                />
+                <div className="flex-1 min-w-0">
+                  <h2 className="text-2xl md:text-3xl font-semibold truncate">{project.title}</h2>
+                  {d.tagline && <p className="text-base text-foreground/70">{d.tagline}</p>}
+                  <div className="mt-1 text-sm md:text-base text-foreground/60">
+                    {project.year} · {project.category?.toUpperCase()} {project.type ? `· ${project.type}` : ""}
+                  </div>
+                </div>
+                <button
+                  className="rounded-md border border-border px-3 py-1.5 text-sm hover:bg-muted bg-background text-foreground shadow-sm"
+                  onClick={onClose}
+                  aria-label="Close"
+                >
+                  Go back
+                </button>
+              </div>
+
+              {/* Body */}
+              <div
+                className={`flex-1 min-h-0 grid ${hasGallery ? "grid-cols-[minmax(0,50%)_minmax(0,50%)]" : "grid-cols-1"
+                  } gap-0`}
+              >
+
+                {/* LEFT: content */}
+                <div className="pl-24 pr-6 py-6 overflow-y-auto">
+                  {d.contributions?.length > 0 && (
+                    <section className="space-y-3">
+                      <h3 className="text-lg md:text-xl font-semibold">My Contributions</h3>
+                      <ul className="list-disc pl-6 text-base text-foreground/80 space-y-1">
+                        {d.contributions.map((b, i) => (
+                          <li key={i}>{b}</li>
+                        ))}
+                      </ul>
+                    </section>
+                  )}
+
+                  {d.skills?.length > 0 && (
+                    <section className="mt-6 space-y-3">
+                      <h3 className="text-lg md:text-xl font-semibold">Skills</h3>
+                      <div className="flex flex-wrap gap-2">
+                        {d.skills.map((s, i) => (
+                          <div key={i} className="group relative">
+                            <span
+                              className="inline-flex items-center gap-1 rounded-lg  px-2.5 py-1 text-sm bg-background"
+                              title={s.info}
+                            >
+                              <SkillIcon name={s.icon || s.key} />
+                              {s.label}
+                            </span>
+                            <div
+                              className="pointer-events-none absolute left-1/2 -translate-x-1/2 mt-2 whitespace-nowrap
                                          rounded-md bg-card px-2 py-1 text-[11px] text-foreground/90
                                          opacity-0 shadow-sm transition group-hover:opacity-100"
-                          >
-                            {s.info}
+                            >
+                              {s.info}
+                            </div>
                           </div>
-                        </div>
-                      ))}
-                    </div>
-                  </section>
-                )}
+                        ))}
+                      </div>
+                    </section>
+                  )}
 
-                {d.background && (
-                  <section className="mt-6 space-y-3">
-                    <h3 className="text-lg md:text-xl font-semibold">Project Background</h3>
-                    <p className="text-base leading-relaxed text-foreground/80">{d.background}</p>
-                  </section>
+                  {d.background && (
+                    <section className="mt-6 space-y-3">
+                      <h3 className="text-lg md:text-xl font-semibold">Project Background</h3>
+                      <p className="text-base leading-relaxed text-foreground/80">{d.background}</p>
+                    </section>
+                  )}
+                </div>
+
+                {/* RIGHT: gallery */}
+                {hasGallery && (
+                  <aside className="p-0 bg-background/40">
+                    <div
+                      className="h-full"
+                      style={{ height: "clamp(360px, 62vh, 740px)" }} // ↓ smaller on big screens
+                    >
+                      <GallerySlider
+                        items={[
+                          ...(d.video ? [{ type: "video", src: d.video, poster: d.videoPoster, muted: true }] : []),
+                          ...d.gallery.map((src) => ({ type: "image", src })),
+                        ]}
+                        autoAdvanceMs={10000}
+                        className="h-full" 
+                      />
+                    </div>
+                  </aside>
                 )}
               </div>
-
-              {/* RIGHT: gallery */}
-              {hasGallery && (
-                <aside className="p-0 bg-background/40">
-                  <div
-                    className="h-full"
-                    style={{ height: "clamp(360px, 62vh, 740px)" }} // ↓ smaller on big screens
-                  >
-                    <GallerySlider
-                      items={[
-                        ...(d.video ? [{ type: "video", src: d.video, poster: d.videoPoster, muted: true }] : []),
-                        ...d.gallery.map((src) => ({ type: "image", src })),
-                      ]}
-                      autoAdvanceMs={10000}
-                      className="h-full" // important: slider fills the container
-                    />
-                  </div>
-                </aside>
-              )}
-            </div>
+            </motion.div>
           </AnimatePresence>
         </div>
       </motion.div>

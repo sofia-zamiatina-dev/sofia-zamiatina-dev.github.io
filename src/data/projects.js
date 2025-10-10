@@ -127,6 +127,8 @@ export const projects = [
     summary: "Multiplayer storytelling card game.",
     role: "Product owner, gameplay programmer",
     year: 2025,
+    type: "personal",
+    status: "in progress",
     detail: {
       hero: "covers/imaginarium.jpg",
       contributions: [
@@ -182,12 +184,12 @@ export const projects = [
     category: "game",
     tech: ["react", "ios", "typescript", "java", "design"],
     summary: "A social deduction game where players debate who to expel from the shelter.",
-    cover: "covers/shelter.jpg",
+    cover: "covers/shelter.png",
     role: "Built the character traits generator in Java for gameplay logic.",
     type: "personal",
     status: "completed",
     detail: {
-      hero: "covers/shelter.jpg",
+      hero: "covers/shelter.png",
       contributions: [
         "Java trait generator for roles and social balance.",
         "Game loop and UI prototypes; usability tweaks.",

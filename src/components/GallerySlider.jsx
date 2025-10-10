@@ -1,18 +1,16 @@
 import { useEffect, useMemo, useRef, useState, useCallback, useLayoutEffect } from "react";
 
 export default function GallerySlider({
-    items,                     // [{ type:'image'|'video', src, alt?, poster?, loop?, muted? }]
-    className = "",
-    autoAdvanceMs = 15000,     // 15s
-    peekPx = 32,
-    gapPx = 0,
+    items, className = "", autoAdvanceMs = 15000, peekPx = 32, gapPx = 0,
+    autoFocus = false,
 }) {
     const count = items?.length ?? 0;
-    const [index, setIndex] = useState(0);                 // current real index
+    const [index, setIndex] = useState(0);
     const [lastInteraction, setLastInteraction] = useState(Date.now());
     const [slideW, setSlideW] = useState(0);
     const viewportRef = useRef(null);
 
+    // which slides are actually mounted (for perf)
     const [rendered, setRendered] = useState(() => {
         const arr = Array(count).fill(false);
         if (count > 0) arr[0] = true;
@@ -20,7 +18,6 @@ export default function GallerySlider({
         if (count > 2) arr[2] = true;
         return arr;
     });
-
     useEffect(() => {
         const arr = Array(count).fill(false);
         if (count > 0) arr[0] = true;
@@ -28,8 +25,6 @@ export default function GallerySlider({
         if (count > 2) arr[2] = true;
         setRendered(arr);
     }, [count]);
-
-    // Always ensure current and next are rendered
     useEffect(() => {
         if (!count) return;
         setRendered(prev => {
@@ -41,17 +36,17 @@ export default function GallerySlider({
         });
     }, [index, count]);
 
-    const clamp = (n) => (count ? (n + count) % count : 0);
+    const clamp = n => (count ? (n + count) % count : 0);
     const next = useCallback(() => setIndex(i => clamp(i + 1)), [count]);
     const prev = useCallback(() => setIndex(i => clamp(i - 1)), [count]);
     const markInteraction = useCallback(() => setLastInteraction(Date.now()), []);
 
-    // Measure slide width = viewport - (leftPeek + rightPeek)
+    // measure slide width based on viewport + peeks
     useLayoutEffect(() => {
         const measure = () => {
             const vp = viewportRef.current;
             if (!vp) return;
-            const leftPeek = index === 0 ? 0 : peekPx; // hide left sliver on first open
+            const leftPeek = index === 0 ? 0 : peekPx; // hide left peek at start
             const w = vp.clientWidth - (leftPeek + peekPx);
             setSlideW(Math.max(0, w));
         };
@@ -65,7 +60,7 @@ export default function GallerySlider({
         };
     }, [peekPx, index]);
 
-    // Auto-advance (15s)
+    // auto-advance (only if no recent interaction)
     useEffect(() => {
         if (!count) return;
         const id = setInterval(() => {
@@ -77,24 +72,28 @@ export default function GallerySlider({
         return () => clearInterval(id);
     }, [lastInteraction, autoAdvanceMs, next, count]);
 
-    // Keyboard arrows
+    // keyboard: ← / → (work anywhere unless typing in a field)
     useEffect(() => {
         const onKey = (e) => {
-            const vp = viewportRef.current;
-            if (!vp) return;
-            const active = document.activeElement;
-            const inside = vp.contains(active) || active === document.body;
-            if (!inside) return;
-            if (e.key === "ArrowRight") { next(); markInteraction(); }
-            if (e.key === "ArrowLeft") { prev(); markInteraction(); }
+            const a = document.activeElement;
+            const tag = a?.tagName;
+            const typing = tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT" || a?.isContentEditable;
+            if (typing) return;
+            if (e.key === "ArrowRight") { e.preventDefault(); next(); markInteraction(); }
+            else if (e.key === "ArrowLeft") { e.preventDefault(); prev(); markInteraction(); }
         };
         window.addEventListener("keydown", onKey);
         return () => window.removeEventListener("keydown", onKey);
     }, [next, prev, markInteraction]);
 
+    // optionally take focus so arrows work immediately
+    useEffect(() => {
+        if (autoFocus) viewportRef.current?.focus();
+    }, [autoFocus]);
+
     if (!count) return null;
 
-    const leftPeek = index === 0 ? 0 : peekPx;          // no left sliver on first open
+    const leftPeek = index === 0 ? 0 : peekPx;
     const offsetX = -(index * (slideW + gapPx));
     const trackTransition = "transform 420ms cubic-bezier(.22,.61,.36,1)";
 
@@ -102,9 +101,9 @@ export default function GallerySlider({
         <div className={["relative h-full flex flex-col", className].join(" ")}>
             <section
                 ref={viewportRef}
-                className="relative overflow-hidden bg-background/40 flex-1 min-h-0 rounded-md"
+                className="relative overflow-hidden bg-background/40 flex-1 min-h-0 rounded-md focus:outline-none focus-visible:outline-none focus:ring-0"
                 aria-label="Project media gallery"
-                tabIndex={0}
+                tabIndex={-1}   
             >
                 <div className="relative w-full h-full">
                     <div
@@ -138,12 +137,11 @@ export default function GallerySlider({
                                 </div>
                             );
                         })}
-
                     </div>
                 </div>
             </section>
 
-            {/* Dots (outside) */}
+            {/* dots */}
             <div className="mt-2 flex items-center justify-center gap-1.5">
                 {items.map((_, i) => (
                     <button
@@ -161,11 +159,9 @@ export default function GallerySlider({
     );
 }
 
-// Media mounts only when asked; videos are light unless active/next.
 function Slide({ item, active, prefetch }) {
     const frame = "w-full h-full flex items-center justify-center p-2";
     if (item.type === "video") {
-        // Active plays smoothly; nearby slides fetch metadata only.
         const preload = active ? "metadata" : (prefetch ? "metadata" : "none");
         return (
             <div className={frame}>
@@ -194,7 +190,6 @@ function Slide({ item, active, prefetch }) {
         </div>
     );
 }
-
 
 function srcPath(src) {
     return src.startsWith("/") ? src : `/${src}`;

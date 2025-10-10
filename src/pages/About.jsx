@@ -2,11 +2,11 @@ import { Link } from "react-router-dom";
 import { Heart, Plus, Download, Code2 } from "lucide-react";
 import mhcLogo from "../lib/logos/mhc.png";
 import unimelbLogo from "../lib/logos/unimelb.jpg";
-import { useRef } from "react";
+import { useState, useRef, useLayoutEffect } from "react";
 import { motion, useScroll, useSpring } from "framer-motion";
 import { rowLeft, rowRight, dotPop } from "../animations/aboutAnimations";
 
-// --- Timeline Row ---
+/* ------------- Timeline Row (simplified) ------------- */
 function TimelineRow({
   year,
   title,
@@ -47,7 +47,6 @@ function TimelineRow({
 
   const leftCellClass = side === "right" ? "relative flex justify-end" : "";
   const rightCellClass = side === "left" ? "relative flex justify-start" : "";
-
   const rowVariants = side === "left" ? rowLeft : rowRight;
 
   return (
@@ -56,7 +55,7 @@ function TimelineRow({
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, amount: 0.3 }}
-      exit={{ opacity: 0, y: 8 }} 
+      exit={{ opacity: 0, y: 8 }}
       className="relative grid grid-cols-[1fr_64px_1fr] items-center gap-8 py-8 first:pt-0"
     >
       {/* LEFT CELL */}
@@ -73,7 +72,7 @@ function TimelineRow({
         )}
       </div>
 
-      {/* CENTER NODE */}
+      {/* CENTER NODE (static) */}
       <motion.div
         variants={dotPop}
         initial="hidden"
@@ -117,11 +116,25 @@ const Arrow = (props) => (
 export default function About() {
   const pageRef = useRef(null);
 
-  // track scroll across the whole About page
+  // We'll point this to the existing <main> scroller (in App.jsx)
+  const containerRef = useRef(null);
+  const [hasContainer, setHasContainer] = useState(false);
+
+  useLayoutEffect(() => {
+    const el = document.querySelector("main"); // your real scroller
+    if (el) {
+      containerRef.current = el;   // hydrate the ref
+      setHasContainer(true);
+    }
+  }, []);
+
+  // Progress across THIS page/section (drives the vertical line)
   const { scrollYProgress } = useScroll({
+    container: hasContainer ? containerRef : undefined,
     target: pageRef,
-    offset: ["start 10%", "end 100%"],
+    offset: ["start start", "end end"],
   });
+
   const lineScale = useSpring(scrollYProgress, { stiffness: 120, damping: 20 });
 
   return (
@@ -130,7 +143,7 @@ export default function About() {
       className="p-8 max-w-6xl mx-auto space-y-24"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}           // 👈 fade everything on route change
+      exit={{ opacity: 0 }}
       transition={{ duration: 0.25 }}
     >
       {/* Intro */}
@@ -151,11 +164,11 @@ export default function About() {
 
       {/* Timeline */}
       <section>
-        <div className="relative">
+        <div className="relative pb-36">
           <div className="pointer-events-none absolute left-1/2 -translate-x-1/2 inset-y-0 w-[3px] bg-border/30 rounded-full" />
           <motion.div
-            className="pointer-events-none absolute left-1/2 -translate-x-1/2 inset-y-0 w-[3px] bg-gradient-to-b from-pink-300 via-amber-300 to-blue-300 rounded-full"
-            style={{ scaleY: lineScale, transformOrigin: "top" }}
+            className="pointer-events-none absolute left-1/2 -translate-x-1/2 inset-y-0 w-[3px] bg-gradient-to-b from-pink-300 via-amber-300 to-blue-300 rounded-full origin-top"
+            style={{ scaleY: lineScale }}
           />
 
           <div className="space-y-48 lg:space-y-48">
@@ -200,7 +213,7 @@ export default function About() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.3 }}
         transition={{ duration: 0.6 }}
-        exit={{ opacity: 0, y: 8 }} 
+        exit={{ opacity: 0, y: 8 }}
       >
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-12">
           <div>
@@ -245,7 +258,7 @@ export default function About() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.3 }}
         transition={{ duration: 0.6 }}
-        exit={{ opacity: 0, y: 8 }} 
+        exit={{ opacity: 0, y: 8 }}
       >
         <div className="flex justify-end gap-4">
           <a
