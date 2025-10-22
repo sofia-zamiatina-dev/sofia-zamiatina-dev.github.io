@@ -1,6 +1,25 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import GallerySlider from "../components/GallerySlider.jsx";
+
+/* brand icons */
+import {
+  SiReact,
+  SiDocker,
+  SiMongodb,
+  SiTailwindcss,
+  SiJavascript,
+  SiTypescript,
+  SiPython,
+  SiFigma,
+  SiUnity,
+  SiApple,       
+} from "react-icons/si";
+import { TbBrandCSharp } from "react-icons/tb";
+import { FaJava } from "react-icons/fa6";
+
+/* generic icons for non-brands */
+import { Cloud, Database, Repeat2, ListChecks, Palette, TestTube2 } from "lucide-react";
 
 const backdrop = { hidden: { opacity: 0 }, visible: { opacity: 1 }, exit: { opacity: 0 } };
 const panel = {
@@ -9,11 +28,131 @@ const panel = {
   exit: { opacity: 0, y: 16, transition: { duration: 0.2 } },
 };
 
+/* -------------------------------------------
+   ICON MAPPING (brand-first, sensible fallbacks)
+-------------------------------------------- */
+const ICONS = {
+  // tooling / web
+  react: SiReact,
+  tailwind: SiTailwindcss,
+  docker: SiDocker,
+  javascript: SiJavascript,
+  js: SiJavascript,
+  typescript: SiTypescript,
+  ts: SiTypescript,
+  mongodb: SiMongodb,
+  db: Database,        
+
+  // languages
+  python: SiPython,
+  java: FaJava,
+  csharp: TbBrandCSharp,
+
+  // platforms / design / game
+  ios: SiApple,
+  figma: SiFigma,
+  design: Palette,
+  unity: SiUnity,
+
+  // process
+  agile: Repeat2,      // iterative flow
+  scrum: ListChecks,    // checklist/ceremonies
+
+  // networking / real-time
+  photon: Cloud,        // Exit Games/Photon PUN stand-in
+
+  // quality
+  testing: TestTube2,
+  test: TestTube2,
+};
+
+/* ------------------- Skill Bubble -------------------
+   - icon-only bubble
+   - animated hover card (title + info)
+----------------------------------------------------- */
+/* Fade/slide variants (same as before) */
+const bubbleVariants = {
+  rest: {
+    scale: 1,
+    transition: {
+      scale: { type: "spring", stiffness: 280, damping: 22 },
+    },
+  },
+  hover: {
+    scale: 1.02,
+    transition: {
+      scale: { type: "spring", stiffness: 280, damping: 22 },
+    },
+  },
+};
+
+const iconVariants = {
+  rest:  { opacity: 1, y: 0,  scale: 1 },
+  hover: { opacity: 0, y: -6, scale: 1.03, transition: { duration: 0.18, ease: "easeOut" } },
+};
+
+const textVariants = {
+  rest:  { opacity: 0, y: 8,  scale: 0.98 },
+  hover: { opacity: 1, y: 0,  scale: 1,   transition: { type: "spring", stiffness: 260, damping: 18 } },
+};
+
+function SkillBubble({ iconName, label, info }) {
+  const Icon =
+    ICONS[iconName?.toLowerCase?.()] ||
+    ICONS[label?.toLowerCase?.()] ||
+    Database;
+
+  return (
+    <motion.div
+      className="group relative w-full flex items-center justify-center"
+      initial="rest"
+      animate="rest"
+      whileHover="hover"
+    >
+      {/* squared tile bubble */}
+      <motion.div
+        variants={bubbleVariants}
+        className="
+          relative
+          w-full h-24 md:h-28
+          rounded-2xl border border-border bg-muted/60
+          overflow-hidden
+        "
+      >
+        {/* icon layer */}
+        <motion.div
+          variants={iconVariants}
+          className="absolute inset-0 grid place-items-center"
+        >
+          <Icon className="w-10 h-10 md:w-12 md:h-12 text-foreground/90" />
+        </motion.div>
+
+        {/* text layer (name + info) */}
+        <motion.div
+          variants={textVariants}
+          className="
+            absolute inset-0 p-3 md:p-4
+            flex flex-col items-center justify-center text-center
+            bg-gradient-to-b from-background/65 to-background/80 backdrop-blur-[1px]
+          "
+        >
+          <div className="text-sm md:text-[15px] font-semibold leading-tight">
+            {label}
+          </div>
+          <div className="mt-1 text-[12px] md:text-[13px] leading-snug text-foreground/80 line-clamp-4">
+            {info}
+          </div>
+        </motion.div>
+      </motion.div>
+    </motion.div>
+  );
+}
+
+/* ------------------- Modal ------------------- */
 export default function ProjectModal({ project, onClose }) {
   if (!project) return null;
   const d = project.detail || {};
   const hasGallery = Array.isArray(d.gallery) && d.gallery.length > 0;
-  //const [setProject] = useState(null);
 
   useEffect(() => {
     const onKey = (e) => e.key === "Escape" && onClose();
@@ -42,16 +181,14 @@ export default function ProjectModal({ project, onClose }) {
           className="w-screen h-[85vh] bg-card border-y border-border rounded-none shadow-xl overflow-hidden flex flex-col"
           onClick={(e) => e.stopPropagation()}
         >
-
           <AnimatePresence mode="wait" initial={false}>
             <motion.div
-              key={project.id || project.title}   // ensure it’s stable/unique
+              key={project.id || project.title}
               variants={panel}
               initial="hidden"
               animate="visible"
               exit="exit"
             >
-
               {/* Header */}
               <div className="flex items-start gap-3 p-6 border-b border-border">
                 <img
@@ -77,10 +214,8 @@ export default function ProjectModal({ project, onClose }) {
 
               {/* Body */}
               <div
-                className={`flex-1 min-h-0 grid ${hasGallery ? "grid-cols-[minmax(0,50%)_minmax(0,50%)]" : "grid-cols-1"
-                  } gap-0`}
+                className={`flex-1 min-h-0 grid ${hasGallery ? "grid-cols-[minmax(0,50%)_minmax(0,50%)]" : "grid-cols-1"} gap-0`}
               >
-
                 {/* LEFT: content */}
                 <div className="pl-24 pr-6 py-6 overflow-y-auto">
                   {d.contributions?.length > 0 && (
@@ -94,29 +229,32 @@ export default function ProjectModal({ project, onClose }) {
                     </section>
                   )}
 
+                  {/* ---- SKILLS SECTION ---- */}
                   {d.skills?.length > 0 && (
                     <section className="mt-6 space-y-3">
                       <h3 className="text-lg md:text-xl font-semibold">Skills</h3>
-                      <div className="flex flex-wrap gap-2">
+                      <div
+                        className="
+    grid
+    grid-cols-1
+    sm:grid-cols-2
+    md:grid-cols-3
+    lg:grid-cols-4
+    xl:grid-cols-4
+    2xl:grid-cols-4
+    gap-4
+  "
+                      >
                         {d.skills.map((s, i) => (
-                          <div key={i} className="group relative">
-                            <span
-                              className="inline-flex items-center gap-1 rounded-lg  px-2.5 py-1 text-sm bg-background"
-                              title={s.info}
-                            >
-                              <SkillIcon name={s.icon || s.key} />
-                              {s.label}
-                            </span>
-                            <div
-                              className="pointer-events-none absolute left-1/2 -translate-x-1/2 mt-2 whitespace-nowrap
-                                         rounded-md bg-card px-2 py-1 text-[11px] text-foreground/90
-                                         opacity-0 shadow-sm transition group-hover:opacity-100"
-                            >
-                              {s.info}
-                            </div>
-                          </div>
+                          <SkillBubble
+                            key={`${s.key}-${i}`}
+                            iconName={s.icon || s.key}
+                            label={s.label}
+                            info={s.info}
+                          />
                         ))}
                       </div>
+
                     </section>
                   )}
 
@@ -131,17 +269,14 @@ export default function ProjectModal({ project, onClose }) {
                 {/* RIGHT: gallery */}
                 {hasGallery && (
                   <aside className="p-0 bg-background/40">
-                    <div
-                      className="h-full"
-                      style={{ height: "clamp(360px, 62vh, 740px)" }} // ↓ smaller on big screens
-                    >
+                    <div className="h-full" style={{ height: "clamp(360px, 62vh, 740px)" }}>
                       <GallerySlider
                         items={[
                           ...(d.video ? [{ type: "video", src: d.video, poster: d.videoPoster, muted: true }] : []),
                           ...d.gallery.map((src) => ({ type: "image", src })),
                         ]}
                         autoAdvanceMs={10000}
-                        className="h-full" 
+                        className="h-full"
                       />
                     </div>
                   </aside>
@@ -153,43 +288,4 @@ export default function ProjectModal({ project, onClose }) {
       </motion.div>
     </motion.div>
   );
-}
-
-// tiny inline icons (no external lib needed)
-function SkillIcon({ name, className = "w-4 h-4" }) {
-  const common = <circle cx="12" cy="12" r="10" fill="currentColor" opacity="0.12" />;
-  switch (name) {
-    case "react":
-      return (<svg viewBox="0 0 24 24" className={className}><g fill="none" stroke="currentColor"><ellipse cx="12" cy="12" rx="10" ry="4" /><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(60 12 12)" /><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(120 12 12)" /></g><circle cx="12" cy="12" r="1.8" fill="currentColor" /></svg>);
-    case "tailwind":
-      return (<svg viewBox="0 0 24 24" className={className}><path d="M3 12c2-4 4-6 7-6s4 2 6 2 3-1 5-2c-2 4-4 6-7 6s-4-2-6-2-3 1-5 2Z" fill="currentColor" /></svg>);
-    case "docker":
-      return (<svg viewBox="0 0 24 24" className={className}><rect x="3" y="11" width="4" height="4" fill="currentColor" /><rect x="8" y="11" width="4" height="4" fill="currentColor" /><rect x="13" y="11" width="4" height="4" fill="currentColor" /><rect x="8" y="6" width="4" height="4" fill="currentColor" /></svg>);
-    case "db":
-      return (<svg viewBox="0 0 24 24" className={className}><ellipse cx="12" cy="6" rx="8" ry="3" fill="currentColor" /><path d="M4 6v8c0 1.7 3.6 3 8 3s8-1.3 8-3V6" fill="currentColor" opacity="0.25" /></svg>);
-    case "agile":
-      return (<svg viewBox="0 0 24 24" className={className}><path d="M6 12a6 6 0 1 1 6 6h6" stroke="currentColor" strokeWidth="2" fill="none" /></svg>);
-    case "scrum":
-      return (<svg viewBox="0 0 24 24" className={className}><path d="M8 14a4 4 0 1 1 4-4" stroke="currentColor" strokeWidth="2" fill="none" /><path d="M12 10a4 4 0 1 1 4 4" stroke="currentColor" strokeWidth="2" fill="none" /></svg>);
-    case "python":
-      return (<svg viewBox="0 0 24 24" className={className}><path d="M12 3c5 0 5 3 5 3v4H7V6s0-3 5-3Z" fill="currentColor" /><path d="M12 21c-5 0-5-3-5-3v-4h10v4s0 3-5 3Z" fill="currentColor" opacity="0.5" /></svg>);
-    case "java":
-      return (<svg viewBox="0 0 24 24" className={className}><path d="M12 4c2 2 0 3-1 4s2 1 3 2-1 2-4 3" stroke="currentColor" fill="none" /></svg>);
-    case "js":
-      return (<svg viewBox="0 0 24 24" className={className}><rect x="4" y="4" width="16" height="16" fill="currentColor" /><text x="8" y="16" fontSize="9" fill="#000">JS</text></svg>);
-    case "csharp":
-      return (<svg viewBox="0 0 24 24" className={className}><circle cx="12" cy="12" r="9" stroke="currentColor" fill="none" /><text x="8" y="15" fontSize="8" fill="currentColor">C#</text></svg>);
-    case "cloud":
-      return (<svg viewBox="0 0 24 24" className={className}><path d="M7 16a4 4 0 1 1 0-8 5 5 0 0 1 10 1h1a3 3 0 1 1 0 6H7Z" fill="currentColor" /></svg>);
-    case "design":
-      return (<svg viewBox="0 0 24 24" className={className}><rect x="5" y="5" width="14" height="14" rx="2" stroke="currentColor" fill="none" /><path d="M5 12h14M12 5v14" stroke="currentColor" /></svg>);
-    case "figma":
-      return (<svg viewBox="0 0 24 24" className={className}><circle cx="9" cy="7" r="3" fill="currentColor" /><circle cx="9" cy="12" r="3" fill="currentColor" opacity="0.6" /><circle cx="9" cy="17" r="3" fill="currentColor" opacity="0.3" /><circle cx="15" cy="9.5" r="3" fill="currentColor" /></svg>);
-    case "ts":
-      return (<svg viewBox="0 0 24 24" className={className}><rect x="4" y="4" width="16" height="16" fill="currentColor" /><text x="8" y="16" fontSize="9" fill="#000">TS</text></svg>);
-    case "test":
-      return (<svg viewBox="0 0 24 24" className={className}><path d="M7 7h10v4H7z" fill="currentColor" /><path d="M9 11v6M15 11v6" stroke="currentColor" /></svg>);
-    default:
-      return (<svg viewBox="0 0 24 24" className={className}>{common}</svg>);
-  }
 }

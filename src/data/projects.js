@@ -4,12 +4,12 @@ export const projects = [
     title: "SUPLMNTAL - Trade School Edu",
     year: 2025,
     category: "web",
-    tech: ["agile", "scrum", "react", "docker", "tailwind", "java", "javascript", "mongoDB", "testing", "design"],
+    tech: ["agile", "scrum", "react", "docker", "tailwind", "javascript", "mongoDB", "testing", "design"],
     summary: "An agile-built quiz platform transforming how electrical engineering students practice.",
     cover: "covers/suplmntal.png",
     role: "Product Owner, defining requirements and guiding agile delivery; also developing the front-end.",
     type: "client",
-    status: "in progress",
+    status: "completed",
     detail: {
       hero: "covers/suplmntal.png",
       contributions: [
@@ -19,15 +19,16 @@ export const projects = [
       ],
       skills: [
         { key: "agile", label: "Agile", info: "Iterative delivery, sprint planning, review/retro.", icon: "agile" },
-        { key: "scrum", label: "Scrum", info: "PO role, backlog, ceremonies, Definition of Done.", icon: "scrum" },
-        { key: "react", label: "React", info: "Composable UI, stateful views for quizzes.", icon: "react" },
-        { key: "docker", label: "Docker", info: "Dev containers / parity across teammates.", icon: "docker" },
-        { key: "tailwind", label: "Tailwind", info: "Design tokens, responsive utility classes.", icon: "tailwind" },
-        { key: "mongoDB", label: "MongoDB", info: "Flexible schema for question banks.", icon: "db" },
+        { key: "react", label: "React", info: "Composable UI, stateful quiz flows.", icon: "react" },
+        { key: "docker", label: "Docker", info: "Dev parity with containers/compose.", icon: "docker" },
+        { key: "tailwind", label: "Tailwind", info: "Responsive utility-first styling.", icon: "tailwind" },
+        { key: "javascript", label: "JavaScript", info: "Client logic, fetch flows, utils.", icon: "javascript" },
+        { key: "mongoDB", label: "MongoDB", info: "Flexible question-bank schema.", icon: "mongoDB" },
+        { key: "testing", label: "Testing", info: "Unit/CI checks for reliability.", icon: "testing" },
+        { key: "design", label: "Design", info: "Clean UX, accessible components.", icon: "design" },
       ],
       background:
         "Client-facing quiz platform for electrical apprentices. The goal is faster practice, analytics, and question bank iteration with clean UX and reliable releases.",
-      // optional gallery – omit or empty to hide right column
       gallery: [
         "details/suplmntal/suplmntal-1.png",
         "details/suplmntal/suplmntal-2.png",
@@ -61,8 +62,8 @@ export const projects = [
       ],
       skills: [
         { key: "agile", label: "Agile", info: "Team practices & delivery.", icon: "agile" },
-        { key: "javascript", label: "JS", info: "Prototypes and lab work.", icon: "js" },
-        { key: "testing", label: "Testing", info: "Coverage & CI patterns.", icon: "test" },
+        { key: "javascript", label: "JavaScript", info: "Prototypes, labs, tooling.", icon: "javascript" },
+        { key: "testing", label: "Testing", info: "Test design, coverage, CI.", icon: "testing" },
       ],
       background:
         "Postgraduate journey blending software practice, research, and industry collaboration.",
@@ -88,8 +89,9 @@ export const projects = [
         "Peer collaboration, mentorship, and academic projects.",
       ],
       skills: [
-        { key: "python", label: "Python", info: "Coursework and projects.", icon: "python" },
+        { key: "python", label: "Python", info: "Coursework, scripts, notebooks.", icon: "python" },
         { key: "java", label: "Java", info: "DS/Algos implementations.", icon: "java" },
+        { key: "testing", label: "Testing", info: "JUnit/pytest, edge cases.", icon: "testing" },
       ],
       background:
         "Undergraduate foundation across CS and liberal arts; exposure to research, mentorship, and teaching.",
@@ -115,13 +117,13 @@ export const projects = [
         "Mentored study plans ahead of exams and projects.",
       ],
       skills: [
-        { key: "python", label: "Python", info: "Algorithmic practice and testing examples.", icon: "python" },
-        { key: "java", label: "Java", info: "OOP design patterns for DS/algorithms.", icon: "java" },
-        { key: "testing", label: "Testing", info: "Unit tests and edge-case analysis.", icon: "test" },
+        { key: "python", label: "Python", info: "Algorithm practice & debugging.", icon: "python" },
+        { key: "java", label: "Java", info: "OOP for DS/algorithms.", icon: "java" },
+        { key: "testing", label: "Testing", info: "Unit tests & reasoning.", icon: "testing" },
       ],
       background:
         "Academic teaching/mentoring role focused on data structures and algorithmic thinking, emphasizing fundamentals and code quality.",
-      gallery: [], // no gallery → right column hides
+      gallery: [],
     },
   },
   {
@@ -144,8 +146,8 @@ export const projects = [
       ],
       skills: [
         { key: "unity", label: "Unity", info: "Scenes, prefabs, ScriptableObjects.", icon: "unity" },
-        { key: "csharp", label: "C#", info: "Gameplay logic, state orchestration.", icon: "csharp" },
-        { key: "photon", label: "Photon", info: "Real-time networking, rooms, events.", icon: "cloud" },
+        { key: "csharp", label: "C#", info: "Gameplay logic & orchestration.", icon: "csharp" },
+        { key: "photon", label: "Photon", info: "Real-time rooms, RPC/events.", icon: "photon" },
       ],
       background:
         "A cozy online party game inspired by storytelling and creative guessing. Focus on smooth netcode and replayable mechanics.",
@@ -172,12 +174,14 @@ export const projects = [
       ],
       skills: [
         { key: "figma", label: "Figma", info: "Wireframes, components, flows.", icon: "figma" },
-        { key: "agile", label: "Agile", info: "Incremental product development.", icon: "agile" },
-        { key: "design", label: "Design", info: "Information architecture & dashboards.", icon: "design" },
+        { key: "agile", label: "Agile", info: "Incremental product delivery.", icon: "agile" },
+        { key: "scrum", label: "Scrum", info: "Sprint facilitation & metrics.", icon: "scrum" },
+        { key: "design", label: "Design", info: "IA, dashboards, usability.", icon: "design" },
       ],
       background:
         "Client dashboard to visualize roles, skills, and gaps in construction; emphasis on clarity and executive-friendly insights.",
-      gallery: ["details/constructai/constructai-1.png",
+      gallery: [
+        "details/constructai/constructai-1.png",
         "details/constructai/constructai-2.png",
         "details/constructai/constructai-3.png",
       ],
@@ -201,9 +205,11 @@ export const projects = [
         "Game loop and UI prototypes; usability tweaks.",
       ],
       skills: [
-        { key: "react", label: "React", info: "Prototype UI for flows/screens.", icon: "react" },
-        { key: "typescript", label: "TS", info: "Type safety across components.", icon: "ts" },
-        { key: "java", label: "Java", info: "Core game logic utilities.", icon: "java" },
+        { key: "react", label: "React", info: "Prototype flows & screens.", icon: "react" },
+        { key: "ios", label: "iOS", info: "Mobile UX considerations/prototyping.", icon: "ios" },
+        { key: "typescript", label: "TypeScript", info: "Typed components & utils.", icon: "typescript" },
+        { key: "java", label: "Java", info: "Core generator & logic.", icon: "java" },
+        { key: "design", label: "Design", info: "Game UI, readability, pacing.", icon: "design" },
       ],
       background:
         "Offline social deduction concept exploring tension, persuasion, and replayable character mixes.",
@@ -239,7 +245,8 @@ export const projects = [
       ],
       skills: [
         { key: "react", label: "React", info: "Declarative UI; routing & modals.", icon: "react" },
-        { key: "mongoDB", label: "MongoDB", info: "Doc models for posts/profiles.", icon: "db" },
+        { key: "mongoDB", label: "MongoDB", info: "Docs for posts/profiles.", icon: "mongoDB" },
+        { key: "typescript", label: "TypeScript", info: "Type-safe components & APIs.", icon: "typescript" },
         { key: "design", label: "Design", info: "Artist-centric layout language.", icon: "design" },
       ],
       background:
@@ -278,7 +285,8 @@ export const projects = [
       ],
       background:
         "A series exploring memory fragments and how they tile into narrative.",
-      gallery: ["details/artprize/artprize-1.png",
+      gallery: [
+        "details/artprize/artprize-1.png",
         "details/artprize/artprize-2.png"
       ],
     },
