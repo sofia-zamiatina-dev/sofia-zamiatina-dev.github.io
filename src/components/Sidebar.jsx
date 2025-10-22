@@ -180,7 +180,7 @@ export default function Sidebar({ showFilters }) {
     <motion.aside
       initial="hidden"
       animate="visible"
-      variants={sidebarVariants}   // make sure you import/define this
+      variants={sidebarVariants}   
       className="relative sticky top-0 h-dvh border-r border-border bg-background text-foreground flex flex-col"
     >
       {/* Background ball animation */}

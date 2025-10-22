@@ -29,9 +29,15 @@ export const projects = [
         "Client-facing quiz platform for electrical apprentices. The goal is faster practice, analytics, and question bank iteration with clean UX and reliable releases.",
       // optional gallery – omit or empty to hide right column
       gallery: [
-        "shots/suplmntal-1.png",
-        "shots/suplmntal-2.png",
-        "shots/suplmntal-3.png",
+        "details/suplmntal/suplmntal-1.png",
+        "details/suplmntal/suplmntal-2.png",
+        "details/suplmntal/suplmntal-3.png",
+        "details/suplmntal/suplmntal-4.png",
+        "details/suplmntal/suplmntal-5.png",
+        "details/suplmntal/suplmntal-6.png",
+        "details/suplmntal/suplmntal-7.png",
+        "details/suplmntal/suplmntal-8.png",
+        "details/suplmntal/suplmntal-9.png",
       ],
     },
   },
@@ -143,10 +149,7 @@ export const projects = [
       ],
       background:
         "A cozy online party game inspired by storytelling and creative guessing. Focus on smooth netcode and replayable mechanics.",
-      gallery: [
-        "shots/imaginarium-1.png",
-        "shots/imaginarium-2.png",
-      ],
+      gallery: [],
     },
   },
   {
@@ -174,7 +177,10 @@ export const projects = [
       ],
       background:
         "Client dashboard to visualize roles, skills, and gaps in construction; emphasis on clarity and executive-friendly insights.",
-      gallery: ["shots/constructai-1.png"],
+      gallery: ["details/constructai/constructai-1.png",
+        "details/constructai/constructai-2.png",
+        "details/constructai/constructai-3.png",
+      ],
     },
   },
   {
@@ -272,7 +278,9 @@ export const projects = [
       ],
       background:
         "A series exploring memory fragments and how they tile into narrative.",
-      gallery: ["shots/artmemories-1.png"],
+      gallery: ["details/artprize/artprize-1.png",
+        "details/artprize/artprize-2.png"
+      ],
     },
   },
 ];
