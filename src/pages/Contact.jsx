@@ -47,32 +47,57 @@ const ExternalLinkIcon = (props) => (
 );
 
 // --- Square card building block ---
-function ContactSquare({ as = "a", href, label, icon, accent = "blue", onClick, showExternal = false }) {
-  const colors = {
-    sky: { border: "border-sky-300", bg: "bg-sky-50/50 dark:bg-sky-950/30", text: "text-sky-800 dark:text-sky-200" },
-    violet: { border: "border-violet-400", bg: "bg-violet-50/50 dark:bg-violet-950/30", text: "text-violet-800 dark:text-violet-200" },
-    amber: { border: "border-amber-300", bg: "bg-amber-50/50 dark:bg-amber-950/30", text: "text-amber-800 dark:text-amber-200" },
-    pink: { border: "border-pink-300", bg: "bg-pink-50/50 dark:bg-pink-950/30", text: "text-pink-800 dark:text-pink-200" },
-    blue: { border: "border-blue-300", bg: "bg-blue-50/50 dark:bg-blue-950/30", text: "text-blue-800 dark:text-blue-200" },
-    gray: { border: "border-gray-300", bg: "bg-gray-50/50 dark:bg-gray-950/30", text: "text-gray-800 dark:text-gray-200" },
-  }[accent];
+// --- Holographic Contact tile (anchor or button) ---
+// --- Holographic Contact tile (anchor or button) ---
+function ContactSquare({
+  as = "a",
+  href,
+  label,
+  icon,
+  accent = "cyan",          // sky | violet | amber | pink | blue | gray | cyan
+  onClick,
+  showExternal = false,
+}) {
+  const COLORS = {
+    sky:   { glow: "rgba(56,189,248,0.55)", accent: "rgba(56,189,248,0.35)", textLight: "text-sky-700",   textDark: "dark:text-sky-200" },
+    violet:{ glow: "rgba(167,139,250,0.55)",accent: "rgba(167,139,250,0.35)",textLight: "text-violet-700",textDark: "dark:text-violet-200" },
+    amber: { glow: "rgba(251,191,36,0.55)", accent: "rgba(251,191,36,0.35)", textLight: "text-amber-700", textDark: "dark:text-amber-200" },
+    pink:  { glow: "rgba(236,72,153,0.50)", accent: "rgba(236,72,153,0.30)", textLight: "text-pink-700",  textDark: "dark:text-pink-200" },
+    blue:  { glow: "rgba(59,130,246,0.50)", accent: "rgba(59,130,246,0.30)", textLight: "text-blue-700",  textDark: "dark:text-blue-200" },
+    gray:  { glow: "rgba(156,163,175,0.45)",accent: "rgba(156,163,175,0.25)",textLight: "text-gray-800", textDark: "dark:text-gray-200" },
+    cyan:  { glow: "rgba(0,255,255,0.50)",  accent: "rgba(0,255,255,0.30)",  textLight: "text-cyan-700",  textDark: "dark:text-cyan-200" },
+  };
+  const c = COLORS[accent] ?? COLORS.cyan;
 
-  const baseClasses = [
-    "group relative rounded-xl p-6",
-    "border-2 transition-all duration-200",
-    colors.border,
-    colors.bg,
-    "hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary",
-    "flex flex-col items-center justify-center",
-    "min-h-[180px] text-center select-none",
-  ].join(" ");
+  const base =
+    "holo-card [--holo-bg:theme(colors.white)] dark:[--holo-bg:rgb(17_17_17)] " +
+    // layout
+    "relative rounded-2xl px-6 py-7 min-h-[180px] select-none " +
+    "flex flex-col items-center justify-center text-center " +
+    // subtle frame that adapts to theme
+    "ring-1 ring-inset ring-black/10 dark:ring-white/10 " +
+    // smoother color transitions
+    "transition-colors duration-300";
 
   const LabelRow = () => (
-    <div className={["mt-1 text-sm break-all inline-flex items-center gap-1", colors.text].join(" ")}>
-      <span>{label}</span>
+    <div className={["mt-2 text-sm inline-flex items-center gap-1", c.textLight, c.textDark].join(" ")}>
+      <span className="break-all">{label}</span>
       {showExternal && (
         <ExternalLinkIcon className="opacity-70 group-hover:opacity-100 transition-opacity" />
       )}
+    </div>
+  );
+
+  const inner = (
+    <div
+      className="group relative z-10"
+      // set glow color variables
+      style={{ "--holo-glow": c.glow, "--holo-accent": c.accent }}
+    >
+      <IconCircle>
+        <div className="opacity-90 group-hover:opacity-100 transition-opacity">{icon}</div>
+      </IconCircle>
+      <LabelRow />
     </div>
   );
 
@@ -81,13 +106,11 @@ function ContactSquare({ as = "a", href, label, icon, accent = "blue", onClick, 
       <button
         type="button"
         onClick={onClick}
-        className={baseClasses + " cursor-copy"}
+        className={base + " cursor-copy"}
         title="Click to copy"
+        style={{ "--holo-glow": c.glow, "--holo-accent": c.accent }}
       >
-        <IconCircle>
-          <div className="opacity-90 group-hover:opacity-100 transition-opacity">{icon}</div>
-        </IconCircle>
-        <LabelRow />
+        {inner}
       </button>
     );
   }
@@ -97,12 +120,10 @@ function ContactSquare({ as = "a", href, label, icon, accent = "blue", onClick, 
       href={href}
       target="_blank"
       rel="noreferrer noopener"
-      className={baseClasses}
+      className={base}
+      style={{ "--holo-glow": c.glow, "--holo-accent": c.accent }}
     >
-      <IconCircle>
-        <div className="opacity-90 group-hover:opacity-100 transition-opacity">{icon}</div>
-      </IconCircle>
-      <LabelRow />
+      {inner}
     </a>
   );
 }
@@ -147,14 +168,15 @@ export default function Contact() {
           accent="pink"
           showExternal={false}
         />
-        {/* GitHub & LinkedIn: external links with icon */}
+
         <ContactSquare
           href="https://github.com/sofia-zamiatina-dev"
           label="GitHub"
-          icon={<GitHubIcon className="text-black" />}
+          icon={<GitHubIcon className="text-black dark:text-white" />}
           accent="gray"
           showExternal={true}
         />
+
         <ContactSquare
           href="https://www.linkedin.com/in/sofia-zamiatina-763638357/"
           label="LinkedIn"
@@ -162,6 +184,7 @@ export default function Contact() {
           accent="blue"
           showExternal={true}
         />
+
       </motion.div>
 
       {/* Small toast */}
