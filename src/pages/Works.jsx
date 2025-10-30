@@ -37,7 +37,6 @@ export default function Works() {
     setSp(next, { replace: false });
   };
 
-
   return (
     <motion.div variants={pageVariants} initial="initial" animate="animate" exit="exit" className="p-6 text-foreground bg-background h-full">
       <h1 className="text-2xl font-semibold mb-4">Works</h1>
@@ -46,14 +45,28 @@ export default function Works() {
         <AnimatePresence mode="sync">
           {filtered.map((p) => (
             <motion.article
-              key={p.id}
-              variants={cardUp}
-              initial="hidden"
-              animate="visible"
-              exit="exit"
-              layout="position"
-              className="rounded-xl border border-border overflow-hidden bg-card shadow-sm flex flex-col h-full"
-            >
+            key={p.id}
+            variants={cardUp}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+            layout="position"
+            onClick={() => openProject(p.id)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                openProject(p.id);
+              }
+            }}
+            role="button"
+            tabIndex={0}
+            aria-label={`Open ${p.title} details`}
+            whileHover={{ scale: 1.015, boxShadow: "0 12px 28px rgba(0,0,0,0.12)" }}
+            whileTap={{ scale: 0.995 }}
+            transition={{ type: "spring", stiffness: 260, damping: 18 }}
+            className="rounded-xl border border-border overflow-hidden bg-card shadow-sm flex flex-col h-full cursor-pointer
+                       focus:outline-none focus-visible:shadow-lg will-change-transform"
+          >          
               {/* Cover + status badge */}
               <div className="relative">
                 {p.cover ? (
@@ -85,7 +98,6 @@ export default function Works() {
                   </span>
                 )}
               </div>
-
 
               {/* Body */}
               <div className="p-3 flex flex-col flex-1 min-h-0">
