@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import HomeCard from "../components/HomeCard.jsx";
 import { useState } from "react";
 
 import { motion } from "framer-motion";
@@ -46,26 +45,24 @@ const ExternalLinkIcon = (props) => (
   </svg>
 );
 
-// --- Square card building block ---
-// --- Holographic Contact tile (anchor or button) ---
 // --- Holographic Contact tile (anchor or button) ---
 function ContactSquare({
   as = "a",
   href,
   label,
   icon,
-  accent = "cyan",          // sky | violet | amber | pink | blue | gray | cyan
+  accent = "cyan",
   onClick,
   showExternal = false,
 }) {
   const COLORS = {
-    sky:   { glow: "rgba(56,189,248,0.55)", accent: "rgba(56,189,248,0.35)", textLight: "text-sky-700",   textDark: "dark:text-sky-200" },
-    violet:{ glow: "rgba(167,139,250,0.55)",accent: "rgba(167,139,250,0.35)",textLight: "text-violet-700",textDark: "dark:text-violet-200" },
+    sky: { glow: "rgba(56,189,248,0.55)", accent: "rgba(56,189,248,0.35)", textLight: "text-sky-700", textDark: "dark:text-sky-200" },
+    violet: { glow: "rgba(167,139,250,0.55)", accent: "rgba(167,139,250,0.35)", textLight: "text-violet-700", textDark: "dark:text-violet-200" },
     amber: { glow: "rgba(251,191,36,0.55)", accent: "rgba(251,191,36,0.35)", textLight: "text-amber-700", textDark: "dark:text-amber-200" },
-    pink:  { glow: "rgba(236,72,153,0.50)", accent: "rgba(236,72,153,0.30)", textLight: "text-pink-700",  textDark: "dark:text-pink-200" },
-    blue:  { glow: "rgba(59,130,246,0.50)", accent: "rgba(59,130,246,0.30)", textLight: "text-blue-700",  textDark: "dark:text-blue-200" },
-    gray:  { glow: "rgba(156,163,175,0.45)",accent: "rgba(156,163,175,0.25)",textLight: "text-gray-800", textDark: "dark:text-gray-200" },
-    cyan:  { glow: "rgba(0,255,255,0.50)",  accent: "rgba(0,255,255,0.30)",  textLight: "text-cyan-700",  textDark: "dark:text-cyan-200" },
+    pink: { glow: "rgba(236,72,153,0.50)", accent: "rgba(236,72,153,0.30)", textLight: "text-pink-700", textDark: "dark:text-pink-200" },
+    blue: { glow: "rgba(59,130,246,0.50)", accent: "rgba(59,130,246,0.30)", textLight: "text-blue-700", textDark: "dark:text-blue-200" },
+    gray: { glow: "rgba(156,163,175,0.45)", accent: "rgba(156,163,175,0.25)", textLight: "text-gray-800", textDark: "dark:text-gray-200" },
+    cyan: { glow: "rgba(0,255,255,0.50)", accent: "rgba(0,255,255,0.30)", textLight: "text-cyan-700", textDark: "dark:text-cyan-200" },
   };
   const c = COLORS[accent] ?? COLORS.cyan;
 
@@ -76,7 +73,6 @@ function ContactSquare({
     "flex flex-col items-center justify-center text-center " +
     // subtle frame that adapts to theme
     "ring-1 ring-inset ring-black/10 dark:ring-white/10 " +
-    // smoother color transitions
     "transition-colors duration-300";
 
   const LabelRow = () => (
@@ -139,7 +135,6 @@ export default function Contact() {
     } catch {
       setToast("Copy failed — please copy manually");
     } finally {
-      // hide after 2s
       setTimeout(() => setToast(""), 2000);
     }
   };
@@ -159,7 +154,7 @@ export default function Contact() {
         initial="initial"
         animate="animate"
       >
-        {/* Email: copy to clipboard, NOT a link */}
+        {/* Email: copy to clipboard */}
         <ContactSquare
           as="button"
           onClick={copyEmail}
@@ -201,7 +196,6 @@ export default function Contact() {
         {toast}
       </div>
 
-      {/* Optional plain link (in case you also want a simple text link) */}
       <motion.div className="mt-4" variants={slideInLeft} initial="initial" animate="animate">
         <Link to="/works" className="text-sm underline opacity-80 hover:opacity-100">
           Go check out my Projects
@@ -213,17 +207,6 @@ export default function Contact() {
           Go back to Homepage
         </Link>
       </motion.div>
-
-      {/* Go Back to Projects button (your HomeCard style) */}
-      {/* <div className="mt-8 max-w-sm">
-        <HomeCard
-          to="/works"
-          title="Go Back to Projects"
-          desc="Browse my latest work and case studies."
-          color="blue"
-        />
-      </div> */}
-
     </motion.div>
   );
 }

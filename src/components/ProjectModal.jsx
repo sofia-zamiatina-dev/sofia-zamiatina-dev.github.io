@@ -16,18 +16,18 @@ import {
   SiApple,
 } from "react-icons/si";
 import {
-  BrainCircuit,   
-  Briefcase,      
-  Handshake,     
-  Sigma,        
-  BarChart3,    
-  TrendingUp,    
-  Banknote,      
-  Code2,        
+  BrainCircuit,
+  Briefcase,
+  Handshake,
+  Sigma,
+  BarChart3,
+  TrendingUp,
+  Banknote,
+  Code2,
   MessageSquareText,
-  Megaphone,     
-  GraduationCap,    
-  UserCheck,   
+  Megaphone,
+  GraduationCap,
+  UserCheck,
 } from "lucide-react";
 import { TbBrandCSharp } from "react-icons/tb";
 import { FaJava } from "react-icons/fa6";
@@ -69,11 +69,11 @@ const ICONS = {
   unity: SiUnity,
 
   // process
-  agile: Repeat2,      // iterative flow
-  scrum: ListChecks,    // checklist/ceremonies
+  agile: Repeat2,
+  scrum: ListChecks,
 
   // networking / real-time
-  photon: Cloud,        // Exit Games/Photon PUN stand-in
+  photon: Cloud,
 
   // quality
   testing: TestTube2,
@@ -98,7 +98,6 @@ const ICONS = {
    - icon-only bubble
    - animated hover card (title + info)
 ----------------------------------------------------- */
-/* Fade/slide variants (same as before) */
 const bubbleVariants = {
   rest: {
     scale: 1,
@@ -244,8 +243,8 @@ export default function ProjectModal({ project, onClose }) {
               {/* Body */}
               <div
                 className={`flex-1 min-h-0 grid ${hasGallery
-                    ? "grid-cols-1 lg:grid-cols-[minmax(0,50%)_minmax(0,50%)]"
-                    : "grid-cols-1"
+                  ? "grid-cols-1 lg:grid-cols-[minmax(0,50%)_minmax(0,50%)]"
+                  : "grid-cols-1"
                   } gap-0`}
               >
                 {/* LEFT: content */}

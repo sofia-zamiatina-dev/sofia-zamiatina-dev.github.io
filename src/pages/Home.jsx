@@ -59,7 +59,6 @@ export default function Home() {
           <HolographicCard
             to="/contact"
             title="Contact"
-            // no desc → compact button
             color="amber"
           />
         </motion.div>

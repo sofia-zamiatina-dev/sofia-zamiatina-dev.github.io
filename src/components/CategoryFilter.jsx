@@ -7,7 +7,6 @@ export default function CategoryFilter({ items = [], active, onSelect }) {
       {items.map((name) => {
         const isActive = active === name;
 
-        // 🔥 keep your colorful styles, only wrap with motion
         const cls = [
           "px-2.5 py-1 rounded-full text-xs font-medium border transition",
           isActive

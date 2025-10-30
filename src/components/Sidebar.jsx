@@ -51,8 +51,8 @@ function DownloadPDFButton() {
     <HoloButton
       href="/CV.pdf"
       download
-      tone="sky"                                   // blue-ish shimmer
-      className="px-3 py-1.5 rounded-md text-sm"   // match your old sizing
+      tone="sky"
+      className="px-3 py-1.5 rounded-md text-sm"
       aria-label="Download CV as PDF"
       iconLeft={<Download className="w-4 h-4" />}
     >

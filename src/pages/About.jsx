@@ -117,19 +117,17 @@ const Arrow = (props) => (
 export default function About() {
   const pageRef = useRef(null);
 
-  // We'll point this to the existing <main> scroller (in App.jsx)
   const containerRef = useRef(null);
   const [hasContainer, setHasContainer] = useState(false);
 
   useLayoutEffect(() => {
-    const el = document.querySelector("main"); // your real scroller
+    const el = document.querySelector("main");
     if (el) {
-      containerRef.current = el;   // hydrate the ref
+      containerRef.current = el;
       setHasContainer(true);
     }
   }, []);
 
-  // Progress across THIS page/section (drives the vertical line)
   const { scrollYProgress } = useScroll({
     container: hasContainer ? containerRef : undefined,
     target: pageRef,
@@ -268,7 +266,7 @@ export default function About() {
           <HoloButton
             href="/CV.pdf"
             download
-            tone="sky"                         // blue-ish shimmer
+            tone="sky"
             iconLeft={<Download className="w-4 h-4" />}
           >
             Resume
@@ -276,7 +274,7 @@ export default function About() {
 
           <HoloButton
             to="/works"
-            tone="pink"                        // pink shimmer like your menu
+            tone="pink"
             iconRight={<Arrow className="w-4 h-4" />}
           >
             See my Works

@@ -12,7 +12,7 @@ import ScrollToTop from "./components/ScrollToTop.jsx";
 export default function App() {
   const location = useLocation();
   const onWorks = location.pathname === "/works";
-  const mainRef = useRef(null);         
+  const mainRef = useRef(null);
 
   return (
     <div
@@ -23,7 +23,7 @@ export default function App() {
       <Sidebar showFilters={onWorks} />
 
       <main
-        ref={mainRef}                
+        ref={mainRef}
         className="relative h-dvh overflow-y-auto overscroll-contain bg-background
                    transition-[background-color,color,border-color,fill,stroke]
                    duration-500 ease-in-out"
@@ -42,7 +42,7 @@ export default function App() {
             <Route path="/works" element={<Works />} />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
-            <Route path="*" element={<Home />} /> 
+            <Route path="*" element={<Home />} />
           </Routes>
         </AnimatePresence>
       </main>

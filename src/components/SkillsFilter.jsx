@@ -23,7 +23,7 @@ export default function SkillsFilter({ items = [], active = [], onToggle, colorI
           <motion.span
             key={name}
             variants={filterItemLeft}
-            className="inline-block transform-gpu" // isolate transform from flex-wrap
+            className="inline-block transform-gpu"
           >
             <label className={pill} title={`Filter by ${name}`}>
               <input

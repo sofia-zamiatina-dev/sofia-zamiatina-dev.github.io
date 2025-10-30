@@ -10,7 +10,7 @@ export default function GallerySlider({
     const [slideW, setSlideW] = useState(0);
     const viewportRef = useRef(null);
 
-    // which slides are actually mounted (for perf)
+    // which slides are actually mounted 
     const [rendered, setRendered] = useState(() => {
         const arr = Array(count).fill(false);
         if (count > 0) arr[0] = true;
@@ -46,7 +46,7 @@ export default function GallerySlider({
         const measure = () => {
             const vp = viewportRef.current;
             if (!vp) return;
-            const leftPeek = index === 0 ? 0 : peekPx; // hide left peek at start
+            const leftPeek = index === 0 ? 0 : peekPx;
             const w = vp.clientWidth - (leftPeek + peekPx);
             setSlideW(Math.max(0, w));
         };
@@ -60,7 +60,7 @@ export default function GallerySlider({
         };
     }, [peekPx, index]);
 
-    // auto-advance (only if no recent interaction)
+    // auto-advance
     useEffect(() => {
         if (!count) return;
         const id = setInterval(() => {
@@ -72,7 +72,7 @@ export default function GallerySlider({
         return () => clearInterval(id);
     }, [lastInteraction, autoAdvanceMs, next, count]);
 
-    // keyboard: ← / → (work anywhere unless typing in a field)
+    // keyboard: ← / → 
     useEffect(() => {
         const onKey = (e) => {
             const a = document.activeElement;
@@ -86,7 +86,6 @@ export default function GallerySlider({
         return () => window.removeEventListener("keydown", onKey);
     }, [next, prev, markInteraction]);
 
-    // optionally take focus so arrows work immediately
     useEffect(() => {
         if (autoFocus) viewportRef.current?.focus();
     }, [autoFocus]);
@@ -103,7 +102,7 @@ export default function GallerySlider({
                 ref={viewportRef}
                 className="relative overflow-hidden bg-background/40 flex-1 min-h-0 rounded-md focus:outline-none focus-visible:outline-none focus:ring-0"
                 aria-label="Project media gallery"
-                tabIndex={-1}   
+                tabIndex={-1}
             >
                 <div className="relative w-full h-full">
                     <div
