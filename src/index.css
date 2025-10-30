@@ -232,46 +232,56 @@ button:focus-visible {
 }
 
 @layer components {
-  /* Compact holographic button */
+  /* Compact holographic button (clip shimmer inside, no purple glow/border) */
   .holo-btn {
     position: relative;
     display: inline-flex;
     align-items: center;
     gap: .5rem;
-    padding: .375rem .75rem;         /* ~ px-3 py-1.5 */
-    border-radius: .5rem;            /* ~ rounded-md */
-    background: var(--holo-bg, #111);
+    padding: .375rem .75rem;          /* ~ px-3 py-1.5 */
+    border-radius: .5rem;             /* ~ rounded-md */
+    background: var(--holo-bg, #111); /* set per-theme: [--holo-bg:...] */
     color: inherit;
     border: 1px solid rgba(0,0,0,.08);
+    overflow: hidden;                 /* keep shimmer inside bounds */
     transition: transform .45s ease, box-shadow .45s ease, background-color .45s ease;
-    --holo-glow: rgba(0,255,255,.50);
-    --holo-accent: rgba(0,255,255,.30);
+    --holo-glow: rgba(0,255,255,.50);   /* outer glow (you can override to 'transparent') */
+    --holo-accent: rgba(0,255,255,.30); /* diagonal shimmer color */
+    will-change: transform, box-shadow;
   }
   .dark .holo-btn { border-color: rgba(255,255,255,.10); }
+
+  /* no outer glow/border change on interaction */
   .holo-btn:hover,
   .holo-btn:focus,
   .holo-btn:active {
-    box-shadow: none; outline: none;
+    box-shadow: none;
+    outline: none;
   }
+
+  /* OVERSIZED shimmer sheet so it fully covers even small buttons */
   .holo-btn::before {
     content: "";
     position: absolute;
-    top: -50%; left: -50%;
-    width: 200%; height: 200%;
+    inset: -80%; /* larger than 200% w/h: uses all sides */
     background: linear-gradient(0deg, transparent, transparent 30%, var(--holo-accent));
-    transform: rotate(-45deg) translateY(0);
-    transition: transform .5s ease, opacity .5s ease;
+    transform: rotate(-45deg) translateY(-60%); /* start well above */
     opacity: 0;
     pointer-events: none;
+    transition: transform .75s ease, opacity .75s ease;
+    will-change: transform, opacity;
   }
+
   .holo-btn:hover {
     transform: translateY(-1px) scale(1.03);
-    box-shadow: none;
   }
+
   .holo-btn:hover::before {
     opacity: 1;
-    transform: rotate(-45deg) translateY(100%);
+    transform: rotate(-45deg) translateY(160%); /* travel far past bottom-right */
   }
+
+  /* Dropdown items: underline-only hover (no background lightening) */
   .holo-item:hover {
     background: transparent !important;
   }

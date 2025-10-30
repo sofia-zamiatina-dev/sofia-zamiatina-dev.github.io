@@ -5,6 +5,7 @@ import unimelbLogo from "../lib/logos/unimelb.jpg";
 import { useState, useRef, useLayoutEffect } from "react";
 import { motion, useScroll, useSpring } from "framer-motion";
 import { rowLeft, rowRight, dotPop } from "../animations/aboutAnimations";
+import HoloButton from "../components/HoloButton.jsx";
 
 /* ------------- Timeline Row (simplified) ------------- */
 function TimelineRow({
@@ -156,12 +157,12 @@ export default function About() {
       >
         <h1 className="text-2xl font-bold mb-2">About Me</h1>
         <p className="text-muted-foreground">
-        I’m a Master of Software Engineering candidate at the University of Melbourne with a design-minded, 
-        product-focused approach to building software. Before this, I completed a BA at Mount Holyoke College
-         where I also served as a Java TA, mentoring students in data structures 
-        and clean code. I’ve led client projects as Product Owner and Scrum Master, translating ambiguous requirements 
-        into clear flows, working UIs, and reliable releases. My work spans web apps and game prototypes, blending 
-        interaction, data, and thoughtful design.
+          I’m a Master of Software Engineering candidate at the University of Melbourne with a design-minded,
+          product-focused approach to building software. Before this, I completed a BA at Mount Holyoke College
+          where I also served as a Java TA, mentoring students in data structures
+          and clean code. I’ve led client projects as Product Owner and Scrum Master, translating ambiguous requirements
+          into clear flows, working UIs, and reliable releases. My work spans web apps and game prototypes, blending
+          interaction, data, and thoughtful design.
         </p>
         <p className="text-muted-foreground mt-4">See more details below:</p>
       </motion.section>
@@ -264,21 +265,22 @@ export default function About() {
         exit={{ opacity: 0, y: 8 }}
       >
         <div className="flex justify-end gap-4">
-          <a
+          <HoloButton
             href="/CV.pdf"
             download
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium border-2 border-blue-300 bg-blue-50/50 dark:bg-blue-950/30 shadow-sm transition-all duration-200 hover:-translate-y-0.5"
+            tone="sky"                         // blue-ish shimmer
+            iconLeft={<Download className="w-4 h-4" />}
           >
-            <Download className="w-4 h-4 text-blue-600" />
             Resume
-          </a>
-          <Link
+          </HoloButton>
+
+          <HoloButton
             to="/works"
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium border-2 border-pink-300 bg-pink-50/50 dark:bg-pink-950/30 shadow-sm transition-all duration-200 hover:-translate-y-0.5"
+            tone="pink"                        // pink shimmer like your menu
+            iconRight={<Arrow className="w-4 h-4" />}
           >
             See my Works
-            <Arrow className="w-4 h-4 text-pink-500" />
-          </Link>
+          </HoloButton>
         </div>
       </motion.section>
     </motion.div>

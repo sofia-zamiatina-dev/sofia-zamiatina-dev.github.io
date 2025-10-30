@@ -10,6 +10,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { filtersContainer } from "../animations/worksAnimations";
 import { sidebarVariants } from "../animations/sidebarAnimations.js";
 import SidebarMenu from "./SidebarMenu.jsx";
+import HoloButton from "./HoloButton.jsx";
 
 const facets = buildFacets(projects, { categoryOrder: ["web", "game", "ml", "art"] });
 
@@ -47,21 +48,16 @@ function HomeButton() {
 // Download button (bottom-left)
 function DownloadPDFButton() {
   return (
-    <a
+    <HoloButton
       href="/CV.pdf"
       download
-      className={[
-        "inline-flex items-center gap-2",
-        "px-3 py-1.5 rounded-md text-sm font-medium",
-        "border border-sky-300 text-sky-700 bg-sky-50/60 hover:bg-sky-50",
-        "dark:border-blue-400 dark:text-blue-300 dark:bg-slate-900/60 dark:hover:bg-slate-900",
-        "transition-colors",
-      ].join(" ")}
+      tone="sky"                                   // blue-ish shimmer
+      className="px-3 py-1.5 rounded-md text-sm"   // match your old sizing
       aria-label="Download CV as PDF"
+      iconLeft={<Download className="w-4 h-4" />}
     >
-      <Download className="w-4 h-4" />
-      <span>CV.pdf</span>
-    </a>
+      CV.pdf
+    </HoloButton>
   );
 }
 

@@ -69,13 +69,13 @@ export const projects = [
         { key: "agile", label: "Agile", info: "Backlog, sprint planning, iterative delivery.", icon: "agile" },
         { key: "scrum", label: "Scrum", info: "Stand-ups, reviews, retros, Jira boards.", icon: "scrum" },
 
-        { key: "client-project-1", label: "Client Project I (SUMPLMNTAL)", info: "Real client delivery—requirements to demo.", icon: "react" },
-        { key: "client-project-2", label: "Client Project II (CONSTRUCT AI)", info: "Stakeholder comms, UX, and releases.", icon: "docker" },
+        { key: "client-project-1", label: "Client Project I (SUMPLMNTAL)", info: "Real client delivery—requirements to demo.", icon: "client-project-1" },
+        { key: "client-project-2", label: "Client Project II (CONSTRUCT AI)", info: "Stakeholder comms, UX, and releases.", icon: "client-project-2" },
 
         { key: "software-testing", label: "Software Testing", info: "Unit, integration, and CI checks.", icon: "testing" },
         { key: "security-testing", label: "Security Testing", info: "OWASP basics, auth/cookie checks.", icon: "test" },
 
-        { key: "ai-ml", label: "AI & Machine Learning", info: "Models, evaluation, cross-validation.", icon: "python" },
+        { key: "ai-ml", label: "AI & Machine Learning", info: "Models, evaluation, cross-validation.", icon: "ai-ml" },
         { key: "electives", label: "Electives", info: "Databases, HCI, systems topics.", icon: "design" },
       ],
       background:
@@ -107,12 +107,12 @@ export const projects = [
       skills: [
         { key: "python", label: "Python", info: "Data work, scripts, notebooks.", icon: "python" },
         { key: "java", label: "Java", info: "DS/Algos; TA support and labs.", icon: "java" },
-        { key: "algorithms", label: "Algorithms", info: "Problem solving, robotics tasks.", icon: "db" },
-        { key: "software-dev", label: "Software Development", info: "Projects, reviews, version control.", icon: "agile" },
+        { key: "algorithms", label: "Algorithms", info: "Problem solving, robotics tasks.", icon: "algorithms" },
+        { key: "software-dev", label: "Software Development", info: "Projects, reviews, version control.", icon: "software-dev" },
         { key: "testing", label: "Testing", info: "JUnit/pytest; edge cases.", icon: "testing" },
-        { key: "statistics", label: "Statistics", info: "Inference, modeling basics.", icon: "db" },
-        { key: "econometrics", label: "Econometrics", info: "Regression, evaluation, R/Python.", icon: "db" },
-        { key: "economics-business", label: "Economics & Business", info: "Macro/micro, banking, accounting.", icon: "design" },
+        { key: "statistics", label: "Statistics", info: "Inference, modeling basics.", icon: "statistics" },
+        { key: "econometrics", label: "Econometrics", info: "Regression, evaluation, R/Python.", icon: "econometrics" },
+        { key: "economics-business", label: "Economics & Business", info: "Macro/micro, banking, accounting.", icon: "economics-business" },
       ],
       background:
         "Liberal-arts core with double major in Computer Science and Economics—research, writing, and teaching experience shaped a broad and technical foundation.",
@@ -144,11 +144,11 @@ export const projects = [
         { key: "java", label: "Java", info: "Data structures, OOP patterns.", icon: "java" },
         { key: "python", label: "Python", info: "Algorithm drills and debugging.", icon: "python" },
         { key: "testing", label: "Testing", info: "JUnit habits, edge cases, TDD.", icon: "testing" },
-        { key: "teaching", label: "Teaching", info: "Scaffolding, guided practice.", icon: "agile" },
-        { key: "communication", label: "Communication", info: "Clear explanations, active listening.", icon: "scrum" },
-        { key: "mentoring", label: "Mentoring", info: "Goal setting, accountability.", icon: "design" },
-        { key: "feedback", label: "Feedback", info: "Actionable code reviews.", icon: "testing" },
-        { key: "adapting", label: "Adapting", info: "Multiple approaches per topic.", icon: "agile" },
+        { key: "teaching", label: "Teaching", info: "Scaffolding, guided practice.", icon: "teaching" },
+        { key: "communication", label: "Communication", info: "Clear explanations, active listening.", icon: "communication" },
+        { key: "mentoring", label: "Mentoring", info: "Goal setting, accountability.", icon: "mentoring" },
+        { key: "feedback", label: "Feedback", info: "Actionable code reviews.", icon: "feedback" },
+        { key: "adapting", label: "Adapting", info: "Multiple approaches per topic.", icon: "adapting" },
       ],
       background:
         "TA & mentor for Data Structures (Java) in my senior year—weekly office hours, code reviews, and cohort mentoring focused on fundamentals and code quality.",

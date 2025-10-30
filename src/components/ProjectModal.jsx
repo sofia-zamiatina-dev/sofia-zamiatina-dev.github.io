@@ -15,6 +15,20 @@ import {
   SiUnity,
   SiApple,
 } from "react-icons/si";
+import {
+  BrainCircuit,   
+  Briefcase,      
+  Handshake,     
+  Sigma,        
+  BarChart3,    
+  TrendingUp,    
+  Banknote,      
+  Code2,        
+  MessageSquareText,
+  Megaphone,     
+  GraduationCap,    
+  UserCheck,   
+} from "lucide-react";
 import { TbBrandCSharp } from "react-icons/tb";
 import { FaJava } from "react-icons/fa6";
 
@@ -64,6 +78,20 @@ const ICONS = {
   // quality
   testing: TestTube2,
   test: TestTube2,
+
+  "ai-ml": BrainCircuit,
+  "client-project-1": Briefcase,
+  "client-project-2": Handshake,
+  algorithms: Sigma,
+  statistics: BarChart3,
+  econometrics: TrendingUp,
+  "economics-business": Banknote,
+  "software-dev": Code2,
+  feedback: MessageSquareText,
+  communication: Megaphone,
+  teaching: GraduationCap,
+  adapting: Repeat2,
+  mentoring: UserCheck,
 };
 
 /* ------------------- Skill Bubble -------------------
