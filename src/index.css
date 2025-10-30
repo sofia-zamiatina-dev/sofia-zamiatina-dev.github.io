@@ -63,8 +63,8 @@ button:focus-visible {
 
 /* custom highlight */
 ::selection {
-  background-color: #646cffaa; /* semi-transparent blue */
-  color: inherit;              /* keep original text color */
+  background-color: #646cffaa;
+  color: inherit;              
 }
 
 /* Firefox uses a different selector */
@@ -87,7 +87,7 @@ button:focus-visible {
 }
 
 :root, :root * {
-  transition: background-color .5s ease, color .5s ease, border-color .5s ease, fill .5s ease, stroke .5s ease;
+  transition: background-color .2s ease, color .2s ease, border-color .2s ease, fill .2s ease, stroke .2s ease;
 }
 @media (prefers-reduced-motion: reduce) {
   :root, :root * { transition: none !important; }

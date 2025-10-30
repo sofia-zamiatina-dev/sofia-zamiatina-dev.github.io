@@ -156,8 +156,12 @@ export default function About() {
       >
         <h1 className="text-2xl font-bold mb-2">About Me</h1>
         <p className="text-muted-foreground">
-          Master of Software Engineering candidate at the University of Melbourne. I enjoy building
-          systems that blend interaction, data, and design. blablablablablablabla
+        I’m a Master of Software Engineering candidate at the University of Melbourne with a design-minded, 
+        product-focused approach to building software. Before this, I completed a BA at Mount Holyoke College
+         where I also served as a Java TA, mentoring students in data structures 
+        and clean code. I’ve led client projects as Product Owner and Scrum Master, translating ambiguous requirements 
+        into clear flows, working UIs, and reliable releases. My work spans web apps and game prototypes, blending 
+        interaction, data, and thoughtful design.
         </p>
         <p className="text-muted-foreground mt-4">See more details below:</p>
       </motion.section>
@@ -175,7 +179,7 @@ export default function About() {
             <TimelineRow
               side="left"
               year="2014"
-              title="Where I’m from & discovering programming"
+              title="Discovering programming"
               subtitle="Early teenage years"
               body="Built my first small website and got hooked on making interactive things."
               Icon={Code2}
@@ -237,8 +241,7 @@ export default function About() {
             <h2 className="text-xl font-semibold mb-4">What I Can Do</h2>
             <ul className="space-y-2">
               {[
-                "Design and build full-stack web apps (React, databases, Docker).",
-                "Develop multiplayer games with Unity and Photon networking.",
+                "Design and build full-stack web apps.",
                 "Create interactive data tools — dashboards, visualizations.",
                 "Work with clients & teams to turn ideas into working software.",
                 "Write clean, modular code with testing and docs.",
