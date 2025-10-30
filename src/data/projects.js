@@ -13,22 +13,24 @@ export const projects = [
     detail: {
       hero: "covers/suplmntal.png",
       contributions: [
-        "Product Owner: backlog grooming, sprint goals, stakeholder demos.",
-        "Front-end implementation in React + Tailwind; component library setup.",
-        "Coordinated CI containerization with Docker; dev environment docs.",
+        "Product Owner: re-groomed backlog after pivot, set sprint goals, ran stakeholder demos.",
+        "Redesigned quiz creation: step UIs, embedded question library, topic toggles.",
+        "Wired UI to real DB: live questions, quiz save, session launch.",
+        "Streamlined Classes view; prioritized teacher tasks; added saved-quiz preview.",
+        "Drove team ops: notes, scheduling, client emails, clear stand-ups.",
       ],
       skills: [
-        { key: "agile", label: "Agile", info: "Iterative delivery, sprint planning, review/retro.", icon: "agile" },
-        { key: "react", label: "React", info: "Composable UI, stateful quiz flows.", icon: "react" },
-        { key: "docker", label: "Docker", info: "Dev parity with containers/compose.", icon: "docker" },
-        { key: "tailwind", label: "Tailwind", info: "Responsive utility-first styling.", icon: "tailwind" },
-        { key: "javascript", label: "JavaScript", info: "Client logic, fetch flows, utils.", icon: "javascript" },
-        { key: "mongoDB", label: "MongoDB", info: "Flexible question-bank schema.", icon: "mongoDB" },
-        { key: "testing", label: "Testing", info: "Unit/CI checks for reliability.", icon: "testing" },
-        { key: "design", label: "Design", info: "Clean UX, accessible components.", icon: "design" },
+        { key: "agile", label: "Agile", info: "Ran sprints, re-scoped project, delivered increments.", icon: "agile" },
+        { key: "react", label: "React", info: "Built step-based creator and library UI components.", icon: "react" },
+        { key: "docker", label: "Docker", info: "FE/BE/DB parity and easy onboarding.", icon: "docker" },
+        { key: "tailwind", label: "Tailwind", info: "Responsive, accessible screens with utility classes.", icon: "tailwind" },
+        { key: "javascript", label: "JavaScript", info: "State, fetch flows, and session launch logic.", icon: "javascript" },
+        { key: "mongoDB", label: "MongoDB", info: "Hooked question bank to UI; live quiz data.", icon: "mongoDB" },
+        { key: "testing", label: "Testing", info: "Unit/smoke checks in CI to guard core flows.", icon: "testing" },
+        { key: "design", label: "Design", info: "Minimal, teacher-first layouts and navigation.", icon: "design" },
       ],
       background:
-        "Client-facing quiz platform for electrical apprentices. The goal is faster practice, analytics, and question bank iteration with clean UX and reliable releases.",
+        "Suplmntal is a gamified quiz platform for vocational learners where teachers build from a rich question bank and run quizzes live or async—with leaderboards, instant feedback, badges, and analytics.",
       gallery: [
         "details/suplmntal/suplmntal-1.png",
         "details/suplmntal/suplmntal-2.png",
@@ -47,9 +49,9 @@ export const projects = [
     title: "The University of Melbourne - Masters Degree",
     year: "2025-present",
     category: "edu",
-    tech: ["agile", "javascript", "testing"],
+    tech: ["agile", "scrum", "javascript", "testing"],
     summary:
-      "Pursuing advanced software engineering while leading hands-on industry projects.",
+      "Pursuing Master of Software Engineering degree while leading hands-on industry projects.",
     cover: "covers/unimelb.jpg",
     role: "",
     type: "personal",
@@ -57,16 +59,27 @@ export const projects = [
     detail: {
       hero: "covers/unimelb.jpg",
       contributions: [
-        "Masters projects; team leadership and client work.",
-        "Advanced SWE topics; testing and delivery practices.",
+        "Led team projects as Scrum Master & Product Owner—backlog focus, sprint goals, stakeholder demos.",
+        "Delivered two client engagements end-to-end: requirements, UX, implementation, releases.",
+        "Applied advanced graduate topics: architecture, data, security, ML, and systems design.",
+        "Produced clear reports and presentations; consistently strong results and feedback.",
+        "Facilitated collaboration: risk tracking, documentation, meetings, and cross-team comms.",
       ],
       skills: [
-        { key: "agile", label: "Agile", info: "Team practices & delivery.", icon: "agile" },
-        { key: "javascript", label: "JavaScript", info: "Prototypes, labs, tooling.", icon: "javascript" },
-        { key: "testing", label: "Testing", info: "Test design, coverage, CI.", icon: "testing" },
+        { key: "agile", label: "Agile", info: "Backlog, sprint planning, iterative delivery.", icon: "agile" },
+        { key: "scrum", label: "Scrum", info: "Stand-ups, reviews, retros, Jira boards.", icon: "scrum" },
+
+        { key: "client-project-1", label: "Client Project I (SUMPLMNTAL)", info: "Real client delivery—requirements to demo.", icon: "react" },
+        { key: "client-project-2", label: "Client Project II (CONSTRUCT AI)", info: "Stakeholder comms, UX, and releases.", icon: "docker" },
+
+        { key: "software-testing", label: "Software Testing", info: "Unit, integration, and CI checks.", icon: "testing" },
+        { key: "security-testing", label: "Security Testing", info: "OWASP basics, auth/cookie checks.", icon: "test" },
+
+        { key: "ai-ml", label: "AI & Machine Learning", info: "Models, evaluation, cross-validation.", icon: "python" },
+        { key: "electives", label: "Electives", info: "Databases, HCI, systems topics.", icon: "design" },
       ],
       background:
-        "Postgraduate journey blending software practice, research, and industry collaboration.",
+        "I chose to continue my education after my bachelor’s because I want to be a professional with both depth and breadth. My undergraduate degree gave me a foundation and focus on the basics. My Master of Software Engineering at the University of Melbourne is building real depth through advanced topics and hands-on work with clients, plus leadership roles on team projects. It is helping me turn core theory into practical skills I can use in modern software delivery.",
       gallery: [],
     },
   },
@@ -85,16 +98,24 @@ export const projects = [
     detail: {
       hero: "covers/mhc.jpg",
       contributions: [
-        "Completed CS coursework: DS/Algos, software design.",
-        "Peer collaboration, mentorship, and academic projects.",
+        "Graduated May 2024 with GPA 3.77/4; double major in CS & Economics.",
+        "Completed team projects spanning CS and business use cases.",
+        "Served as Data Structures Teaching Assistant, office hours, code reviews.",
+        "Wrote research papers on money & banking; studied accounting.",
+        "Connected theory to practice across algorithms, stats, and econometrics.",
       ],
       skills: [
-        { key: "python", label: "Python", info: "Coursework, scripts, notebooks.", icon: "python" },
-        { key: "java", label: "Java", info: "DS/Algos implementations.", icon: "java" },
-        { key: "testing", label: "Testing", info: "JUnit/pytest, edge cases.", icon: "testing" },
+        { key: "python", label: "Python", info: "Data work, scripts, notebooks.", icon: "python" },
+        { key: "java", label: "Java", info: "DS/Algos; TA support and labs.", icon: "java" },
+        { key: "algorithms", label: "Algorithms", info: "Problem solving, robotics tasks.", icon: "db" },
+        { key: "software-dev", label: "Software Development", info: "Projects, reviews, version control.", icon: "agile" },
+        { key: "testing", label: "Testing", info: "JUnit/pytest; edge cases.", icon: "testing" },
+        { key: "statistics", label: "Statistics", info: "Inference, modeling basics.", icon: "db" },
+        { key: "econometrics", label: "Econometrics", info: "Regression, evaluation, R/Python.", icon: "db" },
+        { key: "economics-business", label: "Economics & Business", info: "Macro/micro, banking, accounting.", icon: "design" },
       ],
       background:
-        "Undergraduate foundation across CS and liberal arts; exposure to research, mentorship, and teaching.",
+        "Liberal-arts core with double major in Computer Science and Economics—research, writing, and teaching experience shaped a broad and technical foundation.",
       gallery: [],
     },
   },
@@ -112,17 +133,25 @@ export const projects = [
     detail: {
       hero: "covers/mhctutor.jpg",
       contributions: [
-        "Led weekly office hours; guided problem-solving strategies.",
-        "Reviewed code for correctness and clarity; test-driven habits.",
-        "Mentored study plans ahead of exams and projects.",
+        "Hosted weekly office hours; coached problem-solving and exam prep.",
+        "Reviewed Java code for clarity, correctness, and tests; modeled TDD habits.",
+        "Mentored 4 students per semester with tailored study plans and onboarding.",
+        "Ran feedback loops—inline comments, rubric guidance, progress check-ins.",
+        "Attended pedagogy workshops twice per semester; strengthened communication and growth mindset.",
+        "Adapted explanations across OOP, algorithms, and debugging to student needs.",
       ],
       skills: [
-        { key: "python", label: "Python", info: "Algorithm practice & debugging.", icon: "python" },
-        { key: "java", label: "Java", info: "OOP for DS/algorithms.", icon: "java" },
-        { key: "testing", label: "Testing", info: "Unit tests & reasoning.", icon: "testing" },
+        { key: "java", label: "Java", info: "Data structures, OOP patterns.", icon: "java" },
+        { key: "python", label: "Python", info: "Algorithm drills and debugging.", icon: "python" },
+        { key: "testing", label: "Testing", info: "JUnit habits, edge cases, TDD.", icon: "testing" },
+        { key: "teaching", label: "Teaching", info: "Scaffolding, guided practice.", icon: "agile" },
+        { key: "communication", label: "Communication", info: "Clear explanations, active listening.", icon: "scrum" },
+        { key: "mentoring", label: "Mentoring", info: "Goal setting, accountability.", icon: "design" },
+        { key: "feedback", label: "Feedback", info: "Actionable code reviews.", icon: "testing" },
+        { key: "adapting", label: "Adapting", info: "Multiple approaches per topic.", icon: "agile" },
       ],
       background:
-        "Academic teaching/mentoring role focused on data structures and algorithmic thinking, emphasizing fundamentals and code quality.",
+        "TA & mentor for Data Structures (Java) in my senior year—weekly office hours, code reviews, and cohort mentoring focused on fundamentals and code quality.",
       gallery: [],
     },
   },
@@ -140,17 +169,19 @@ export const projects = [
     detail: {
       hero: "covers/imaginarium.jpg",
       contributions: [
-        "Designed round flow and game state machine.",
-        "Implemented Photon PUN rooms, matchmaking, scoring.",
-        "UX for mobile/desktop; accessible controls and layout.",
+        "Prototyped round flow and state machine (core transitions in progress).",
+        "Implemented Photon PUN rooms & matchmaking—create/join/lobby stable.",
+        "Hooked scoring/RPC event stubs; basic sync tested with multiple clients.",
+        "UI pending—layouts and input schema drafted for desktop accessibility.",
       ],
       skills: [
         { key: "unity", label: "Unity", info: "Scenes, prefabs, ScriptableObjects.", icon: "unity" },
-        { key: "csharp", label: "C#", info: "Gameplay logic & orchestration.", icon: "csharp" },
-        { key: "photon", label: "Photon", info: "Real-time rooms, RPC/events.", icon: "photon" },
+        { key: "csharp", label: "C#", info: "Gameplay logic and orchestration.", icon: "csharp" },
+        { key: "photon", label: "Photon", info: "Real-time rooms, RPC events.", icon: "photon" },
+        { key: "indie-dev", label: "Indie Dev", info: "Solo planning, scope, releases.", icon: "agile" },
       ],
       background:
-        "A cozy online party game inspired by storytelling and creative guessing. Focus on smooth netcode and replayable mechanics.",
+        "A cozy online party game about storytelling and creative guessing—netcode first, replayable mechanics next. Work-in-progress during semester breaks.",
       gallery: [],
     },
   },
@@ -168,18 +199,19 @@ export const projects = [
     detail: {
       hero: "covers/constructai.jpg",
       contributions: [
-        "Scrum Master: velocity tracking, impediment removal.",
-        "Led UX workshops; translated insights into Figma flows.",
-        "Defined MVP scope and acceptance criteria.",
+        "Scrum Master: tracked velocity, cleared blockers, and kept ceremonies tight.",
+        "Resolved requirements from research to product—aligned stakeholders and scope.",
+        "Defined MVP and crisp acceptance criteria; prepared a clickable prototype.",
+        "Produced personas, goal models, and a handoff pack so future teams could implement.",
       ],
       skills: [
-        { key: "figma", label: "Figma", info: "Wireframes, components, flows.", icon: "figma" },
-        { key: "agile", label: "Agile", info: "Incremental product delivery.", icon: "agile" },
-        { key: "scrum", label: "Scrum", info: "Sprint facilitation & metrics.", icon: "scrum" },
-        { key: "design", label: "Design", info: "IA, dashboards, usability.", icon: "design" },
+        { key: "figma", label: "Figma", info: "Wireframes, components, clickable prototype.", icon: "figma" },
+        { key: "agile", label: "Agile", info: "Incremental delivery from research to MVP.", icon: "agile" },
+        { key: "scrum", label: "Scrum", info: "Sprint facilitation, velocity, impediments.", icon: "scrum" },
+        { key: "design", label: "Design", info: "IA, dashboards, executive-readable UX.", icon: "design" },
       ],
       background:
-        "Client dashboard to visualize roles, skills, and gaps in construction; emphasis on clarity and executive-friendly insights.",
+        "Client dashboard translating AI-in-construction research into clear, executive-friendly visuals for teachers, school leaders, employers, and policymakers.",
       gallery: [
         "details/constructai/constructai-1.png",
         "details/constructai/constructai-2.png",
@@ -201,18 +233,18 @@ export const projects = [
     detail: {
       hero: "covers/shelter.png",
       contributions: [
-        "Java trait generator for roles and social balance.",
-        "Game loop and UI prototypes; usability tweaks.",
+        "Co-created (2-person team); owned backend and character generator as the data source.",
+        "Built Java algorithm to output role codes per player count and difficulty (balanced social mix).",
+        "Prototyped game loop and lightweight UI; iterated on usability from playtests.",
       ],
       skills: [
-        { key: "react", label: "React", info: "Prototype flows & screens.", icon: "react" },
-        { key: "ios", label: "iOS", info: "Mobile UX considerations/prototyping.", icon: "ios" },
-        { key: "typescript", label: "TypeScript", info: "Typed components & utils.", icon: "typescript" },
-        { key: "java", label: "Java", info: "Core generator & logic.", icon: "java" },
-        { key: "design", label: "Design", info: "Game UI, readability, pacing.", icon: "design" },
+        { key: "java", label: "Java", info: "Core generator and game logic.", icon: "java" },
+        { key: "react", label: "React", info: "Prototype flows and screens.", icon: "react" },
+        { key: "ios", label: "iOS", info: "Mobile UX considerations.", icon: "ios" },
+        { key: "design", label: "Design", info: "Readable UI and pacing tweaks.", icon: "design" },
       ],
       background:
-        "Offline social deduction concept exploring tension, persuasion, and replayable character mixes.",
+        "A fast social-deduction game set in an apocalypse: each player gets traits (skills, flaws, secrets), and the group must debate who’s admitted to the shelter. Choices balance survival value, risk, and trust—every round reshapes alliances.",
       gallery: [
         "details/shelter/gameplay1.jpg",
         "details/shelter/gameplay2.jpg",
@@ -240,17 +272,19 @@ export const projects = [
     detail: {
       hero: "covers/artwebsite.png",
       contributions: [
-        "Feed and profile UI; content cards and modals.",
-        "Collections and tagging model; DB integration paths.",
+        "Led account creation/auth and profile setup; built feed/profile UI with content cards and modals.",
+        "Shaped collections, tagging, and media flows; wired likes/comments and messaging stubs.",
+        "Defined data model across Firebase (auth/storage) and MongoDB (posts/profiles); set API contracts and integration paths.",
+        "Ran client demos and prototype handoff in a 3-person team; aligned scope with the student founder.",
       ],
       skills: [
-        { key: "react", label: "React", info: "Declarative UI; routing & modals.", icon: "react" },
-        { key: "mongoDB", label: "MongoDB", info: "Docs for posts/profiles.", icon: "mongoDB" },
-        { key: "typescript", label: "TypeScript", info: "Type-safe components & APIs.", icon: "typescript" },
-        { key: "design", label: "Design", info: "Artist-centric layout language.", icon: "design" },
+        { key: "react", label: "React", info: "Declarative UI, routing, modals.", icon: "react" },
+        { key: "mongoDB", label: "MongoDB", info: "Post/profile docs, queries.", icon: "mongoDB" },
+        { key: "typescript", label: "TypeScript", info: "Type-safe components and APIs.", icon: "typescript" },
+        { key: "design", label: "Design", info: "Artist-first layouts and patterns.", icon: "design" },
       ],
       background:
-        "Built as a community hub for artists; focus on creator friendliness and safe collaboration.",
+        "First client prototype from an Innovative Software × Business collab: a creator hub with feed, profiles, and safe collaboration. We delivered a working demo and final pitch for the student founder.",
       gallery: [
         "details/artwebsite/website1.png",
         "details/artwebsite/website2.png",
@@ -277,14 +311,16 @@ export const projects = [
       hero: "covers/artmemories.png",
       contributions: [
         "Concept, composition, and color study.",
+        "Scratch-wax layering and reveal technique.",
         "Installation planning and presentation.",
       ],
       skills: [
-        { key: "design", label: "Design", info: "Composition & visual rhythm.", icon: "design" },
+        { key: "design", label: "Design", info: "Composition, rhythm, hierarchy.", icon: "design" },
         { key: "figma", label: "Figma", info: "Digital mockups and layout.", icon: "figma" },
       ],
       background:
-        "A series exploring memory fragments and how they tile into narrative.",
+        "My scratch-wax work exploring memory fragments and how they tile into narrative. A decade of studio art now shapes my eye for UI and product design. Submitted to the 2025 UniMelb Art Prize.",
+
       gallery: [
         "details/artprize/artprize-1.png",
         "details/artprize/artprize-2.png"

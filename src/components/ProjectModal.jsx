@@ -13,7 +13,7 @@ import {
   SiPython,
   SiFigma,
   SiUnity,
-  SiApple,       
+  SiApple,
 } from "react-icons/si";
 import { TbBrandCSharp } from "react-icons/tb";
 import { FaJava } from "react-icons/fa6";
@@ -41,7 +41,7 @@ const ICONS = {
   typescript: SiTypescript,
   ts: SiTypescript,
   mongodb: SiMongodb,
-  db: Database,        
+  db: Database,
 
   // languages
   python: SiPython,
@@ -87,13 +87,13 @@ const bubbleVariants = {
 };
 
 const iconVariants = {
-  rest:  { opacity: 1, y: 0,  scale: 1 },
+  rest: { opacity: 1, y: 0, scale: 1 },
   hover: { opacity: 0, y: -6, scale: 1.03, transition: { duration: 0.18, ease: "easeOut" } },
 };
 
 const textVariants = {
-  rest:  { opacity: 0, y: 8,  scale: 0.98 },
-  hover: { opacity: 1, y: 0,  scale: 1,   transition: { type: "spring", stiffness: 260, damping: 18 } },
+  rest: { opacity: 0, y: 8, scale: 0.98 },
+  hover: { opacity: 1, y: 0, scale: 1, transition: { type: "spring", stiffness: 260, damping: 18 } },
 };
 
 function SkillBubble({ iconName, label, info }) {
@@ -188,6 +188,7 @@ export default function ProjectModal({ project, onClose }) {
               initial="hidden"
               animate="visible"
               exit="exit"
+              className="flex h-full flex-col"
             >
               {/* Header */}
               <div className="flex items-start gap-3 p-6 border-b border-border">
@@ -214,10 +215,15 @@ export default function ProjectModal({ project, onClose }) {
 
               {/* Body */}
               <div
-                className={`flex-1 min-h-0 grid ${hasGallery ? "grid-cols-[minmax(0,50%)_minmax(0,50%)]" : "grid-cols-1"} gap-0`}
+                className={`flex-1 min-h-0 grid ${hasGallery
+                    ? "grid-cols-1 lg:grid-cols-[minmax(0,50%)_minmax(0,50%)]"
+                    : "grid-cols-1"
+                  } gap-0`}
               >
                 {/* LEFT: content */}
-                <div className="pl-24 pr-6 py-6 overflow-y-auto">
+                <div
+                  className="pl-6 md:pl-24 pr-6 py-6 min-h-0 overflow-y-auto overscroll-contain"
+                  style={{ WebkitOverflowScrolling: "touch" }}>
                   {d.contributions?.length > 0 && (
                     <section className="space-y-3">
                       <h3 className="text-lg md:text-xl font-semibold">My Contributions</h3>
@@ -260,7 +266,7 @@ export default function ProjectModal({ project, onClose }) {
 
                   {d.background && (
                     <section className="mt-6 space-y-3">
-                      <h3 className="text-lg md:text-xl font-semibold">Project Background</h3>
+                      <h3 className="text-lg md:text-xl font-semibold">Background</h3>
                       <p className="text-base leading-relaxed text-foreground/80">{d.background}</p>
                     </section>
                   )}
@@ -286,6 +292,6 @@ export default function ProjectModal({ project, onClose }) {
           </AnimatePresence>
         </div>
       </motion.div>
-    </motion.div>
+    </motion.div >
   );
 }
