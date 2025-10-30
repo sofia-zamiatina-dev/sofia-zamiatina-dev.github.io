@@ -264,8 +264,8 @@ export default function About() {
       >
         <div className="flex justify-end gap-4">
           <HoloButton
-            href="/CV.pdf"
-            download
+            href={`${import.meta.env.BASE_URL}Sofia_Zamiatina_CV_2025.pdf`}
+            download="Sofia_Zamiatina_CV_2025.pdf"
             tone="sky"
             iconLeft={<Download className="w-4 h-4" />}
           >

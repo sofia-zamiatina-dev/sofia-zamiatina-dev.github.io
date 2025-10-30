@@ -47,10 +47,12 @@ function HomeButton() {
 
 // Download button (bottom-left)
 function DownloadPDFButton() {
+  const href = `${import.meta.env.BASE_URL}Sofia_Zamiatina_CV_2025.pdf`;
   return (
     <HoloButton
-      href="/CV.pdf"
+      href={href}
       download
+      type="button"
       tone="sky"
       className="px-3 py-1.5 rounded-md text-sm"
       aria-label="Download CV as PDF"
