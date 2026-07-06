@@ -186,6 +186,39 @@ export const projects = [
     },
   },
   {
+    id: "maribyrnong-flooding",
+    title: "Maribyrnong Flooding",
+    year: 2026,
+    category: "edu",
+    tech: ["agile", "scrum", "figma", "design"],
+    summary:
+      "A community-focused flood alert concept developed for Maribyrnong City Council.",
+    cover: "covers/maribyrnong-flooding.png",
+    role:
+      "Business case contributor in a multidisciplinary engineering team.",
+    type: "academic",
+    status: "completed",
+    detail: {
+      hero: "covers/maribyrnong-flooding.png",
+      contributions: [
+        "Defined the flood alert problem with a multidisciplinary team.",
+        "Used agile and design methods to shape the business case.",
+        "Explored concepts for improving resident flood warnings.",
+        "Tested and refined a household alert prototype.",
+        "Presented the project to Maribyrnong City Council.",
+      ],
+      skills: [
+        { key: "agile", label: "Agile", info: "Iterative team delivery.", icon: "agile" },
+        { key: "scrum", label: "Scrum", info: "Sprint planning & coordination.", icon: "scrum" },
+        { key: "figma", label: "Figma", info: "Concept visuals & presentation.", icon: "figma" },
+        { key: "design", label: "Design", info: "Ideation, evaluation & prototyping.", icon: "design" },
+      ],
+      background:
+        "Academic business case prepared for Maribyrnong City Council. The project responded to communication failures experienced during the 2022 Maribyrnong River flood, especially for residents affected by digital-only warnings, language barriers, power outages, and low flood literacy. The proposed concept was a plug-in household flood warning alarm using coloured Australian Warning System alerts, sound, and multilingual voice instructions to help residents understand and act quickly during flood emergencies. The project combined stakeholder research, ideation, concept evaluation, prototyping, and implementation planning from a business and community-safety perspective.",
+      gallery: ["details/maribyrnong-flooding/maribyrnong-flooding-1.png"],
+    },
+  },
+  {
     id: "constructai",
     title: "ConstructAI - Skills Analyzer",
     year: 2025,
