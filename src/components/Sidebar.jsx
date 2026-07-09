@@ -87,7 +87,7 @@ export default function Sidebar({ showFilters }) {
         </div>
 
         {/* NAME BLOCK */}
-        <div className="p-4">
+        <div className="p-4 border-b border-border">
           <div className="font-semibold">Sofia Zamiatina</div>
           <div className="text-xs text-foreground/60">Software Engineering MEng</div>
         </div>

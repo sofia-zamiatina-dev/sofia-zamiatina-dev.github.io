@@ -38,7 +38,7 @@ export default function FiltersPanel({
 
   return (
     <motion.div
-      className="mt-2 p-4 border-t border-border overflow-y-auto"
+      className="p-0 lg:p-4 overflow-y-auto"
       variants={filtersContainer}
       initial="hidden"
       animate="visible"

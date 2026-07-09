@@ -8,6 +8,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { gridStagger, cardUp } from "../animations/worksAnimations";
 import { pageVariants } from "../animations/pageVariants";
 
+import MobileWorksFilters from "../components/mobile/MobileWorksFilters.jsx";
+
 export default function Works() {
   const [sp, setSp] = useSearchParams();
   const cat = sp.get("cat") || "all";
@@ -38,8 +40,10 @@ export default function Works() {
   };
 
   return (
-    <motion.div variants={pageVariants} initial="initial" animate="animate" exit="exit" className="p-6 text-foreground bg-background h-full">
+    <motion.div variants={pageVariants} initial="initial" animate="animate" exit="exit" className="p-6 pb-28 lg:pb-6 text-foreground bg-background min-h-full">
       <h1 className="text-2xl font-semibold mb-4">Works</h1>
+
+      <MobileWorksFilters />
 
       <motion.div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3" variants={gridStagger} initial="hidden" animate="visible">
         <AnimatePresence mode="sync">
