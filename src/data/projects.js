@@ -203,7 +203,7 @@ export const projects = [
       contributions: [
         "Defined the flood alert problem with a multidisciplinary team.",
         "Used agile and design methods to shape the business case.",
-        "Explored concepts for improving resident flood warnings.",
+        "Explored concepts to improve resident flood warnings.",
         "Tested and refined a household alert prototype.",
         "Presented the project to Maribyrnong City Council.",
       ],
