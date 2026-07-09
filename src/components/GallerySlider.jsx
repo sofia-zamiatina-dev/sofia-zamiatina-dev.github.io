@@ -41,6 +41,15 @@ export default function GallerySlider({
     const prev = useCallback(() => setIndex(i => clamp(i - 1)), [count]);
     const markInteraction = useCallback(() => setLastInteraction(Date.now()), []);
 
+    const handleGalleryClick = (e) => {
+        markInteraction();
+
+        const rect = e.currentTarget.getBoundingClientRect();
+        const clickX = e.clientX - rect.left;
+
+        clickX > rect.width / 2 ? next() : prev();
+    };
+
     // measure slide width based on viewport + peeks
     useLayoutEffect(() => {
         const measure = () => {
@@ -100,9 +109,10 @@ export default function GallerySlider({
         <div className={["relative h-full flex flex-col", className].join(" ")}>
             <section
                 ref={viewportRef}
-                className="relative overflow-hidden bg-background/40 flex-1 min-h-0 rounded-md focus:outline-none focus-visible:outline-none focus:ring-0"
+                className="relative overflow-hidden bg-background/40 flex-1 min-h-0 rounded-md focus:outline-none focus-visible:outline-none focus:ring-0 cursor-pointer"
                 aria-label="Project media gallery"
                 tabIndex={-1}
+                onClick={handleGalleryClick}
             >
                 <div className="relative w-full h-full">
                     <div
@@ -117,7 +127,7 @@ export default function GallerySlider({
                         }}
                         onMouseDown={markInteraction}
                         onTouchStart={markInteraction}
-                        onClick={markInteraction}
+                        // onClick={markInteraction}
                     >
                         {items.map((item, i) => {
                             const mount = rendered[i];
@@ -140,17 +150,22 @@ export default function GallerySlider({
                 </div>
             </section>
 
-            {/* dots */}
-            <div className="mt-2 flex items-center justify-center gap-1.5">
+            {/* indicators */}
+            <div className="mt-4 flex justify-center gap-3">
                 {items.map((_, i) => (
                     <button
                         key={i}
-                        onClick={() => { setIndex(i); markInteraction(); }}
+                        onClick={() => {
+                            setIndex(i);
+                            markInteraction();
+                        }}
                         aria-label={`Go to slide ${i + 1}`}
-                        className={[
-                            "h-2 w-2 rounded-full border border-border",
-                            i === index ? "bg-foreground/80" : "bg-muted",
-                        ].join(" ")}
+                        style={{
+                            width: 32,
+                            height: 3,
+                            padding: 0,
+                        }}
+                        className={i === index ? "bg-foreground" : "bg-foreground/20 hover:bg-foreground/40"}
                     />
                 ))}
             </div>

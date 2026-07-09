@@ -189,14 +189,14 @@ export default function ProjectModal({ project, onClose }) {
 
   return (
     <motion.div
-      className="fixed inset-0 z-50"
+      className="fixed inset-0 z-50 min-h-[100svh]"
       initial={false}
       animate={{ opacity: 1 }}
       exit={{ opacity: 1 }}
       onClick={onClose}
     >
       <motion.div
-        className="absolute inset-0 bg-black/50"
+        className="fixed inset-0 min-h-[100svh] bg-black/50"
         initial={{
           opacity: 0,
           backdropFilter: "blur(0px)",
@@ -212,7 +212,7 @@ export default function ProjectModal({ project, onClose }) {
           backdropFilter: "blur(0px)",
           WebkitBackdropFilter: "blur(0px)",
         }}
-        transition={{ duration: 0.35, ease: "easeOut" }}
+        transition={{ duration: 0.25, ease: "easeOut" }}
       />
 
       <motion.div
@@ -225,7 +225,7 @@ export default function ProjectModal({ project, onClose }) {
         aria-modal="true"
       >
         <div
-          className="w-screen h-[85vh] bg-card border-y border-border rounded-none shadow-xl overflow-hidden flex flex-col"
+          className="w-screen h-[85dvh] bg-card border-y border-border rounded-none shadow-xl overflow-hidden flex flex-col"
           onClick={(e) => e.stopPropagation()}
         >
           <AnimatePresence mode="wait" initial={false}>
@@ -262,15 +262,34 @@ export default function ProjectModal({ project, onClose }) {
 
               {/* Body */}
               <div
-                className={`flex-1 min-h-0 grid ${hasGallery
-                  ? "grid-cols-1 lg:grid-cols-[minmax(0,50%)_minmax(0,50%)]"
-                  : "grid-cols-1"
+                className={`flex-1 min-h-0 grid overflow-x-hidden overflow-y-auto lg:overflow-hidden ${hasGallery
+                    ? "grid-cols-1 lg:grid-cols-[minmax(0,50%)_minmax(0,50%)]"
+                    : "grid-cols-1"
                   } gap-0`}
               >
-                {/* LEFT: content */}
+                {/* Gallery: top on mobile, right on desktop */}
+                {hasGallery && (
+                  <aside className="order-1 lg:order-2 p-0 bg-background/40">
+                    <div className="h-[300px] lg:h-full lg:[height:clamp(360px,62vh,740px)]">
+                      <GallerySlider
+                        items={[
+                          ...(d.video
+                            ? [{ type: "video", src: d.video, poster: d.videoPoster, muted: true }]
+                            : []),
+                          ...d.gallery.map((src) => ({ type: "image", src })),
+                        ]}
+                        autoAdvanceMs={10000}
+                        className="h-full"
+                      />
+                    </div>
+                  </aside>
+                )}
+
+                {/* Content: below gallery on mobile, left on desktop */}
                 <div
-                  className="pl-6 md:pl-24 pr-6 py-6 min-h-0 overflow-y-auto overscroll-contain"
-                  style={{ WebkitOverflowScrolling: "touch" }}>
+                  className="order-2 lg:order-1 px-6 md:px-24 py-6 min-w-0 min-h-0 lg:overflow-y-auto overscroll-contain"
+                  style={{ WebkitOverflowScrolling: "touch" }}
+                >
                   {d.contributions?.length > 0 && (
                     <section className="space-y-3">
                       <h3 className="text-lg md:text-xl font-semibold">My Contributions</h3>
@@ -282,22 +301,10 @@ export default function ProjectModal({ project, onClose }) {
                     </section>
                   )}
 
-                  {/* ---- SKILLS SECTION ---- */}
                   {d.skills?.length > 0 && (
                     <section className="mt-6 space-y-3">
                       <h3 className="text-lg md:text-xl font-semibold">Skills</h3>
-                      <div
-                        className="
-                          grid
-                          grid-cols-1
-                          sm:grid-cols-2
-                          md:grid-cols-3
-                          lg:grid-cols-4
-                          xl:grid-cols-4
-                          2xl:grid-cols-4
-                          gap-4
-                        "
-                      >
+                      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-4 gap-4">
                         {d.skills.map((s, i) => (
                           <SkillBubble
                             key={`${s.key}-${i}`}
@@ -307,34 +314,20 @@ export default function ProjectModal({ project, onClose }) {
                           />
                         ))}
                       </div>
-
                     </section>
                   )}
 
                   {d.background && (
                     <section className="mt-6 space-y-3">
                       <h3 className="text-lg md:text-xl font-semibold">Background</h3>
-                      <p className="text-base leading-relaxed text-foreground/80">{d.background}</p>
+                      <p className="text-base leading-relaxed text-foreground/80">
+                        {d.background}
+                      </p>
                     </section>
                   )}
                 </div>
-
-                {/* RIGHT: gallery */}
-                {hasGallery && (
-                  <aside className="p-0 bg-background/40">
-                    <div className="h-full" style={{ height: "clamp(360px, 62vh, 740px)" }}>
-                      <GallerySlider
-                        items={[
-                          ...(d.video ? [{ type: "video", src: d.video, poster: d.videoPoster, muted: true }] : []),
-                          ...d.gallery.map((src) => ({ type: "image", src })),
-                        ]}
-                        autoAdvanceMs={10000}
-                        className="h-full"
-                      />
-                    </div>
-                  </aside>
-                )}
               </div>
+
             </motion.div>
           </AnimatePresence>
         </div>
