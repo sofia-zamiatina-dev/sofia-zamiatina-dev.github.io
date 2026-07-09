@@ -71,7 +71,7 @@ export default function Sidebar({ showFilters }) {
       initial="hidden"
       animate="visible"
       variants={sidebarVariants}
-      className="relative sticky top-0 h-dvh border-r border-border bg-background text-foreground flex flex-col"
+      className="hidden lg:flex relative sticky top-0 h-dvh border-r border-border bg-background text-foreground flex-col"
     >
       {/* Background ball animation */}
       <BouncyBallOverlay />
