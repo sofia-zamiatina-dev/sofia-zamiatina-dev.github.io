@@ -1,15 +1,13 @@
+import SidebarMenu from "../SidebarMenu";
+
 export default function MobileHeader() {
   return (
-    <header className="lg:hidden fixed top-0 left-0 right-0 z-50 h-14 bg-background border-b flex items-center justify-between px-4">
-      <button className="text-xl">☰</button>
+    <header className="lg:hidden h-14 border-b border-border bg-background flex items-center justify-between px-4">
+      <SidebarMenu />
 
-      <span className="font-semibold">
+      <span className="font-semibold text-sm">
         Sofia Zamiatina
       </span>
-
-      <a href="/CV.pdf" download className="text-sm">
-        CV
-      </a>
     </header>
   );
 }

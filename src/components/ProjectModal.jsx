@@ -190,17 +190,37 @@ export default function ProjectModal({ project, onClose }) {
   return (
     <motion.div
       className="fixed inset-0 z-50"
-      variants={backdrop}
-      initial="hidden"
-      animate="visible"
-      exit="exit"
+      initial={false}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 1 }}
       onClick={onClose}
     >
-      <div className="absolute inset-0 bg-black/50 backdrop-blur-[2px]" />
+      <motion.div
+        className="absolute inset-0 bg-black/50"
+        initial={{
+          opacity: 0,
+          backdropFilter: "blur(0px)",
+          WebkitBackdropFilter: "blur(0px)",
+        }}
+        animate={{
+          opacity: 1,
+          backdropFilter: "blur(2px)",
+          WebkitBackdropFilter: "blur(2px)",
+        }}
+        exit={{
+          opacity: 0,
+          backdropFilter: "blur(0px)",
+          WebkitBackdropFilter: "blur(0px)",
+        }}
+        transition={{ duration: 0.35, ease: "easeOut" }}
+      />
 
       <motion.div
         className="absolute inset-0 flex items-center justify-center p-0"
         variants={panel}
+        initial="hidden"
+        animate="visible"
+        exit="exit"
         role="dialog"
         aria-modal="true"
       >

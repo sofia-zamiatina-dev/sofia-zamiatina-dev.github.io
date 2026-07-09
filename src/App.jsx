@@ -8,6 +8,7 @@ import Contact from "./pages/Contact.jsx";
 import ThemeToggle from "./components/ThemeToggle.jsx";
 import { AnimatePresence } from "framer-motion";
 import ScrollToTop from "./components/ScrollToTop.jsx";
+import MobileHeader from "./components/mobile/MobileHeader.jsx";
 
 export default function App() {
   const location = useLocation();
@@ -16,10 +17,12 @@ export default function App() {
 
   return (
     <div
-      className="h-dvh w-screen grid grid-cols-[400px_1fr] bg-background text-foreground
-                 transition-[background-color,color,border-color,fill,stroke]
-                 duration-500 ease-in-out"
+      className="min-h-dvh w-screen lg:grid lg:grid-cols-[400px_1fr] bg-background text-foreground
+                transition-[background-color,color,border-color,fill,stroke]
+                duration-500 ease-in-out"
     >
+
+      <MobileHeader />
       <Sidebar showFilters={onWorks} />
 
       <main
